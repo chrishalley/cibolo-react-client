@@ -1,0 +1,7 @@
+/* @value color-black from './colors.css'; */
+@value colors: './colors.css';
+@value color-black from colors;
+
+@value boxShadow: 0 1rem 1rem rgba(24, 24, 24, 0.1);
+
+@value insetShadow: inset 0 0 6px rgba(0,0,0, 0.1);

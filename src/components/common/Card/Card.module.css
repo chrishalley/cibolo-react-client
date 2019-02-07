@@ -1,0 +1,10 @@
+@value boxShadow from '../../../assets/css/shadows.css';
+
+.card {
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: boxShadow;
+  padding: 3rem;
+  width: auto;
+}

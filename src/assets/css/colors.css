@@ -1,0 +1,23 @@
+@value color-white: #fff;
+@value color-black: #000;
+@value color-off-black: #424242;
+@value color-off-white: rgba(0, 0, 0, 0.02);
+
+
+@value color-grey-light-1: #eee;
+@value color-grey-light-2: #ddd;
+@value color-grey-dark-1: #383838;
+
+@value color-background: #ECEFF1;
+
+@value color-primary: #00BCD4;
+@value color-primary-dark: darken(color-primary, 10%);
+@value color-primary-accent: rgba(color-primary, 0.3);
+
+@value space-small: 1rem;
+@value space-medium: 2rem;
+
+@value color-success: green;
+@value color-warning: orangered;
+@value color-error: red;
+@value color-info: blue;

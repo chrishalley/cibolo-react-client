@@ -1,0 +1,7 @@
+@value color-primary from '../../assets/css/colors.css';
+/* @value varBlue from colors; */
+
+.appHeader {
+  background-color: color-primary;
+  padding: 2rem;
+}
