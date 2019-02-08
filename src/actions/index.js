@@ -1,13 +1,14 @@
 import { CHANGE_AUTH } from './types';
 import api from '../apis/api'
 
-export const changeAuth = ({ email, password }) => (dispatch) => {
+export const changeAuth = ({ email, password }, callback) => (dispatch) => {
 
   api.post('/auth/login', { email, password })
     .then(res => {
       dispatch({ type: CHANGE_AUTH, payload: res.data })
+      callback(`${res.data.firstName} is now logged in`)
     })
     .catch(e => {
-      console.log(e)
+      callback(e.message)
     })
 }
