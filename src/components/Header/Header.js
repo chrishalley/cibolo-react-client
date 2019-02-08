@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import HeaderLink from '../common/HeaderLink/HeaderLink'
 
 import styles from './Header.module.css';
 
 const Header = () => {
   return (
-    <header className={styles['appHeader']}>Header component</header>
+    <header className={styles['appHeader']}>
+      <HeaderLink to="/">Home</HeaderLink>
+      <HeaderLink to="/login">Login</HeaderLink>
+    </header>
   )
 }
 
