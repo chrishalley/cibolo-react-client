@@ -15,7 +15,7 @@ class LoginForm extends Component {
 
   login = () => {
     const { email, password } = this.state;
-    this.props.changeAuth()
+    this.props.changeAuth({ email, password })
   }
 
   render() {
