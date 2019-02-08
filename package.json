@@ -23,6 +23,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "react-app-rewire-postcss": "^3.0.2",
     "react-app-rewired": "^2.1.0"
   }
 }

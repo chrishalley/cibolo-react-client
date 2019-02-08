@@ -1,4 +1,8 @@
+import reactAppRewirePostcss from 'react-app-rewire-postcss'
+
 module.exports = function override(config, env) {
-  //do stuff with the webpack config...
+  reactAppRewirePostcss(config, {
+    
+  })
   return config;
 }
