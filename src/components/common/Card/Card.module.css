@@ -7,4 +7,6 @@
   box-shadow: boxShadow;
   padding: 3rem;
   width: auto;
+
+  @apply --boxShadow;
 }
