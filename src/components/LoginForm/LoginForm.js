@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-import { Fieldset, Button } from '../common';
+import { Fieldset, Button, Toast } from '../common';
 
 import styles from './LoginForm.module.css';
 
@@ -25,7 +25,7 @@ class LoginForm extends Component {
     const { errorMessage } = this.state
     if (errorMessage) {
       return (
-        <p>{errorMessage}</p>
+        <Toast type="error" content={errorMessage}/>
       )
     }
   }
@@ -38,8 +38,8 @@ class LoginForm extends Component {
         <p>{this.state.email}</p>
         <Fieldset onChangeHandler={this.handleInput} stateProp="password" label="Password" type="text" placeholder="eg. password123"></Fieldset>
         <p>{this.state.password}</p>
-        <Button clickHandler={this.login}>Log in</Button>
         {this.renderErrorMessage()}
+        <Button clickHandler={this.login}>Log in</Button>
       </div>
     )
   }
