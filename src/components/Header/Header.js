@@ -8,13 +8,17 @@ import styles from './Header.module.css';
 
 class Header extends Component {
 
+  logout = () => {
+    this.props.logout()
+  }
+
   renderLinks() {
     const { currentUser } = this.props
     if (currentUser) {
       return (
         <Fragment>
           <HeaderLink to="/">Home</HeaderLink>
-          <button>Log out</button>
+          <button onClick={() => this.logout()}>Log out</button>
         </Fragment>
       )
     }
