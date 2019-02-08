@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-import './HeaderLink.module.css'
+import styles from './HeaderLink.module.css'
 
 const HeaderLink = ({ to, children }) => {
   return (
-    <Link to={to}>{children}</Link>
+    <Link className={styles['header-link']} to={to}>{children}</Link>
   )
 }
 
