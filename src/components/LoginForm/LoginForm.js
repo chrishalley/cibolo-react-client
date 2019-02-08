@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 import { Fieldset, Button } from '../common';
 
@@ -13,8 +15,7 @@ class LoginForm extends Component {
 
   login = () => {
     const { email, password } = this.state;
-    console.log('Email: ', email);
-    console.log('Password: ', password);
+    this.props.changeAuth(true)
   }
 
   render() {
@@ -31,4 +32,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default connect(null, actions)(LoginForm);
