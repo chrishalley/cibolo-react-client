@@ -6,7 +6,6 @@ export const changeAuth = ({ email, password }, callback) => (dispatch) => {
   api.post('/auth/login', { email, password })
     .then(res => {
       dispatch({ type: CHANGE_AUTH, payload: res.data })
-      callback(`${res.data.firstName} is now logged in`)
     })
     .catch(e => {
       callback(e.message)
