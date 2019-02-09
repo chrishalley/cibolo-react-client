@@ -7,7 +7,7 @@ const FormSectionGroup = ({ groupConfig }) => {
   const { fieldsets } = groupConfig 
   const renderFieldsets = () => {
     return fieldsets.map(fieldset => {
-      return <FormSectionGroupFieldset fieldsetConfig={fieldset} key={fieldset.id}></FormSectionGroupFieldset>
+      return <FormSectionGroupFieldset fieldsetConfig={fieldset} key={fieldset.stateProp}></FormSectionGroupFieldset>
     })
   }
 
