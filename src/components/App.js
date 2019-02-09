@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import Header from './Header/Header'
-import LoginForm from './LoginForm/LoginForm'
 import Footer from './Footer/Footer'
-import Homepage from './Homepage/Homepage'
-import { Card } from './common'
+import Root from '../screens/Root'
 
 import './App.module.css'
 
@@ -15,8 +13,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header></Header>
-            <Route path="/" exact component={Homepage}></Route>
-            <Route path="/login" component={LoginForm}></Route>
+            <Root></Root>
           <Footer></Footer>
         </div>
       </BrowserRouter>
