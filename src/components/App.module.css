@@ -1,6 +1,9 @@
 .app {
   --color-primary: #00BCD4;
   --color-grey-light-1: #EEEEEE;
+  --color-grey-light-2: #DDDDDD;
+  --box-shadow: 0 .5rem 1rem rgba(0,0,0, 0.1);
+
 
   background-color: var(--color-grey-light-1);
   display: flex;

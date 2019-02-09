@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-import HeaderLink from '../common/HeaderLink/HeaderLink'
+import { HeaderLink } from '../common/'
 
 import styles from './Header.module.css';
 
@@ -27,6 +27,7 @@ class Header extends Component {
       <Fragment>
         <HeaderLink to="/">Home</HeaderLink>
         <HeaderLink to="/login">Log in</HeaderLink>
+        <HeaderLink to="/events">Events</HeaderLink>
       </Fragment>
     )
   }

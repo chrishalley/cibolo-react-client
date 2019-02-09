@@ -1,10 +1,14 @@
 import React from 'react'
 
+import { Screen } from '../../components/common/'
+
+import styles from './Home.module.css'
+
 const Home = () => {
   return (
-    <div>
+    <Screen>
       <h1>Home page</h1>
-    </div>
+    </Screen>
   )
 }
 

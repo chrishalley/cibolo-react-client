@@ -1,17 +1,17 @@
 import React from 'react'
 
-import { Card } from '../../components/common'
+import { Card, Screen } from '../../components/common'
 import LoginForm from '../../components/LoginForm/LoginForm'
 
 import styles from './Login.module.css'
 
 const Login = () => {
   return (
-    <div className={styles['login-screen']}>
+    <Screen extStyles={styles}>
       <Card>
         <LoginForm></LoginForm>
       </Card>
-    </div>
+    </Screen>
   )
 }
 

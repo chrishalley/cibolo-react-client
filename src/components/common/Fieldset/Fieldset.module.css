@@ -7,7 +7,7 @@
 }
 
 .fieldset:not(:last-child) {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .fieldset label {
@@ -20,7 +20,12 @@
   width: 100%;
   padding: 1rem;
   border-radius: 100px;
-  border: none;
+  border: 2px solid var(--color-grey-light-2);
   background-color: color-grey-light-1;
   box-shadow: insetShadow;
+}
+
+.fieldset input:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }

@@ -21,24 +21,14 @@ class LoginForm extends Component {
     })
   }
 
-  renderErrorMessage() {
-    const { errorMessage } = this.state
-    if (errorMessage) {
-      return (
-        <Toast type="error" content={errorMessage}/>
-      )
-    }
-  }
-
   render() {
+    const { errorMessage } = this.state
     return (
       <div className={styles['login-form']}>
         <h3 className={styles['title']}>Login</h3>
         <Fieldset onChangeHandler={this.handleInput} stateProp="email" label="Email" type="text" placeholder="eg. john@example.com"></Fieldset>
-        <p>{this.state.email}</p>
         <Fieldset onChangeHandler={this.handleInput} stateProp="password" label="Password" type="text" placeholder="eg. password123"></Fieldset>
-        <p>{this.state.password}</p>
-        {this.renderErrorMessage()}
+        <Toast type="error" content={errorMessage} />
         <Button clickHandler={this.login}>Log in</Button>
       </div>
     )

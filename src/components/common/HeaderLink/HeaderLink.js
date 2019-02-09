@@ -9,4 +9,4 @@ const HeaderLink = ({ to, children }) => {
   )
 }
 
-export default HeaderLink;
+export { HeaderLink };
