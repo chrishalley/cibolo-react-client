@@ -5,15 +5,15 @@ import Header from './Header/Header'
 import Footer from './Footer/Footer'
 import Root from '../screens/Root'
 
-import './App.module.css'
+import styles from './App.module.css'
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <div className={styles.app}>
           <Header></Header>
-            <Root></Root>
+          <Root></Root>
           <Footer></Footer>
         </div>
       </BrowserRouter>

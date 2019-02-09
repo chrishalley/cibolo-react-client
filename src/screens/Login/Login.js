@@ -1,12 +1,16 @@
 import React from 'react'
 
+import { Card } from '../../components/common'
 import LoginForm from '../../components/LoginForm/LoginForm'
+
+import styles from './Login.module.css'
 
 const Login = () => {
   return (
-    <div>
-      <h1>Login Page</h1>
-      <LoginForm></LoginForm>
+    <div className={styles['login-screen']}>
+      <Card>
+        <LoginForm></LoginForm>
+      </Card>
     </div>
   )
 }
