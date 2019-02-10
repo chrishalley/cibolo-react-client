@@ -9,7 +9,7 @@ class Fieldset extends Component {
   state = { value: '' }
 
   componentDidMount() {
-    console.log('FIELDSET PROPS: ', this.props)
+    // console.log('FIELDSET PROPS: ', this.props)
   }
 
   renderToast = () => {

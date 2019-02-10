@@ -5,11 +5,11 @@ import FormSectionGroup from './Group/Group'
 import styles from './Section.module.css'
 
 const FormSection = ({ sectionConfig }) => {
-  console.log('sectionProps: ', sectionConfig)
+  // console.log('sectionProps: ', sectionConfig)
   const { title, fieldGroups } = sectionConfig
   const renderFieldGroups = () => {
     return fieldGroups.map(group => {
-      console.log('group: ', group)
+      // console.log('group: ', group)
       return (
         <FormSectionGroup groupConfig={group} key={group.id}></FormSectionGroup>
       )

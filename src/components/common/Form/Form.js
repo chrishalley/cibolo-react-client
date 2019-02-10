@@ -6,7 +6,7 @@ import { Button } from '../../common'
 class Form extends Component {
 
   componentDidMount() {
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   renderSections() {
