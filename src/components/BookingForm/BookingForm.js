@@ -4,31 +4,33 @@ import { Form, Button } from '../common'
 
 class BookingForm extends Component {
 
-  state = {
+  formConfig = {
     firstName: '',
     lastName: '',
     emailAddress: '',
     phoneNumber: '',
   }
 
-  bookingSubmit() {
+  bookingSubmit(state) {
     console.log('Booking request submitted')
+    console.log(state)
   }
 
   render() {
+    const { bookingSubmit } = this
     return (
-      <Form>
-        {() => (
+      <Form onSubmit={bookingSubmit} state={this.formConfig}>
+        {(updateState, formSubmit) => (
           <Fragment>
             <Form.Section>
               <Form.Fieldgroup>
-                <Form.Fieldset label="First name" placeholder="eg. John" type="text" id="client.firstName" />
-                {/* <Form.Fieldset label="Last name" placeholder="eg. Smith" type="text" id="client.lastName" /> */}
+                <Form.Fieldset label="First name" placeholder="eg. John" type="text" stateProp="firstName" onChangeHandler={updateState}/>
+                <Form.Fieldset label="Last name" placeholder="eg. Smith" type="text" stateProp="lastName" onChangeHandler={updateState}/>
               </Form.Fieldgroup>
-              {/* <Form.Fieldgroup>
-                <Form.Fieldset label="Email address" placeholder="eg. johnsmith@example.com" type="text" id="client.emailAddress" />
-                <Form.Fieldset label="Phone number" placeholder="eg. 07123456789" type="text" id="client.phoneNumber" />
-              </Form.Fieldgroup> */}
+              <Form.Fieldgroup>
+                <Form.Fieldset label="Email address" placeholder="eg. johnsmith@example.com" type="text" stateProp="emailAddress" onChangeHandler={updateState} />
+                <Form.Fieldset label="Phone number" placeholder="eg. 07123456789" type="text" stateProp="phoneNumber" onChangeHandler={updateState} />
+              </Form.Fieldgroup>
             </Form.Section>
             {/* <Form.Section>
               <Form.Fieldgroup>
@@ -36,7 +38,7 @@ class BookingForm extends Component {
                 <Form.Fieldset label="Event description" placeholder="Give a short description" type="text" id="event.title" />
               </Form.Fieldgroup>
             </Form.Section> */}
-            <Button clickHandler={this.bookingSubmit}>Request a booking</Button>
+            <Button clickHandler={formSubmit}>Request a booking</Button>
           </Fragment>
         )}
       </Form>

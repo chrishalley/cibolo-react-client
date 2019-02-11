@@ -6,6 +6,10 @@ import styles from '../../Fieldset/Fieldset.module.css';
 
 class Fieldset extends Component {
 
+  componentDidMount() {
+    console.log('Fieldset props: ', this.props)
+  }
+
   renderToast = () => {
     const { errorMessage } = this.props
     if (errorMessage) {
