@@ -17,9 +17,9 @@ class BookingForm extends Component {
   }
 
   render() {
-    const { bookingSubmit } = this
+    const { bookingSubmit, formConfig } = this
     return (
-      <Form onSubmit={bookingSubmit} state={this.formConfig}>
+      <Form onSubmit={bookingSubmit} state={formConfig}>
         {(updateState, formSubmit) => (
           <Fragment>
             <Form.Section>
