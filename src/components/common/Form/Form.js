@@ -1,36 +1,19 @@
 import React, { Component } from 'react'
 
-import FormSection from './Section/Section'
-import { Button } from '../../common' 
+import { Section, Fieldgroup, Fieldset } from './components'
 
 class Form extends Component {
 
-  componentDidMount() {
-    // console.log(this.props)
-  }
+  static Section = Section
+  static Fieldgroup = Fieldgroup
+  static Fieldset = Fieldset
 
-  renderSections() {
-    const { sections } = this.props.config
-    
-    return sections.map(section => {
-      return (
-        <FormSection sectionConfig={section} key={section.title}></FormSection>
-      )
-    })
-  }
-
-  render() {
-    const { title, submitHandler } = this.props.config
+  render() { 
     return (
-      <div>
-        <h1>{title}</h1>
-        <form>
-          {this.renderSections()}
-          <Button clickHandler={submitHandler}>Request Booking</Button>
-        </form>
-      </div>
+      this.props.children()
     )
   }
 }
 
 export { Form }
+

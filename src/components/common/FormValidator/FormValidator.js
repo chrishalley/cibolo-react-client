@@ -25,13 +25,10 @@ class FormValidator {
         const field_value = fetchFromObject(state, rule.field)
         const args = rule.args || []
         const validation_method = typeof rule.method === 'string' ? validator[rule.method] : rule.method
-
         if (validation_method(field_value, args, state) !== rule.validWhen) {
           validation[rule.field] = {
-            validation: {
-              isInvalid: true,
-              message: rule.message
-            }
+            isInvalid: true,
+            message: rule.message
           }
           validation.isValid = false
         }
