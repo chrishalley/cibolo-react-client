@@ -13,9 +13,9 @@ class BasicForm extends Component {
       <Form>
         {() => (
           <Fragment>
-            <Form.Fieldset label="Email" placeholder="eg. me@gmail.com" type="text" id="login.email" />
+            {/* <Form.Fieldset label="Email" placeholder="eg. me@gmail.com" type="text" id="login.email" />
             <Form.Fieldset label="Password" placeholder="eg. password123" type="text" id="login.email" />
-            <Button clickHandler={this.login}>Log in</Button>
+            <Button clickHandler={this.login}>Log in</Button> */}
           </Fragment>
         )}
       </Form>

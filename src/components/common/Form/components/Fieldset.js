@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Toast } from '../../'
 
 import styles from '../../Fieldset/Fieldset.module.css';
 
-const Fieldset = ({ label, type, stateProp, errorMessage, placeholder, onChangeHandler }) => {
+class Fieldset extends Component {
 
-  const renderToast = () => {
+  renderToast = () => {
+    const { errorMessage } = this.props
     if (errorMessage) {
       return (
         <Toast type="error" content={errorMessage} />
@@ -14,13 +15,18 @@ const Fieldset = ({ label, type, stateProp, errorMessage, placeholder, onChangeH
     }
   }
 
-  return (
-    <fieldset className={styles['fieldset']}>
-      <label htmlFor="">{label}</label>
-      <input onChange={(e) => onChangeHandler(stateProp, e.target.value)} type={type} placeholder={placeholder} />
-      {renderToast()}
-    </fieldset>
-  )
+  render() {
+
+    const { label, type, stateProp, placeholder, onChangeHandler } = this.props
+
+    return (
+      <fieldset className={styles['fieldset']}>
+        <label htmlFor="">{label}</label>
+        <input onChange={(e) => onChangeHandler(stateProp, e.target.value)} type={type} placeholder={placeholder} />
+        {this.renderToast()}
+      </fieldset>
+    )
+  }
 }
 
 export { Fieldset };
