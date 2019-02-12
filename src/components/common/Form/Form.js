@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { get, set, merge } from 'lodash'
 
 import { Section, Fieldgroup, Fieldset } from './components'
 
@@ -7,7 +8,17 @@ class Form extends Component {
   state = this.props.state
 
   updateState = (prop, value, callback) => {
-    this.setState({ [prop]: value }, () => {
+
+    // Check for existence of state field
+    if (get(this.state, prop) === undefined) {
+      return console.error(`"${prop}" state property does not exist`)
+    }
+    // Else create object with correct path and set value
+    let update = {}
+    set(update, prop, value)
+
+    // Replace state with deep merged update
+    this.setState(merge(this.state, update), () => {
       callback(value)
     })
   }

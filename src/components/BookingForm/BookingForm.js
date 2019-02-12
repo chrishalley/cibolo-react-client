@@ -5,7 +5,9 @@ import { Form, Button } from '../common'
 class BookingForm extends Component {
 
   formConfig = {
-    firstName: '',
+    client: {
+      firstName: '',
+    },
     lastName: '',
     emailAddress: '',
     phoneNumber: '',
@@ -24,7 +26,7 @@ class BookingForm extends Component {
           <Fragment>
             <Form.Section>
               <Form.Fieldgroup>
-                <Form.Fieldset label="First name" placeholder="eg. John" type="text" stateProp="firstName" onChangeHandler={updateState}/>
+                <Form.Fieldset label="First name" placeholder="eg. John" type="text" stateProp="client.firstName" onChangeHandler={updateState}/>
                 <Form.Fieldset label="Last name" placeholder="eg. Smith" type="text" stateProp="lastName" onChangeHandler={updateState}/>
               </Form.Fieldgroup>
               <Form.Fieldgroup>
