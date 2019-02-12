@@ -6,9 +6,9 @@ class Form extends Component {
   
   state = this.props.state
 
-  updateState = (prop, value) => {
+  updateState = (prop, value, callback) => {
     this.setState({ [prop]: value }, () => {
-      console.log(this.state)
+      callback(value)
     })
   }
 
@@ -16,19 +16,15 @@ class Form extends Component {
     this.props.onSubmit(this.state)
   }
 
-  getValue = (fieldName) => {
-    return this.state[fieldName]
-  }
-
   static Section = Section
   static Fieldgroup = Fieldgroup
   static Fieldset = Fieldset
 
   render() {
-    const { updateState, formSubmit, getValue } = this
+    const { updateState, formSubmit } = this
 
     return (
-      this.props.children(updateState, formSubmit, getValue)
+      this.props.children(updateState, formSubmit)
     )
   }
 }

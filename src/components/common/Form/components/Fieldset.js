@@ -6,6 +6,8 @@ import styles from '../../Fieldset/Fieldset.module.css';
 
 class Fieldset extends Component {
 
+  state = { value: '' }
+
   componentDidMount() {
     console.log('Fieldset props: ', this.props)
   }
@@ -22,12 +24,17 @@ class Fieldset extends Component {
 
   render() {
 
-    const { getValue, label, type, stateProp, placeholder, onChangeHandler } = this.props
+    const { label, type, stateProp, placeholder, onChangeHandler } = this.props
 
     return (
       <fieldset className={styles['fieldset']}>
         <label htmlFor="">{label}</label>
-        <input value={getValue(stateProp)} onChange={(e) => onChangeHandler(stateProp, e.target.value)} type={type} placeholder={placeholder} />
+        <input 
+          value={this.state.value}
+          onChange={(e) => onChangeHandler(stateProp, e.target.value, (value) => { this.setState({ value }) })}
+          type={type}
+          placeholder={placeholder}
+        />
         {this.renderToast()}
       </fieldset>
     )
