@@ -7,10 +7,10 @@ class BookingForm extends Component {
   formConfig = {
     client: {
       firstName: '',
-    },
-    lastName: '',
-    emailAddress: '',
-    phoneNumber: '',
+      lastName: '',
+      emailAddress: '',
+      phoneNumber: '',
+    }
   }
 
   bookingSubmit(state) {
@@ -27,11 +27,11 @@ class BookingForm extends Component {
             <Form.Section>
               <Form.Fieldgroup>
                 <Form.Fieldset label="First name" placeholder="eg. John" type="text" stateProp="client.firstName" onChangeHandler={updateState}/>
-                <Form.Fieldset label="Last name" placeholder="eg. Smith" type="text" stateProp="lastName" onChangeHandler={updateState}/>
+                <Form.Fieldset label="Last name" placeholder="eg. Smith" type="text" stateProp="client.lastName" onChangeHandler={updateState}/>
               </Form.Fieldgroup>
               <Form.Fieldgroup>
-                <Form.Fieldset label="Email address" placeholder="eg. johnsmith@example.com" type="text" stateProp="emailAddress" onChangeHandler={updateState} />
-                <Form.Fieldset label="Phone number" placeholder="eg. 07123456789" type="text" stateProp="phoneNumber" onChangeHandler={updateState} />
+                <Form.Fieldset label="Email address" placeholder="eg. johnsmith@example.com" type="text" stateProp="client.emailAddress" onChangeHandler={updateState} />
+                <Form.Fieldset label="Phone number" placeholder="eg. 07123456789" type="text" stateProp="client.phoneNumber" onChangeHandler={updateState} />
               </Form.Fieldgroup>
             </Form.Section>
             {/* <Form.Section>
