@@ -10,13 +10,17 @@
   margin-bottom: 2rem;
 }
 
-.fieldset label {
+.label {
   display: block;
   font-size: 1.2rem;
   margin-bottom: .6rem;
 }
 
-.fieldset input {
+.fieldset input:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.fieldset input[type="text"] {
   width: 100%;
   padding: 1rem;
   border-radius: 100px;

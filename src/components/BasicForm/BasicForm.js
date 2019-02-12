@@ -20,8 +20,12 @@ class BasicForm extends Component {
       <Form onSubmit={login} state={formConfig}>
         {(updateState, formSubmit) => (
           <Fragment>
-            <Form.Fieldset label="Email" placeholder="eg. me@gmail.com" type="text" stateProp="email" onChangeHandler={updateState}/>
-            <Form.Fieldset label="Password" placeholder="eg. password123" type="text" stateProp="password" onChangeHandler={updateState}/>
+            <Form.Fieldset label="Email" placeholder="eg. me@gmail.com" name="email" onChangeHandler={updateState}>
+              <input type="text" />
+            </Form.Fieldset>
+            <Form.Fieldset label="Password" placeholder="eg. password123" name="password" onChangeHandler={updateState}>
+              <input type="text" />
+            </Form.Fieldset>
             <Button clickHandler={formSubmit}>Log in</Button>
           </Fragment>
         )}

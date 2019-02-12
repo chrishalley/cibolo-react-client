@@ -7,3 +7,4 @@ export * from './Screen/Screen';
 export * from './Modal/Modal';
 export * from './Form/Form';
 export * from './Datepicker/Datepicker';
+export * from './Checkbox/Checkbox';
