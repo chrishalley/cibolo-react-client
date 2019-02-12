@@ -16,15 +16,19 @@ class Form extends Component {
     this.props.onSubmit(this.state)
   }
 
+  getValue = (fieldName) => {
+    return this.state[fieldName]
+  }
+
   static Section = Section
   static Fieldgroup = Fieldgroup
   static Fieldset = Fieldset
 
   render() {
-    const { updateState, formSubmit } = this
+    const { updateState, formSubmit, getValue } = this
 
     return (
-      this.props.children(updateState, formSubmit)
+      this.props.children(updateState, formSubmit, getValue)
     )
   }
 }

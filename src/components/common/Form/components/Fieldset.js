@@ -19,14 +19,15 @@ class Fieldset extends Component {
     }
   }
 
+
   render() {
 
-    const { label, type, stateProp, placeholder, onChangeHandler } = this.props
+    const { getValue, label, type, stateProp, placeholder, onChangeHandler } = this.props
 
     return (
       <fieldset className={styles['fieldset']}>
         <label htmlFor="">{label}</label>
-        <input onChange={(e) => onChangeHandler(stateProp, e.target.value)} type={type} placeholder={placeholder} />
+        <input value={getValue(stateProp)} onChange={(e) => onChangeHandler(stateProp, e.target.value)} type={type} placeholder={placeholder} />
         {this.renderToast()}
       </fieldset>
     )

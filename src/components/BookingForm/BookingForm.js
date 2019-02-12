@@ -20,16 +20,16 @@ class BookingForm extends Component {
     const { bookingSubmit, formConfig } = this
     return (
       <Form onSubmit={bookingSubmit} state={formConfig}>
-        {(updateState, formSubmit) => (
+        {(updateState, formSubmit, getValue) => (
           <Fragment>
             <Form.Section>
               <Form.Fieldgroup>
-                <Form.Fieldset label="First name" placeholder="eg. John" type="text" stateProp="firstName" onChangeHandler={updateState}/>
-                <Form.Fieldset label="Last name" placeholder="eg. Smith" type="text" stateProp="lastName" onChangeHandler={updateState}/>
+                <Form.Fieldset getValue={getValue} label="First name" placeholder="eg. John" type="text" stateProp="firstName" onChangeHandler={updateState}/>
+                <Form.Fieldset getValue={getValue} label="Last name" placeholder="eg. Smith" type="text" stateProp="lastName" onChangeHandler={updateState}/>
               </Form.Fieldgroup>
               <Form.Fieldgroup>
-                <Form.Fieldset label="Email address" placeholder="eg. johnsmith@example.com" type="text" stateProp="emailAddress" onChangeHandler={updateState} />
-                <Form.Fieldset label="Phone number" placeholder="eg. 07123456789" type="text" stateProp="phoneNumber" onChangeHandler={updateState} />
+                <Form.Fieldset getValue={getValue} label="Email address" placeholder="eg. johnsmith@example.com" type="text" stateProp="emailAddress" onChangeHandler={updateState} />
+                <Form.Fieldset getValue={getValue} label="Phone number" placeholder="eg. 07123456789" type="text" stateProp="phoneNumber" onChangeHandler={updateState} />
               </Form.Fieldgroup>
             </Form.Section>
             {/* <Form.Section>

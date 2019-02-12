@@ -1,0 +1,8 @@
+.datepicker {
+  border: 2px solid var(--color-grey-light-2);
+  border-radius: 2px;
+  max-width: 40rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
