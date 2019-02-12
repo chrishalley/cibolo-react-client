@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react'
 
-const Fieldgroup = ({ children }) => {
+const Fieldgroup = ({ children, flexDirection='column' }) => {
   return (
-    <Fragment>
+    <div style={{ display: 'flex', flexDirection }}>
       <h3>Fieldgroup</h3>
       { children }
-    </Fragment>
+      { flexDirection }
+    </div>
   )
 }
 
