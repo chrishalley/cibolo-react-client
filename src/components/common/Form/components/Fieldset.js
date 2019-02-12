@@ -25,16 +25,25 @@ class Fieldset extends Component {
   render() {
 
     const { label, type, stateProp, placeholder, onChangeHandler } = this.props
+    const children = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        value: this.state.value,
+        onChange: (e) => onChangeHandler(stateProp, e.target.value, (value) => { this.setState({ value }) }),
+        type: type,
+        placeholder: placeholder
+      })
+    })
 
     return (
       <fieldset className={styles['fieldset']}>
         <label htmlFor="">{label}</label>
-        <input 
+        {/* <input 
           value={this.state.value}
           onChange={(e) => onChangeHandler(stateProp, e.target.value, (value) => { this.setState({ value }) })}
           type={type}
           placeholder={placeholder}
-        />
+        /> */}
+        {children}
         {this.renderToast()}
       </fieldset>
     )
