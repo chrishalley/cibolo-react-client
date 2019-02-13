@@ -5,47 +5,28 @@ import { Toast } from '../../'
 import styles from '../../Fieldset/Fieldset.module.css';
 
 class Fieldset extends Component {
-
-  state = { value: '' }
-
-  componentDidMount() {
-    // console.log('Fieldset props: ', this.props)
+  constructor(props) {
+    super(props)
+    this.state = this.props.initState(this.props.name)
   }
 
-  renderToast = () => {
-    const { errorMessage } = this.props
-    if (errorMessage) {
-      return (
-        <Toast type="error" content={errorMessage} />
-      )
-    }
-  }
+  // renderToast = () => {
+  //   const { errorMessage } = this.props
+  //   if (errorMessage) {
+  //     return (
+  //       <Toast type="error" content={errorMessage} />
+  //     )
+  //   }
+  // }
 
   renderChild = (child) => {
-    const { placeholder, onChangeHandler, name } = this.props
+    const { placeholder } = this.props
     // console.log('child: ', child)
-    let props ={}
-
-    if (child.type === 'input') {
-
-      switch(child.props.type) {
-        case 'checkbox':
-          props = {
-            onChange: (e) => {
-              // console.log('e:', e)
-              onChangeHandler(name, this.state.value, () => null)
-            }
-          }
-          break
-        default:
-          props = {
-            value: this.state.value,
-            onChange: (e) => onChangeHandler(name, e.target.value, (value) => { this.setState({ value }) }),
-            placeholder: placeholder
-          }
-      }
+    let props = {
+      value: this.state,
+      onChange: this.updateFieldsetState,
+      placeholder: placeholder
     }
-      
 
     return React.cloneElement(child, {
       ...child.props,
@@ -53,9 +34,11 @@ class Fieldset extends Component {
     })
   }
 
+  updateFieldsetState = (val) => {
+    this.setState({ [val]: !this.state[val] })
+  }
 
   render() {
-
     const { label, name } = this.props
     const children = React.Children.map(this.props.children, child => this.renderChild(child))
 
@@ -63,7 +46,7 @@ class Fieldset extends Component {
       <fieldset className={styles['fieldset']}>
         <label className={styles.label} htmlFor={name}>{label}</label>
         {children}
-        {this.renderToast()}
+        {/* {this.renderToast()} */}
       </fieldset>
     )
   }

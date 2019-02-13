@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { get, set, merge } from 'lodash'
 
 import { Section, Fieldgroup, Fieldset } from './components'
+import { Checkbox } from './components/Inputs'
 
 class Form extends Component {
   
@@ -22,6 +23,14 @@ class Form extends Component {
       callback(value)
     })
   }
+  
+  // callback function to grab initial state for each Fieldset component
+  initState = (stateProp) => {
+    const state = get(this.state, stateProp)
+    console.log('initialiseFieldsetState')
+    console.log(state)
+    return state
+  }
 
   formSubmit = () => {
     this.props.onSubmit(this.state)
@@ -30,12 +39,12 @@ class Form extends Component {
   static Section = Section
   static Fieldgroup = Fieldgroup
   static Fieldset = Fieldset
+  static Checkbox = Checkbox
 
   render() {
-    const { updateState, formSubmit } = this
-
+    const { updateState, formSubmit, initState } = this
     return (
-      this.props.children(updateState, formSubmit)
+      this.props.children(updateState, formSubmit, initState)
     )
   }
 }

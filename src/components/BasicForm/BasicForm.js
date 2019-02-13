@@ -18,12 +18,12 @@ class BasicForm extends Component {
     const { login, formConfig } = this
     return (
       <Form onSubmit={login} state={formConfig}>
-        {(updateState, formSubmit) => (
+        {(updateState, formSubmit, initState) => (
           <Fragment>
-            <Form.Fieldset label="Email" placeholder="eg. me@gmail.com" name="email" onChangeHandler={updateState}>
+            <Form.Fieldset label="Email" placeholder="eg. me@gmail.com" name="email" onChangeHandler={updateState} initState={initState}>
               <input type="text" />
             </Form.Fieldset>
-            <Form.Fieldset label="Password" placeholder="eg. password123" name="password" onChangeHandler={updateState}>
+            <Form.Fieldset label="Password" placeholder="eg. password123" name="password" onChangeHandler={updateState} initState={initState}>
               <input type="text" />
             </Form.Fieldset>
             <Button clickHandler={formSubmit}>Log in</Button>
