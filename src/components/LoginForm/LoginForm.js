@@ -15,6 +15,7 @@ class LoginForm extends Component {
   }
 
   loginSubmit(state) {
+    console.log('loginSubmit()')
     console.log(state)
     // const { email, password } = this.state;
     // this.props.changeAuth({ email, password }, (error) => {
@@ -36,13 +37,11 @@ class LoginForm extends Component {
               <Form.Fieldset label="Password" placeholder="eg. password123" name="password" updateFormState={updateFormState} initState={initState}>
                 <Form.TextInput type="password" />
               </Form.Fieldset>
+              <Button clickHandler={formSubmit}>Log in</Button>
             </Fragment>
           )}
           </Form>
-        {/* <Fieldset onChangeHandler={this.handleInput} stateProp="email" label="Email" type="text" placeholder="eg. john@example.com"></Fieldset>
-        <Fieldset onChangeHandler={this.handleInput} stateProp="password" label="Password" type="text" placeholder="eg. password123"></Fieldset>
-        <Toast type="error" content={errorMessage} /> */}
-        <Button clickHandler={this.login}>Log in</Button>
+        {/* <Toast type="error" content={errorMessage} /> */}
       </div>
     )
   }
