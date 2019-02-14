@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
-import { Card } from '../'
+import { Card, SVGIcon, Button } from '../'
 
 import styles from './Modal.module.css'
 
@@ -23,7 +23,7 @@ const Modal = ({ closeHandler, children }) => {
   return ReactDOM.createPortal(
     <div className={styles['modal-container']}>
       <Card className={styles['modal-card']}>
-        <button style={{ padding: '2rem' }} onClick={() => closeHandler()}>Close</button>
+        <Button classes="rando" clickHandler={() => closeHandler()}><SVGIcon icon="close" width="20px"/></Button>
         {children}
       </Card>
     </div>,

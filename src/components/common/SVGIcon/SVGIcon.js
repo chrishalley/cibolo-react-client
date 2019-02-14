@@ -2,16 +2,18 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 const proptypes = {
-  icon: PropTypes.string
+  icon: PropTypes.string,
+  width: PropTypes.string
 }
 
 const defaultProps = {
-  icon: 'default'
+  icon: 'default',
+  width: '40px'
 }
 
 const SVGIcon = (props) => {
 
-  const { icon } = props
+  const { icon, width } = props
 
   const icons = {
     'arrow-left': {
@@ -99,7 +101,7 @@ const SVGIcon = (props) => {
   }
 
   return (
-  <svg style={{width: '40px'}} className="svg-icon" viewBox={icons[icon].viewBox || '0 0 100 100'}>
+  <svg style={{width: width}} className="svg-icon" viewBox={icons[icon].viewBox || '0 0 100 100'}>
       {icons[icon].svg}
   </svg >
   )

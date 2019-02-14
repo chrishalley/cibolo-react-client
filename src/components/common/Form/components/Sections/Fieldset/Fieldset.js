@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { merge, set } from 'lodash';
 
-import { Toast } from '../../'
+import { Toast } from '../../../../'
 
-import styles from '../../Fieldset/Fieldset.module.css';
+import styles from './Fieldset.module.css';
 
 const proptypes = {
   label: PropTypes.string,

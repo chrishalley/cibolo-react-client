@@ -1,34 +1,47 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-import { Fieldset, Button, Toast } from '../common';
+import { Button, Form } from '../common';
 
 import styles from './LoginForm.module.css';
 
 class LoginForm extends Component {
-  state = { email: '', password: '', errorMessage: null };
+
+  loginDetails = { email: '', password: '', errorMessage: null }
 
   handleInput = (stateProp, value) => {
     this.setState({ [stateProp]: value })
   }
 
-  login = () => {
-    this.setState({ errorMessage: null })
-    const { email, password } = this.state;
-    this.props.changeAuth({ email, password }, (error) => {
-      this.setState({ errorMessage: error })
-    })
+  loginSubmit(state) {
+    console.log(state)
+    // const { email, password } = this.state;
+    // this.props.changeAuth({ email, password }, (error) => {
+    //   this.setState({ errorMessage: error })
+    // })
   }
 
   render() {
-    const { errorMessage } = this.state
+    const { loginDetails, loginSubmit } = this
     return (
       <div className={styles['login-form']}>
         <h3 className={styles['title']}>Login</h3>
-        <Fieldset onChangeHandler={this.handleInput} stateProp="email" label="Email" type="text" placeholder="eg. john@example.com"></Fieldset>
+          <Form state={loginDetails} onSubmit={loginSubmit}>
+          {(updateFormState, formSubmit, initState) => (
+            <Fragment>
+              <Form.Fieldset label="Email" placeholder="eg. john.smith@example.com" name="email" updateFormState={updateFormState} initState={initState}>
+                <Form.TextInput type="text" />
+              </Form.Fieldset>
+              <Form.Fieldset label="Password" placeholder="eg. password123" name="password" updateFormState={updateFormState} initState={initState}>
+                <Form.TextInput type="password" />
+              </Form.Fieldset>
+            </Fragment>
+          )}
+          </Form>
+        {/* <Fieldset onChangeHandler={this.handleInput} stateProp="email" label="Email" type="text" placeholder="eg. john@example.com"></Fieldset>
         <Fieldset onChangeHandler={this.handleInput} stateProp="password" label="Password" type="text" placeholder="eg. password123"></Fieldset>
-        <Toast type="error" content={errorMessage} />
+        <Toast type="error" content={errorMessage} /> */}
         <Button clickHandler={this.login}>Log in</Button>
       </div>
     )

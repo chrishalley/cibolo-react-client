@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { get, set, merge } from 'lodash'
 
-import { Section, Fieldgroup, Fieldset } from './components'
+import { Section, Fieldgroup, Fieldset } from './components/Sections'
 import { Checkbox, TextInput, RadioInput, TextArea } from './components/Inputs'
 
 class Form extends Component {
