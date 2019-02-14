@@ -8,12 +8,14 @@
   display: flex;
   justify-content: center;
   overflow-y: scroll;
+  cursor: pointer;
 
   --color-primary: #00BCD4;
   --color-grey-light-1: #EEEEEE;
   --color-grey-light-2: #DDDDDD;
   --box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
   --inset-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  --rounded-corner: 6px;
 }
 
 .modal-card {
@@ -21,4 +23,5 @@
   display: flex;
   flex-direction: column;
   margin: 6rem 0;
+  cursor: default;
 }

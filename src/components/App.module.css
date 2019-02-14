@@ -4,6 +4,7 @@
   --color-grey-light-2: #DDDDDD;
   --box-shadow: 0 .5rem 1rem rgba(0,0,0, 0.1);
   --inset-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  --rounded-corner: 6px;
 
 
   background-color: var(--color-grey-light-1);

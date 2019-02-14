@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 
 import { Form, Button } from '../common'
+import styles from './BookingForm.module.css'
 
 class BookingForm extends Component {
 
@@ -32,7 +33,7 @@ class BookingForm extends Component {
   render() {
     const { bookingSubmit, formConfig } = this
     return (
-      <Form onSubmit={bookingSubmit} state={formConfig}>
+      <Form classes={styles['booking-form']} onSubmit={bookingSubmit} state={formConfig}>
         {(updateFormState, formSubmit, initState) => (
           
           <Fragment>
@@ -69,7 +70,7 @@ class BookingForm extends Component {
                 </Form.Fieldset>
 
                 <Form.Fieldset label="Event description" placeholder="Give a short description" name="event.description" updateFormState={updateFormState} initState={initState}>
-                  <Form.TextArea rows="60"/>
+                  <Form.TextArea rows="20"/>
                 </Form.Fieldset>
 
               </Form.Fieldgroup>

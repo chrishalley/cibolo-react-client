@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
 import { get, set, merge } from 'lodash'
+import PropTypes from 'prop-types'
 
 import { Section, Fieldgroup, Fieldset } from './components/Sections'
 import { Checkbox, TextInput, RadioInput, TextArea } from './components/Inputs'
+
+const proptypes = {
+  classes: PropTypes.string
+}
+
+const defaultProps = {
+
+}
 
 class Form extends Component {
   
@@ -34,11 +43,17 @@ class Form extends Component {
 
   render() {
     const { updateState, formSubmit, initState } = this
+    const { classes } = this.props
     return (
-      this.props.children(updateState, formSubmit, initState)
+      <form className={classes}>
+        {this.props.children(updateState, formSubmit, initState)}
+      </form>
     )
   }
 }
+
+Form.propTypes = proptypes;
+Form.defaultProps = defaultProps;
 
 export { Form }
 

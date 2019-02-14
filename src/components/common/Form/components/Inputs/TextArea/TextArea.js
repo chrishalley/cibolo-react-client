@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styles from './TextArea.module.css'
+
 const proptypes = {
   rows: PropTypes.string,
   placeholder: PropTypes.string,
@@ -17,7 +19,7 @@ const defaultProps = {
 const TextArea = (props) => {
   const { rows, onChange, value, name, placeholder } = props
   return (
-    <textarea placeholder={placeholder} value={value[name]} rows={rows} onChange={(event) => onChange(event.target.value)}/>
+    <textarea className={styles.input} placeholder={placeholder} value={value[name]} rows={rows} onChange={(event) => onChange(event.target.value)}/>
   )
 }
 

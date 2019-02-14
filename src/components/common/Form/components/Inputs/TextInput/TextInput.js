@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styles from './TextInput.module.css'
+
 const proptypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
@@ -17,7 +19,7 @@ const TextInput = (props) => {
   // console.log('TextInput props: ', props)
   // console.log('TextInput name: ', name)
   return (
-    <input type={type} placeholder={placeholder} onChange={(e) => {onChange(e.target.value)}}/>
+    <input className={styles.input} type={type} placeholder={placeholder} onChange={(e) => {onChange(e.target.value)}}/>
   )
 }
 

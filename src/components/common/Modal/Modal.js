@@ -21,7 +21,11 @@ const Modal = ({ closeHandler, children }) => {
   })
 
   return ReactDOM.createPortal(
-    <div className={styles['modal-container']}>
+    <div className={styles['modal-container']} onClick={(e) => {
+      console.log('click')
+      e.stopPropagation()
+      closeHandler()
+    }}>
       <Card className={styles['modal-card']}>
         <Button classes="rando" clickHandler={() => closeHandler()}><SVGIcon icon="close" width="20px"/></Button>
         {children}
