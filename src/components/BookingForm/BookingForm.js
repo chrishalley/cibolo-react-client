@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
 
-import { Form, Button, Checkbox } from '../common'
+import { Form, Button } from '../common'
 
 class BookingForm extends Component {
 
   formConfig = {
     client: {
-      firstName: '',
+      firstName: 'Dave',
       lastName: '',
       emailAddress: '',
       phoneNumber: '',
@@ -33,14 +33,15 @@ class BookingForm extends Component {
     const { bookingSubmit, formConfig } = this
     return (
       <Form onSubmit={bookingSubmit} state={formConfig}>
-        {(updateState, formSubmit, initState) => (
+        {(updateFormState, formSubmit, initState) => (
           <Fragment>
-            {/* <Form.Section flexDirection="row">
+            <Form.Section flexDirection="row">
               <Form.Fieldgroup>
-                <Form.Fieldset label="First name" placeholder="eg. John" name="client.firstName" onChangeHandler={updateState} initState={initState}>
-                  <input type="text"/>
+                <Form.Fieldset label="First name" placeholder="eg. John" name="client.firstName" updateFormState={updateFormState} initState={initState}>
+                  <Form.TextInput type="text"></Form.TextInput>
+                  {/* <input type="text"/> */}
                 </Form.Fieldset>
-                <Form.Fieldset label="Last name" placeholder="eg. Smith" name="client.lastName" onChangeHandler={updateState} initState={initState}>
+                {/* <Form.Fieldset label="Last name" placeholder="eg. Smith" name="client.lastName" onChangeHandler={updateState} initState={initState}>
                   <input type="text"/>
                 </Form.Fieldset>
               </Form.Fieldgroup>
@@ -50,11 +51,11 @@ class BookingForm extends Component {
                 </Form.Fieldset>
                 <Form.Fieldset label="Phone number" placeholder="eg. 07123456789" name="client.phoneNumber" onChangeHandler={updateState} initState={initState}>
                   <input type="text"/>
-                </Form.Fieldset>
+                </Form.Fieldset> */}
               </Form.Fieldgroup>
-            </Form.Section> */}
+            </Form.Section>
             <Form.Section flexDirection="column">
-              <Form.Fieldset label="Drinks" name="event.drinks" onChangeHandler={updateState} initState={initState}>
+              <Form.Fieldset label="Drinks" name="event.drinks" updateFormState={updateFormState} initState={initState}>
                 <Form.Checkbox options={[{name: 'whiskey'}, {name: 'gin'}, {name: 'vodka'}]}/>
               </Form.Fieldset>
               {/* <Form.Fieldset label="Extras" name="event.extras" onChangeHandler={updateState} initState={initState}>

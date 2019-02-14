@@ -5,7 +5,6 @@ import styles from './Checkbox.module.css'
 
 const propTypes = {
   options: PropTypes.array.isRequired,
-  label: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func.isRequired
 }
@@ -15,23 +14,23 @@ const defaultProps = {
 }
 
 const Checkbox = (props) => {
-  const { label, name, options, onChange, value } = props
+  const { options, onChange, value, name } = props
 
-  const renderCheckboxes = (options, value) => {
+  const renderCheckboxes = (options, value, name) => {
     return options.map(option => {
-      const { name } = option
+      const optionName = option.name
       return (
-        <div key = { name } >
-          <label className={styles.label} htmlFor={name}>{name}</label>
-          <input checked={value[name]} className={styles.input} onChange={() => onChange(name)} type="checkbox" name={name} />
+        <div key = { optionName } >
+          <label className={styles.label} htmlFor={optionName}>{optionName}</label>
+          <input checked={value[name][optionName]} className={styles.input} onChange={() => onChange({ [optionName]: !value[name][optionName] })} type="checkbox" name={optionName} />
         </div>
       )}
     )
   }
 
   return (
-    <div className={name}>
-      {renderCheckboxes(options, value)}
+    <div>
+      {renderCheckboxes(options, value, name)}
     </div>
   )
 }
