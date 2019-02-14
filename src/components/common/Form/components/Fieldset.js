@@ -62,11 +62,7 @@ class Fieldset extends Component {
 
   updateFieldsetState = (val) => {
     const { name, updateFormState } = this.props
-    // console.log(val)
     const update = typeof val === 'object' ? merge(this.state[name], val) : val
-    // console.log('update: ', update)
-    const merged = merge(this.state[name], val)
-    // console.log('merged: ', merged)
     this.setState({ [name]: update }, () => {
       console.log('fieldset state updated: ', this.state)
       let update = {}

@@ -14,7 +14,7 @@ class BookingForm extends Component {
     event: {
       title: '',
       description: '',
-      recurring: true,
+      recurring: 'non-recurring',
       extras: [],
       drinks: {
         whiskey: true,
@@ -39,7 +39,14 @@ class BookingForm extends Component {
               <Form.Fieldgroup>
                 <Form.Fieldset label="First name" placeholder="eg. John" name="client.firstName" updateFormState={updateFormState} initState={initState}>
                   <Form.TextInput type="text"></Form.TextInput>
-                  {/* <input type="text"/> */}
+                </Form.Fieldset>
+                <Form.Fieldset label="Recurring event" name="event.recurring" updateFormState={updateFormState} initState={initState}>
+                  <Form.RadioInput options={[{ label: 'Recurring', value: 'recurring' }, { label: 'Non-recurring', value: 'non-recurring' }]} />
+                  {/* <input type="radio" name="event.recurring" value="true" label="Recurring"/>
+                  <input type="radio" name="event.recurring" value="false" label="Non-recurring"/> */}
+                </Form.Fieldset>
+                <Form.Fieldset label="Drinks" name="event.drinks" updateFormState={updateFormState} initState={initState}>
+                  <Form.Checkbox options={[{name: 'whiskey'}, {name: 'gin'}, {name: 'vodka'}]}/>
                 </Form.Fieldset>
                 {/* <Form.Fieldset label="Last name" placeholder="eg. Smith" name="client.lastName" onChangeHandler={updateState} initState={initState}>
                   <input type="text"/>
@@ -55,16 +62,9 @@ class BookingForm extends Component {
               </Form.Fieldgroup>
             </Form.Section>
             <Form.Section flexDirection="column">
-              <Form.Fieldset label="Drinks" name="event.drinks" updateFormState={updateFormState} initState={initState}>
-                <Form.Checkbox options={[{name: 'whiskey'}, {name: 'gin'}, {name: 'vodka'}]}/>
-              </Form.Fieldset>
               {/* <Form.Fieldset label="Extras" name="event.extras" onChangeHandler={updateState} initState={initState}>
                 <input type="checkbox" value="food" label="Food" /><label>Food</label>
                 <input type="checkbox" value="drink" label="Drink" /><label>Drink</label>
-              </Form.Fieldset>
-              <Form.Fieldset label="Recurring event" name="event.recurring" onChangeHandler={updateState} initState={initState}>
-                <input type="radio" name="event.recurring" value="true" label="Recurring"/>
-                <input type="radio" name="event.recurring" value="false" label="Non-recurring"/>
               </Form.Fieldset>
               <Form.Fieldgroup>
                 <Form.Fieldset label="Event title" placeholder="eg. My awesome event" name="event.title" onChangeHandler={updateState} initState={initState}>
