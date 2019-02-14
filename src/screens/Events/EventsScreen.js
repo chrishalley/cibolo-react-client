@@ -34,6 +34,7 @@ class EventScreen extends Component {
           <Button clickHandler={this.toggleModal}>Request Booking</Button>
           {/* <BasicForm></BasicForm> */}
         </Card>
+        <div style={{ backgroundColor: 'red', height: '200vh' }}></div>
         {this.renderModal()}
       </Screen>
     )

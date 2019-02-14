@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className={styles.app}>
+        <div id="app" className={styles.app}>
           <Header></Header>
           <Root></Root>
           <Footer></Footer>
