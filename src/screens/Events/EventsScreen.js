@@ -32,9 +32,9 @@ class EventScreen extends Component {
           <p>Liquorice jelly beans sweet. Cookie toffee toffee candy canes cake bear claw icing gingerbread. Tart tootsie roll brownie danish jelly beans candy brownie powder sesame snaps.</p>
           <p>Cake candy canes cake brownie. Biscuit liquorice croissant candy canes. Powder gummies chocolate gummies lollipop. Sweet cotton candy cake danish biscuit candy ice cream carrot cake jujubes.</p>
           <Button clickHandler={this.toggleModal}>Request Booking</Button>
-          {/* <BasicForm></BasicForm> */}
+          <BasicForm></BasicForm>
         </Card>
-        <div style={{ backgroundColor: 'red', height: '200vh' }}></div>
+        {/* <div style={{ backgroundColor: 'red', height: '200vh' }}></div> */}
         {this.renderModal()}
       </Screen>
     )

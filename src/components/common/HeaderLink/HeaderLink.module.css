@@ -1,6 +1,9 @@
 .header-link {
   padding: 1rem;
   color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header-link:not(:last-child) {

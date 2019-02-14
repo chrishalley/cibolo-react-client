@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-import { HeaderLink } from '../common/'
+import { HeaderLink, SVGIcon } from '../common/'
 
 import styles from './Header.module.css';
 
@@ -17,17 +17,29 @@ class Header extends Component {
     if (currentUser) {
       return (
         <Fragment>
-          <HeaderLink to="/">Home</HeaderLink>
-          <button onClick={() => this.logout()}>Log out</button>
+          <HeaderLink to="/">
+            <button onClick={() => this.logout()}>
+              <SVGIcon icon="close" />
+              Log out
+            </button>
+          </HeaderLink>
         </Fragment>
       )
     }
     
     return (
       <Fragment>
-        <HeaderLink to="/">Home</HeaderLink>
-        <HeaderLink to="/login">Log in</HeaderLink>
-        <HeaderLink to="/events">Events</HeaderLink>
+        <HeaderLink to="/">
+          Home
+        </HeaderLink>
+        <HeaderLink to="/login">
+          <SVGIcon icon="close" />
+          Log in
+        </HeaderLink>
+        <HeaderLink to="/events">
+          <SVGIcon icon="calendar" />
+          Events
+        </HeaderLink>
       </Fragment>
     )
   }
