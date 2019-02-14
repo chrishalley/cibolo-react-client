@@ -10,7 +10,7 @@ const Button = ({ children, clickHandler }) => {
   }
 
   return (
-    <button onClick={(e) => onClick(e)} className={styles['button']}>{children}</button>
+    <button type="button" onClick={(e) => onClick(e)} className={styles['button']}>{children}</button>
   )
 }
 

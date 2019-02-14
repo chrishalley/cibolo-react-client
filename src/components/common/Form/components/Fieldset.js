@@ -25,13 +25,7 @@ const defaultProps = {
 class Fieldset extends Component {
   constructor(props) {
     super(props)
-    // console.log('PROPS: ', props)
     this.state = this.props.initState(this.props.name)
-    console.log(`fieldsetState: `, this.state)
-  }
-
-  componentDidMount() {
-    // console.log('mounted: ', this.state)
   }
 
   // renderToast = () => {
@@ -44,9 +38,7 @@ class Fieldset extends Component {
   // }
 
   renderChild = (child) => {
-    console.log('childProps: ', child.props)
     const { placeholder, name } = this.props
-    // console.log('child: ', child)
     let props = {
       value: this.state,
       onChange: this.updateFieldsetState,
@@ -64,11 +56,9 @@ class Fieldset extends Component {
     const { name, updateFormState } = this.props
     const update = typeof val === 'object' ? merge(this.state[name], val) : val
     this.setState({ [name]: update }, () => {
-      console.log('fieldset state updated: ', this.state)
       let update = {}
       set(update, name, this.state[name])
       updateFormState(update, () => {
-        console.log('form state updated')
       })
     })
   }

@@ -1,4 +1,17 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+
+const proptypes = {
+  options: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.node
+  })),
+  onChange: PropTypes.func.isRequired
+}
+
+const defaultProps = {
+  onChange: () => { console.warn('onChange callback is not set') }
+}
 
 const RadioInput = (props) => {
   console.log('radioInput props: ', props)
@@ -21,5 +34,8 @@ const RadioInput = (props) => {
     </div>
   )
 }
+
+RadioInput.propTypes = proptypes
+RadioInput.defaultProps = defaultProps
 
 export { RadioInput }

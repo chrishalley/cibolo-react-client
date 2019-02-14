@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { get, set, merge } from 'lodash'
 
 import { Section, Fieldgroup, Fieldset } from './components'
-import { Checkbox, TextInput, RadioInput } from './components/Inputs'
+import { Checkbox, TextInput, RadioInput, TextArea } from './components/Inputs'
 
 class Form extends Component {
   
@@ -16,7 +16,6 @@ class Form extends Component {
   
   // callback function to grab initial state for each Fieldset component
   initState = (stateProp) => {
-    console.log('initState()')
     const state = {[stateProp]: get(this.state, stateProp)}
     return state
   }
@@ -31,6 +30,7 @@ class Form extends Component {
   static Checkbox = Checkbox
   static TextInput = TextInput
   static RadioInput = RadioInput
+  static TextArea = TextArea
 
   render() {
     const { updateState, formSubmit, initState } = this
