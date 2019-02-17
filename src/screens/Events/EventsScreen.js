@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { Screen, Card, Button, Modal } from '../../components/common'
 import BookingForm from '../../components/BookingForm/BookingForm'
+import Draggable from '../../components/Draggable/Draggable'
 
 class EventScreen extends Component {
 
@@ -34,6 +35,7 @@ class EventScreen extends Component {
         </Card>
         {/* <div style={{ backgroundColor: 'red', height: '200vh' }}></div> */}
         {this.renderModal()}
+        <Draggable></Draggable>
       </Screen>
     )
   }

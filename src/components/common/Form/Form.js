@@ -14,9 +14,13 @@ const defaultProps = {
 }
 
 class Form extends Component {
+  constructor(props) {
+    super(props)
+    this.state = this.props.state
+    this.onSubmit = this.props.onSubmit.bind(this)
+    console.log(this.onSubmit)
+  }
   
-  state = this.props.state
-
   updateState = (update, callback) => {
     this.setState(merge(this.state, update), () => {
       callback()
@@ -30,7 +34,7 @@ class Form extends Component {
   }
 
   formSubmit = () => {
-    this.props.onSubmit(this.state)
+    this.onSubmit(this.state)
   }
 
   static Section = Section

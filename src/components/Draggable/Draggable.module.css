@@ -1,0 +1,18 @@
+.draggable {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+}
+
+.ball {
+  width: 40px;
+  height: 40px;
+  background-color: orangered;
+}
+
+.basket {
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+}

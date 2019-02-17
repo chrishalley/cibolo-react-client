@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
 
-import { Button, Form } from '../common';
+import * as actions from '../../actions';
+import { Button, Form, Toast } from '../common';
 
 import styles from './LoginForm.module.css';
 
@@ -15,13 +15,24 @@ class LoginForm extends Component {
   }
 
   loginSubmit(state) {
-    console.log('loginSubmit()')
-    console.log(state)
-    // const { email, password } = this.state;
-    // this.props.changeAuth({ email, password }, (error) => {
-    //   this.setState({ errorMessage: error })
-    // })
+    const { email, password } = state;
+    console.log('this: ', this)
+    this.props.changeAuth({ email, password })
+      .then(function(res) {
+        console.log('then this: ', this)
+        console.log('promise resolve: ', res)
+      })
+      .catch(function(error) {
+        const { message } = error.response.data
+        console.log(this)
+      })
   }
+
+  // loginCallback(error) {
+  //   console.log('loginCallback')
+  //   const { message } = error.response.data
+  //   this.loginDetails.errorMessage = message
+  // }
 
   render() {
     const { loginDetails, loginSubmit } = this
