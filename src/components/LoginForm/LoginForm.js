@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
 import { Button, Form, Toast } from '../common';
+import api from '../../apis/api'
 
 import styles from './LoginForm.module.css';
 
 class LoginForm extends Component {
+
+  state = { errorMesasge: null }
 
   loginDetails = { email: '', password: '', errorMessage: null }
 
@@ -14,18 +17,29 @@ class LoginForm extends Component {
     this.setState({ [stateProp]: value })
   }
 
-  loginSubmit(state) {
+  loginSubmit = (state) => {
     const { email, password } = state;
-    console.log('this: ', this)
-    this.props.changeAuth({ email, password })
-      .then(function(res) {
-        console.log('then this: ', this)
-        console.log('promise resolve: ', res)
+    // console.log('this: ', this)
+    api.post('/auth/login', { email, password })
+      .then(res => {
+        const user = res.data
+        this.props.changeAuth(user)
+        console.log('this: ', this)
       })
-      .catch(function(error) {
-        const { message } = error.response.data
-        console.log(this)
+      .catch(e => {
+        console.log(e)
+        console.log('this: ', this)
+        this.setState({ errorMessage: e.response.data.message })
       })
+    // this.props.changeAuth({ email, password })
+    //   .then(function(res) {
+    //     console.log('then this: ', this)
+    //     console.log('promise resolve: ', res)
+    //   })
+    //   .catch(function(error) {
+    //     const { message } = error.response.data
+    //     console.log(this)
+    //   })
   }
 
   // loginCallback(error) {
@@ -52,7 +66,7 @@ class LoginForm extends Component {
             </Fragment>
           )}
           </Form>
-        {/* <Toast type="error" content={errorMessage} /> */}
+        <Toast type="error" content={this.state.errorMessage} />
       </div>
     )
   }
