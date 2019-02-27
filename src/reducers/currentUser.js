@@ -3,7 +3,8 @@ import { CHANGE_AUTH } from '../actions/types';
 export default function(state = null, action) {
   switch (action.type) {
     case CHANGE_AUTH:
-      return action.payload
+      console.log('reducer: ', action.payload)
+      return { ...action.payload }
     default:
       return state
   }

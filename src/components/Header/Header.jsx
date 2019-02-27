@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-import { HeaderLink, SVGIcon } from '../common/'
+import { HeaderLink, SVGIcon } from '../common'
 
 import styles from './Header.module.css';
 
@@ -23,6 +23,10 @@ class Header extends Component {
               Log out
             </button>
           </HeaderLink>
+          <HeaderLink to="/protected">
+            <SVGIcon icon="calendar" />
+            Protected
+          </HeaderLink>
         </Fragment>
       )
     }
@@ -39,6 +43,10 @@ class Header extends Component {
         <HeaderLink to="/events">
           <SVGIcon icon="calendar" />
           Events
+        </HeaderLink>
+        <HeaderLink to="/protected">
+          <SVGIcon icon="calendar" />
+          Protected
         </HeaderLink>
       </Fragment>
     )

@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { Screen, Card, Button, Modal } from '../../components/common'
 import BookingForm from '../../components/BookingForm/BookingForm'
 import Draggable from '../../components/Draggable/Draggable'
+import BuiltForm from '../../components/BuiltForm/BuiltForm'
+
+import { Fieldset } from '../../components/common/FormBuilder/components/sections'
 
 class EventScreen extends Component {
 
@@ -36,6 +39,7 @@ class EventScreen extends Component {
         {/* <div style={{ backgroundColor: 'red', height: '200vh' }}></div> */}
         {this.renderModal()}
         <Draggable></Draggable>
+        <BuiltForm></BuiltForm>
       </Screen>
     )
   }

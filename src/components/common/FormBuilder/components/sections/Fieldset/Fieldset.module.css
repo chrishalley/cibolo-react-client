@@ -1,0 +1,33 @@
+.fieldset {
+  width: 100%;
+  border: none;
+}
+
+.fieldset:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: .6rem;
+}
+
+.fieldset input:not(:last-child) {
+  margin-right: 1rem;
+}
+
+/* .fieldset input[type="text"],
+.fieldset input[type="password"] {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 100px;
+  border: 2px solid var(--color-grey-light-2);
+  background-color: var(--color-grey-light-1);
+  box-shadow: var(--inset-shadow);
+}
+
+.fieldset input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+} */

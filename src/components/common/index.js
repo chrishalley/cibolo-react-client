@@ -7,3 +7,5 @@ export * from './Modal/Modal';
 export * from './Form/Form';
 export * from './Datepicker/Datepicker';
 export * from './SVGIcon/SVGIcon';
+export * from './FormBuilder/FormBuilder';
+export * from './Spinner/Spinner';
