@@ -21,44 +21,33 @@ export const changeAuth = ({ email, password }) => dispatch => {
 
 export const initAuth = () => dispatch => {
   return new Promise((resolve, reject) => {
+
     // Get token from localStorage
     const token = localStorage.getItem('token');
-    if (!token) {
-      console.log('no token')
-      reject('reject: no token')
+    if (!token) { // If there is no token, resolve
+      resolve();
+    } else { // Pull id and exp off token and validate
+      const { id, exp } = jwt.decode(token)
+      if (!id || !exp || exp * 1000 < new Date().getTime()) {
+        // Token has expired, log user out
+        logout();
+        resolve();
+      } else { // Token is valid, retrieve user details from database
+        api.get(`/users/${id}`)
+          .then(res => {
+            dispatch({ type: CHANGE_AUTH, payload: { ...res.data, tokenExpiry: exp * 1000 } })
+            resolve();
+          })
+          .catch(e => {
+            reject(e);
+          })
+      }
     }
-    // Check if token has not expired
-    const { id, exp } = jwt.decode(token);
-    if (exp * 1000 < new Date().getTime()) {
-      // Token has expired
-      console.log('token has expired')
-      reject()
-    }
-    console.log(id, exp)
-    dispatch({ type: CHANGE_AUTH, payload: { _id: id, tokenExpiry: exp * 1000 } })
-  
-    // If token has not expired, get user info from DB and set in Redux store
-    api.get(`/users/${id}`)
-      .then(res => {
-        dispatch({ type: CHANGE_AUTH, payload: { ...res.data, tokenExpiry: exp * 1000 } })
-        resolve(res.data);
-      })
-      .catch(e => {
-        console.log(e)
-        reject(e);
-      })
   })
 }
 
-// export const changeAuth = (payload) => {
-//   return {
-//     type: CHANGE_AUTH,
-//     payload: payload
-//   }
-// }
-
 export const logout = () => {
-  console.log('logout')
+  console.log('logout() action');
   localStorage.removeItem('token');
   localStorage.removeItem('refreshToken');
   return {

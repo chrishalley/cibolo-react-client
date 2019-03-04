@@ -65,19 +65,17 @@ const LoginForm = (props) => {
     props.changeAuth({ email: email.value, password: password.value })
       .then(result => {
         console.log('success')
-        props.history.push('/events')
+        props.history.push('/dashboard')
       })
       .catch(e => {
         console.log('error')
-        setError(e.response.data.message)
+        e.response && e.response.data && e.response.data.message ? setError(e.response.data.message) : console.log(e);
       })
   }
 
 
   return (
-    <Card>
-      <FormBuilder error={error} form={form} submitHandler={login}></FormBuilder>
-    </Card>
+    <FormBuilder error={error} form={form} submitHandler={login}></FormBuilder>
   )
 }
 

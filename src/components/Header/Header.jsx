@@ -23,9 +23,9 @@ class Header extends Component {
               Log out
             </button>
           </HeaderLink>
-          <HeaderLink to="/protected">
+          <HeaderLink to="/dashboard">
             <SVGIcon icon="calendar" />
-            Protected
+            Dashboard
           </HeaderLink>
         </Fragment>
       )
@@ -44,9 +44,9 @@ class Header extends Component {
           <SVGIcon icon="calendar" />
           Events
         </HeaderLink>
-        <HeaderLink to="/protected">
+        <HeaderLink to="/dashboard">
           <SVGIcon icon="calendar" />
-          Protected
+          Dashboard
         </HeaderLink>
       </Fragment>
     )

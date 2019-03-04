@@ -3,17 +3,16 @@ import PropTypes from 'prop-types'
 
 const proptypes = {
   icon: PropTypes.string,
-  width: PropTypes.string
+  style: PropTypes.object
 }
 
 const defaultProps = {
-  icon: 'default',
-  width: '40px'
+  icon: 'default'
 }
 
 const SVGIcon = (props) => {
 
-  const { icon, width } = props
+  const { icon, style } = props
 
   const icons = {
     'arrow-left': {
@@ -101,7 +100,7 @@ const SVGIcon = (props) => {
   }
 
   return (
-  <svg style={{width: width}} className="svg-icon" viewBox={icons[icon].viewBox || '0 0 100 100'}>
+  <svg style={style} className="svg-icon" viewBox={icons[icon].viewBox || '0 0 100 100'}>
       {icons[icon].svg}
   </svg >
   )

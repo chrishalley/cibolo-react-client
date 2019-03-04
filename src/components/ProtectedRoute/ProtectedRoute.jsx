@@ -1,76 +1,45 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { initAuth } from '../../actions';
 import { connect } from 'react-redux';
-
+import { logout } from '../../actions';
 import { Spinner } from '../common';
 
 const ProtectedRoute = (props) => {
-  const { component: Component, authenticated, initAuth, currentUser, ...rest } = props;
+  const { component: Component, currentUser, ...rest } = props;
+  const [ auth, setAuth ] = useState(null) // Set initial auth value to null
 
-  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    currentUserAuthenticated() // Check whether user is authenticated every time protected route is entered
+  })
 
-  const checkAuth = () => {
-    setLoading(true);
-
-    if (currentUser && currentUser.tokenExpiry > new Date().getTime()) {
-      setLoading(false)
-      return true
-    } else {
-      initAuth()
-        .then(res => {
-          console.log('res: ', res)
-          console.log(currentUser)
-          return true
-        })
-        .catch(e => {
-          console.log('e: ', e)
-          return false
-        })
+  const currentUserAuthenticated = () => {
+    if ( !currentUser ) { // If there is no currentUser logged in, setAuth to false causing redirect to login
+      console.log('no currentUser')
+      setAuth(false)
+      // props.logout()
+    } else if (currentUser && currentUser.tokenExpiry && currentUser.tokenExpiry < new Date().getTime()) { // If token is expired, log user out and redirect to login
+      console.log('token expired')
+      props.logout()
+      setAuth(false)
+    } else { // Otherwise, user must be authenticated
+      setAuth(true)
     }
-
-    // return new Promise((resolve, reject) => {
-    //   console.log('checkAuth running')
-    //   setLoading(true)
-      // if (!currentUser || !currentUser.tokenExpiry > new Date().getTime()) {
-      //   initAuth()
-      //     .then(res => {
-      //       console.log(currentUser)
-      //       resolve(currentUser !== null && currentUser.tokenExpiry > new Date().getTime())
-      //     })
-      //     .catch(e => {
-      //       setLoading(false)
-      //       console.log('here')
-      //       console.log(e)
-      //       resolve(false)
-      //     })
-      // }
-      // setLoading(false)
-      // resolve(true)
-    // });
-    // // debugger;
-
   }
 
-  const renderSpinner = () => {
-    if (loading) {
-      return <Spinner></Spinner>
-    }  
-  }
-
-  const renderComponent = (props) => {
-    return checkAuth() ? <Component {...props} /> : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-  }
+  const renderRoute = (props) => {
+    console.log('auth: ', auth)
+    switch (auth) {
+      case true:
+        return <Component {...props} />
+      case false:
+        return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+      default:
+        return <Spinner></Spinner>
+    }
+  };
 
   return (
-    <Route {...rest} render={(props) => {
-      return (
-        <Fragment>
-          {renderSpinner()}
-          {renderComponent(props)} 
-        </Fragment>
-      )}
-    } />
+    <Route {...rest} render={(props) => renderRoute(props)} />
   );
 
 }
@@ -81,4 +50,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { initAuth })(ProtectedRoute);
+export default connect(mapStateToProps, { logout })(ProtectedRoute);
