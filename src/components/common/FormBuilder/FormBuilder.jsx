@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { set, merge, get, uniqueId, values } from 'lodash'
 
 import { Button, Toast } from '../'
@@ -14,12 +14,13 @@ const FormBuilder = (props) => {
     return state
   }
   
-  // useEffect(() => {
-  //   console.log(state)
-  // }, [state])
+  useEffect(() => {
+    console.log('initial state: ', state);
+  }, [state])
 
   function getStateValues(array, state) { // Recursively searches through (nested) array and assigns form field names/values to state argument
     return array.forEach(elem => {
+      console.log('getStateValues: ', typeof(elem.component))
       if (elem.component === 'Submit') {
         return
       } else if (elem.component !== 'Fieldset') {
@@ -36,12 +37,9 @@ const FormBuilder = (props) => {
     const validations = fields.map(field => {
       return field.valid
     })
-    console.log(validations)
     if (validations.indexOf(false) !== -1) {
-      console.log('form is invalid')
       return false
     } else {
-      console.log('form is valid')
       return true
     }
   }
@@ -53,6 +51,7 @@ const FormBuilder = (props) => {
   }
 
   const switchComponent = (type) => {
+    console.log('component type: ', type);
     switch(type) {
       case 'FormSection':
         return FormSection
@@ -71,6 +70,7 @@ const FormBuilder = (props) => {
 
   function renderChildren(children) {
     return children.map((child, i) => {
+      console.log(child.component)
       const fieldsetProps = {}
       if (child.component === 'Fieldset') {
         fieldsetProps.onChange = onChangeHandler

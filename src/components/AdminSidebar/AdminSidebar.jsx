@@ -1,48 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-// import styles from './AdminSidebar.module.css';
 import AdminSidebarLink from './AdminSidebarLink/AdminSidebarLink';
-import { SVGIcon, BasicButton, SecondaryButton } from '../common';
+import { SVGIcon, SecondaryButton, PrimaryButton } from '../common';
 
-let AdminSidebar = ({ className }) => {
+let AdminSidebar = (props) => {
+
+  const { className } = props;
 
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    console.log('sidebarProps: ', props);
+  })
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   }
 
   const links = [
-    {
-      to: '/dashboard/users', label: 'Users', icon: 'person'
-    },
-    {
-      to: '/dashboard/events', label: 'Events', icon: 'person'
-    },
-    {
-      to: '/', label: 'Bookings', icon: 'person'
-    },
-    {
-      to: '/', label: 'Terms & Conditions', icon: 'person'
-    },
-    {
-      to: '/', label: 'View Website', icon: 'person'
-    }
+    { to: '/dashboard/users', label: 'Users', icon: 'person' },
+    { to: '/dashboard/events', label: 'Events', icon: 'calendar' },
+    { to: '/dashboard/bookings', label: 'Bookings', icon: 'deskbell' },
+    { to: '/dashboard/terms', label: 'Terms & Conditions', icon: 'document-approved' },
+    { to: '/', label: 'View Website', icon: 'eye' }
   ];
 
   const renderLinks = () => {
     return links.map(({to, label, icon}, i) => {
-      return <AdminSidebarLink labelVisible={menuOpen} key={label} to={to}>{label}<SVGIcon icon={icon} width="30px" /></AdminSidebarLink>
+      return <AdminSidebarLink labelVisible={menuOpen} key={label} to={to}>{label}<SVGIcon icon={icon} /></AdminSidebarLink>
     });
   }
 
   return (
     <div className={`${className} ${menuOpen ? 'isOpen' : ''}`}>
-      <SecondaryButton style={{ alignSelf: 'flex-end' }}><SVGIcon icon="arrow-right" width="30px" /></SecondaryButton>
-      <BasicButton onClick={toggleMenu} style={{ alignSelf: 'flex-end', color: '#ffffff' }}>
-        <SVGIcon icon="arrow-right" width="30px" />
-      </BasicButton>
+      <PrimaryButton onClick={toggleMenu} classNames={['menu-button']}><SVGIcon icon="arrow-right" /></PrimaryButton>
       <ul>{renderLinks()}</ul>
     </div>
   );
@@ -50,22 +42,26 @@ let AdminSidebar = ({ className }) => {
 
 AdminSidebar = styled(AdminSidebar)`
   background: #333333;
-  transform: scaleX(160px);
   display: flex;
   flex-direction: column;
   color: white;
-  padding: 1rem;
-  position: absolute;
+  padding: 1.5rem;
+  position: fixed;
   left: 0;
   top: 0;
   min-height: 100vh;
-  transform: translateX(calc(-1 * (100% - 60px)));
+  transform: translateX(calc(-1 * (100% - 7rem)));
   transition: transform 0.3s ease-in-out;
 
   .menu-button {
+      align-self: flex-end;
+      margin-bottom: 2rem;
+
       svg {
         transform: rotateZ(0deg);
         transition: transform 0.3s ease-in-out;
+        width: 4rem;
+        height: 4rem;
       }
     }
 
@@ -87,12 +83,20 @@ AdminSidebar = styled(AdminSidebar)`
 
     li {
       align-self: flex-end;
+      
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
     }
   }
 
   a {
     text-decoration: none;
     color: inherit;
+
+    &:hover {
+      color: ${(props) => props.theme.colorPrimary};
+    }
   }
 `;
 

@@ -11,24 +11,21 @@ let AdminSidebarLink = ({label, className, to, children, icon}) => {
 }
 
 AdminSidebarLink = styled(AdminSidebarLink)`
-  border-top: 1px solid red;
-  
-  &:last-child {
-    border-bottom: 1px solid red;
+li {
+  &:not(:last-child) {
+    margin-bottom: 1rem;
   }
+  background: red;
+}
 
   a {
     display: flex;
     align-items: center;
-
-    &:hover {
-      background: green;
-    }
   }
 
   svg {
     width: 4rem;
-    margin-left: 1rem;
+    margin-left: 2rem;
     height: auto;
   }
 `

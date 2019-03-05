@@ -3,3 +3,6 @@
   background-color: transparent;
   border: none;
 }
+.button:focus {
+  outline: none;
+}

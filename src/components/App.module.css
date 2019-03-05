@@ -13,3 +13,7 @@
   min-height: 100vh;
   justify-content: space-between;
 }
+
+h1 {
+  font-size: 8rem;
+}

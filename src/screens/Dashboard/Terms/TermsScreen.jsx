@@ -3,15 +3,15 @@ import React, { Fragment } from 'react';
 import AdminPageHeader from '../../../components/AdminPageHeader/AdminPageHeader';
 import { Card } from '../../../components/common';
 
-const EventsScreen = () => {
+const TermsScreen = () => {
   return (
     <Fragment>
-      <AdminPageHeader title="Events"></AdminPageHeader>
+      <AdminPageHeader title="Terms & Conditions"></AdminPageHeader>
       <Card>
-        Info for events here
+        Info for terms here
       </Card>
     </Fragment>
-  )
+  );
 }
 
-export default EventsScreen;
+export default TermsScreen;

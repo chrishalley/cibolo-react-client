@@ -3,15 +3,15 @@ import React, { Fragment } from 'react';
 import AdminPageHeader from '../../../components/AdminPageHeader/AdminPageHeader';
 import { Card } from '../../../components/common';
 
-const EventsScreen = () => {
+const BookingsScreen = () => {
   return (
     <Fragment>
-      <AdminPageHeader title="Events"></AdminPageHeader>
+      <AdminPageHeader title="Bookings"></AdminPageHeader>
       <Card>
-        Info for events here
+        Info for bookings here
       </Card>
     </Fragment>
-  )
+  );
 }
 
-export default EventsScreen;
+export default BookingsScreen;

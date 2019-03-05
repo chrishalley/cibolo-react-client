@@ -11,6 +11,7 @@ export const changeAuth = ({ email, password }) => dispatch => {
         dispatch({ type: CHANGE_AUTH, payload: { ...res.data, tokenExpiry: exp * 1000 } })
         localStorage.setItem('token', res.headers['x-token'])
         localStorage.setItem('refreshToken', res.headers['x-refresh-token'])
+        api.defaults.headers.common['Authorization'] = `Bearer ${res.headers['x-token']}`;
         resolve(res.data)
       })
       .catch(e => {
@@ -36,6 +37,7 @@ export const initAuth = () => dispatch => {
         api.get(`/users/${id}`)
           .then(res => {
             dispatch({ type: CHANGE_AUTH, payload: { ...res.data, tokenExpiry: exp * 1000 } })
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             resolve();
           })
           .catch(e => {

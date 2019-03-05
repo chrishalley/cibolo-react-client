@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
-import { TextInput, Checkbox, RadioInput, TextArea } from '../../inputs'
-import { Toast } from '../../../../index'
+import { TextInput, Checkbox, RadioInput, TextArea, Select } from '../../inputs';
+import { Toast } from '../../../../index';
 
-import styles from './Fieldset.module.css'
+import styles from './Fieldset.module.css';
 
 const Fieldset = (props) => {
-  const { defaultValue, type, name, label, onChange, validations } = props
-  const [value, setValue] = useState(defaultValue || '')
+  const { defaultValue, type, name, label, onChange, validations } = props;
+  const [value, setValue] = useState(defaultValue || '');
 
 
   const renderInput = (element) => {
@@ -15,66 +15,76 @@ const Fieldset = (props) => {
       element,
       {...props, onBlur: onBlurHandler, onChange: onChangeHandler, value: value},
       props.children
-    )
+    );
   }
 
   // Validation
-  const [valid, setValid] = useState(setValidInitialState())
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [dirty, setDirty] = useState(false)
+  const [valid, setValid] = useState(setValidInitialState());
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [dirty, setDirty] = useState(false);
 
   function setValidInitialState() {
     if (validations && validations.length > 0) {
-      return false
+      if (defaultValue) {
+        const initialValidationResults = validations.map(rule => {
+          return rule.method(defaultValue, rule.methodOptions) === rule.validWhen;
+        });
+        if (initialValidationResults.indexOf(false) === -1) {
+          return true;
+        }
+      }
+      return false;
     } else {
-      return true
+      return true;
     }
   }
 
   const validate = (input) => {
-    setErrorMessage(null)
+    setErrorMessage(null);
     const validationResults = validations.map(rule => {
-      return rule.method(input, rule.methodOptions) === rule.validWhen
+      return rule.method(input, rule.methodOptions) === rule.validWhen;
     })
     if (validationResults.indexOf(false) !== -1) {
-      setValid(false)
-      const errorString = validations[validationResults.indexOf(false)].errorMessage
-      setErrorMessage(errorString)
+      setValid(false);
+      const errorString = validations[validationResults.indexOf(false)].errorMessage;
+      setErrorMessage(errorString);
     } else {
-      setValid(true)
+      setValid(true);
     }
   }
 
-  const toastVisibility = () => !dirty ? { visibility: 'hidden' } : {}
+  const toastVisibility = () => !dirty ? { visibility: 'hidden' } : {};
 
   const onBlurHandler = (update) => {
-    update.value.length > 0 && setDirty(true)
+    setDirty(true);
   }
 
   const onChangeHandler = (update) => {
-    setValue(update.value)
+    setValue(update.value);
     if (validations && validations.length > 0) {
-      validate(update.value)
+      validate(update.value);
     }
   }
 
   useEffect(() => {
-    onChange(name, { value: value, valid })
-  }, [value])
+    onChange(name, { value: value, valid });
+  }, [value]);
 
   const switchInput = (type) => {
     switch(type) {
       case 'checkbox':
-        return renderInput(Checkbox)
+        return renderInput(Checkbox);
       case 'radio':
-        return renderInput(RadioInput)
+        return renderInput(RadioInput);
       case 'textarea':
-        return renderInput(TextArea)
+        return renderInput(TextArea);
+      case 'select':
+        return renderInput(Select);
       case 'email':
       case 'password':
       case 'text':
       default:
-        return renderInput(TextInput)
+        return renderInput(TextInput);
     }
   }
   
@@ -84,7 +94,7 @@ const Fieldset = (props) => {
       {switchInput(type)}
       <Toast type="error" content={errorMessage} style={toastVisibility()}></Toast>
     </fieldset>
-  )
+  );
 }
 
-export { Fieldset }
+export { Fieldset };

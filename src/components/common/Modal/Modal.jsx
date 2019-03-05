@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 
-import { Card, SVGIcon, Button } from '../'
+import { Card, SVGIcon, SecondaryButton, FormBuilder } from '../';
 
-import styles from './Modal.module.css'
+import styles from './Modal.module.css';
 
 const Modal = ({ closeHandler, children }) => {
 
   useEffect(() => {
-    console.log('modal mounted')
     // document.querySelector('body').classList.add('noScroll')
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = "no";
@@ -22,17 +21,16 @@ const Modal = ({ closeHandler, children }) => {
 
   return ReactDOM.createPortal(
     <div className={styles['modal-container']} onClick={(e) => {
-      console.log('click')
-      e.stopPropagation()
-      closeHandler()
+      e.stopPropagation();
+      closeHandler();
     }}>
       <Card className={styles['modal-card']}>
-        <Button classes="rando" clickHandler={() => closeHandler()}><SVGIcon icon="close" width="20px"/></Button>
+        <SecondaryButton className={styles['modal-close']} onClick={() => closeHandler()}><SVGIcon style={{ width: '20px' }} icon="close" /></SecondaryButton>
         {children}
       </Card>
     </div>,
     document.querySelector('#modal')
-  )
+  );
 }
 
-export { Modal }
+export { Modal };

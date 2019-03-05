@@ -7,6 +7,7 @@ import ReduxThunk from 'redux-thunk';
 
 import App from './components/App';
 import './assets/css/reset.css';
+import './assets/css/typography.css';
 
 const store = createStore(reducers, applyMiddleware(ReduxThunk))
 

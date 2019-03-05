@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { BasicButton } from '../';
 
-const SecondaryButton = styled(BasicButton)`
-  color: ${(props) => props.theme.colorPrimary};
+const PrimaryButton = styled(BasicButton)`
+  color: ${props => props.theme.colorPrimary};
   border: 2px solid;
-  border-color: ${(props) => props.theme.colorPrimary};
+  border-color: ${props => props.theme.colorPrimary};
   border-radius: 100px;
   
   &:hover {
     color: white;
+    background-color: ${props => props.theme.colorPrimary};
   }
 
   &:focus {
@@ -17,4 +19,4 @@ const SecondaryButton = styled(BasicButton)`
   }
 `
 
-export { SecondaryButton };
+export { PrimaryButton };

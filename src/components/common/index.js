@@ -2,6 +2,7 @@ export * from './Card/Card';
 export * from './Button/Button';
 export * from './BasicButton/BasicButton';
 export * from './SecondaryButton/SecondaryButton';
+export * from './PrimaryButton/PrimaryButton';
 export * from './Toast/Toast';
 export * from './HeaderLink/HeaderLink';
 export * from './Screen/Screen';

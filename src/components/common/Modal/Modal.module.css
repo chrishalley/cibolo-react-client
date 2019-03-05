@@ -25,3 +25,8 @@
   margin: 6rem 0;
   cursor: default;
 }
+
+.modal-close {
+  align-self: flex-end;
+  padding: 1rem;
+}

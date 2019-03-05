@@ -1,0 +1,15 @@
+.header {
+  margin-bottom: 3rem;
+}
+
+.title {
+  color: var(--color-primary);
+  display: inline-block;
+  margin-right: 3rem;
+}
+
+.divider {
+  height: .5rem;
+  background-color: var(--color-primary);
+  border: none;
+}

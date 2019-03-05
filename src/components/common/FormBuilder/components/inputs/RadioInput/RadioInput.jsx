@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 const proptypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
@@ -14,7 +14,7 @@ const defaultProps = {
 }
 
 const RadioInput = (props) => {
-  console.log('radioInput props: ', props)
+  console.log('radioInput props: ', props);
 
   const renderInputs = (props) => {
     const { options, name, value, onChange } = props
@@ -25,17 +25,17 @@ const RadioInput = (props) => {
         <input checked={value[name] === option.value} type="radio" name={name} value={option.value} onChange={() => { onChange(option.value) }}></input>
       </Fragment>
       )
-    )
+    );
   }
 
   return (
     <div>
       {renderInputs(props)}
     </div>
-  )
+  );
 }
 
-RadioInput.propTypes = proptypes
-RadioInput.defaultProps = defaultProps
+RadioInput.propTypes = proptypes;
+RadioInput.defaultProps = defaultProps;
 
-export { RadioInput }
+export { RadioInput };
