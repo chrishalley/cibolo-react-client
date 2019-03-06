@@ -142,6 +142,53 @@ const SVGIcon = (props) => {
           <path stroke="currentColor" strokeWidth="5" d="M75 15, L85 25" />
           <path stroke="currentColor" strokeWidth="5" d="M15 75, L25 85" />
         </Fragment>
+    },
+    'tools': {
+      viewBox: '0 0 100 100',
+      svg:
+        <Fragment>
+          <path stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M36.21778,74.38882l38.17103-38.17103c5.00965,1.33791,10.57367,0.05554,14.50385-3.87463
+            s5.21254-9.4942,3.87463-14.50385l-9.17975,9.17974l-10.6066-10.6066l9.17974-9.17974
+            c-5.00965-1.33791-10.57367-0.05554-14.50385,3.87463s-5.21254,9.49419-3.87463,14.50385L25.61118,63.78222
+            c-5.00965-1.33791-10.57367-0.05554-14.50385,3.87463S5.8948,77.15104,7.23271,82.16069l9.17974-9.17974l10.6066,10.6066
+            l-9.17974,9.17975c5.00965,1.33791,10.57367,0.05554,14.50385-3.87463S37.55569,79.39847,36.21778,74.38882z"/>
+          <rect stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" x="-110" y="75.00002" width="80" height="10"/>
+          <polyline stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" points="-65.00381,22.48595 -60.00381,22.48595 -60.00381,12.48598 -80.00381,12.48598 -80.00381,22.48595 
+            -75.00381,22.48595 "/>
+          <path stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" d="M-35.00174,64.98664c0-15.85973-10.54924-29.25556-25.01358-33.55335
+            c-3.16404-0.94013-6.51541-1.44491-9.98468-1.44491c-3.48071,0-6.84274,0.50812-10.01597,1.45423
+            c-14.44827,4.3078-24.98229,17.69574-24.98229,33.54404H-35.00174z"/>
+          <g>
+            <polyline stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" points="48.22598,41.16744 16.89533,9.8368 9.03237,9.0449 9.82426,16.90786 41.00829,48.09189 	"/>
+            <polyline stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" points="62.38066,48.22599 90.96764,76.81297 76.8255,90.9551 48.23848,62.36809 	"/>
+            <line stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"x1="69.15845" y1="83.28806" x2="83.30059" y2="69.14593"/>
+            <line stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"x1="73.17538" y1="78.1126" x2="58.11221" y2="63.04943"/>
+            <line stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"x1="78.12513" y1="73.16285" x2="63.06196" y2="58.09968"/>
+          </g>
+          <path stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" d="M36.21778-32.45735l38.17103-38.17104c5.00965,1.33791,10.57367,0.05554,14.50385-3.87463
+            c3.93018-3.93018,5.21254-9.49419,3.87463-14.50385l-9.17975,9.17974l-10.6066-10.60661l9.17974-9.17974
+            c-5.00965-1.33791-10.57367-0.05554-14.50385,3.87463c-3.93017,3.93018-5.21254,9.4942-3.87463,14.50385L25.61118-43.06395
+            c-5.00965-1.33791-10.57367-0.05555-14.50385,3.87463S5.8948-29.69513,7.23271-24.68548l9.17974-9.17974l10.6066,10.6066
+            l-9.17974,9.17974c5.00965,1.33791,10.57367,0.05554,14.50385-3.87463S37.55569-27.4477,36.21778-32.45735z"/>
+          <g>
+            <polygon stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" points="51.46828,-62.43642 16.89533,-97.00938 9.03237,-97.80127 9.82426,-89.93831 44.39722,-55.36536 	"/>
+            <rect stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"fill="transparent" x="55.92092" y="-66.35919" transform="matrix(0.70711 -0.70711 0.70711 0.70711 48.25518 34.62273)" width="20" height="50.84282"/>
+            <line stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"x1="69.15845" y1="-23.55811" x2="83.30059" y2="-37.70024"/>
+            <line stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"x1="73.17538" y1="-28.73357" x2="58.11221" y2="-43.79674"/>
+            <line stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"x1="78.12513" y1="-33.68332" x2="63.06196" y2="-48.74649"/>
+          </g>
+        </Fragment>
+    },
+    'logout': {
+      viewBox: '0 0 100 100',
+      svg:
+        <Fragment>
+          <path fill="transparent" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" d="M75 30, L75 10, L25 10, L25 90, L75 90, L75 70 " />
+          <path fill="transparent" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" d="M60 50, L90 50" />
+          <path fill="transparent" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" d="M80 40, L90 50, L80 60" />
+          <circle cx="40" cy="50" r="2.5" />
+          <circle cx="50" cy="50" r="2.5" />
+        </Fragment>
     }
   }
 

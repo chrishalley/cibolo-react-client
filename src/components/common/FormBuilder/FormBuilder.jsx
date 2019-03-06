@@ -1,107 +1,121 @@
-import React, { useState, useEffect } from 'react'
-import { set, merge, get, uniqueId, values } from 'lodash'
+import React, { useState, useEffect } from 'react';
+import { set, merge, get, uniqueId, values } from 'lodash';
 
-import { Button, Toast } from '../'
-import { Fieldset, FieldGroup, FormSection } from './components/sections'
+import { Button, Toast } from '../';
+import { Fieldset, FieldGroup, FormSection } from './components/sections';
+
+export * from './components/sections';
 
 const FormBuilder = (props) => {
-  const { form, submitHandler, error } = props
-  const [state, setState] = useState(setInitialState())
+  const { form, submitHandler, error } = props;
+
+  const [state, setState] = useState(setInitialState());
 
   function setInitialState() { // Returns state object after recursive mapping of form prop
-    let state = {}
-    getStateValues(form, state)
-    return state
+    let state = {};
+    getStateValues(form, state);
+    return state;
   }
   
-  useEffect(() => {
-    console.log('initial state: ', state);
-  }, [state])
+  // useEffect(() => {
+  //   console.log('initial state: ', state);
+  // }, [state]);
 
   function getStateValues(array, state) { // Recursively searches through (nested) array and assigns form field names/values to state argument
     return array.forEach(elem => {
-      console.log('getStateValues: ', typeof(elem.component))
-      if (elem.component === 'Submit') {
-        return
-      } else if (elem.component !== 'Fieldset') {
-        return getStateValues(elem.children, state)
-      } else {
-        return set(state, elem.props.name, elem.props.defaultValue || '')
+      // console.log('getStateValues: ', typeof(elem.component));
+      if (elem.props.name && !elem.children) { 
+        return set(state, elem.props.name, elem.props.defaultValue || ''); // Assigns name and value of inputs to component level state
+      } else if (elem.props.type === 'submit' || elem.props.type === 'button') { 
+        return; // Exclude buttons from recursion
+      } else if (!elem.props.name && elem.children) { 
+        return getStateValues(elem.children, state); // Recurse function inside any wrapping components
       }
-    })
+    });
   }
 
-  // Form level validation
+  // Form level validation, returns true if values of all inputs are valid
   const isFormValid = () => {
-    const fields = values(state)
+    const fields = values(state);
     const validations = fields.map(field => {
-      return field.valid
+      return field.valid;
     })
     if (validations.indexOf(false) !== -1) {
-      return false
+      return false;
     } else {
-      return true
+      return true;
     }
   }
 
-  function onChangeHandler(path, data) {
-    const nestedUpdate = {}
-    set(nestedUpdate, path, { value: data.value, valid: data.valid })
-    setState(merge(state, nestedUpdate))
+  function onChangeHandler(path, data) { // Updates component level state each time the value of an input changes
+    const nestedUpdate = {};
+    set(nestedUpdate, path, { value: data.value, valid: data.valid });
+    setState(merge(state, nestedUpdate));
   }
 
-  const switchComponent = (type) => {
-    console.log('component type: ', type);
+  const switchComponent = (type) => { // Returns component to render in place of string provided in form config object
+    // console.log('component type: ', type);
     switch(type) {
       case 'FormSection':
-        return FormSection
+        return FormSection;
       case 'FieldGroup':
-        return FieldGroup
+        return FieldGroup;
       case 'Fieldset':
-        return Fieldset
+        return Fieldset;
       case 'Submit':
-        return Button
+        return Button;
       default:
-        return 'div'
+        return 'div';
     }
   }
 
-  const children = renderChildren(form)
+  const children = renderChildren(form);
 
-  function renderChildren(children) {
+  // todo: Refactor this mess!
+  function renderChildren(children) { // Recursively renders component tree
     return children.map((child, i) => {
-      console.log(child.component)
-      const fieldsetProps = {}
+      // console.log('renderChildren', child);
+      const fieldsetProps = {};
       if (child.component === 'Fieldset') {
-        fieldsetProps.onChange = onChangeHandler
-        fieldsetProps.value = get(state, child.props.name)
+        fieldsetProps.onChange = onChangeHandler;
+        fieldsetProps.value = get(state, child.props.name);
+      }
+      const component = typeof(child.component) === 'string' ? switchComponent(child.component) : child.component;
+      // console.log(component);
+      let children;
+      if (child.props.type === 'submit' || child.props.type === 'button') {
+        children = child.children;
+      } else if (!child.children) {
+        children = null;
+      } else {
+        children = renderChildren(child.children);
       }
       return React.createElement(
-        switchComponent(child.component),
+        component,
         { 
           ...child.props,
           ...fieldsetProps,
           key: uniqueId()
         },
-        child.children && (child.component !== 'Submit') ? renderChildren(child.children) : child.children
+        children
       )
     })
   }
-  
+
   return (
     <form onSubmit={(e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (isFormValid()) {
-          submitHandler(state)
+          submitHandler(state);
         } else {
-          console.log('form is not valid')
+          console.log('form is not valid');
         }
     }}>
       {children}
       <button></button>
       <Toast type="error" content={error}></Toast>
     </form>
-  )
+  );
 }
 
-export { FormBuilder }
+export { FormBuilder };

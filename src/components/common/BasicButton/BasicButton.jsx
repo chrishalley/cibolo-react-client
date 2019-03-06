@@ -8,7 +8,8 @@ const proptypes = {
   className: PropTypes.string, // class name passed in by styled-components
   children: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.string
+    PropTypes.string,
+    PropTypes.func
   ]),
   onClick: PropTypes.func
 }

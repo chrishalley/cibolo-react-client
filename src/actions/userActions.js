@@ -1,14 +1,33 @@
 import api from '../apis/api';
 
-import { ADD_USER } from './types';
+import { ADD_USER, UPDATE_USER, DELETE_USER } from './types';
 
 export const addUser = (user, callback) => (dispatch) => {
   api.post('/users', user)
     .then(res => {
-      console.log(res)
-      callback('hello')
+      callback(res.data);
     })
     .catch(e => {
-      console.log(e)
+      console.log(e);
     });
 };
+
+export const updateUser = (user, callback) => (dispatch) => {
+  api.patch(`/users/${user._id}`, (user))
+    .then(res => {
+      callback(user);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+}
+
+export const deleteUser = (id, callback) => (dispatch) => {
+  api.delete(`/users/${id}`)
+    .then(res => {
+      callback(id);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+}

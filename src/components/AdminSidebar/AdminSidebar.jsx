@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { logout } from '../../actions';
 
 import AdminSidebarLink from './AdminSidebarLink/AdminSidebarLink';
-import { SVGIcon, SecondaryButton, PrimaryButton } from '../common';
+import { SVGIcon, SecondaryButton, PrimaryButton, BasicButton } from '../common';
 
 let AdminSidebar = (props) => {
 
@@ -35,7 +37,12 @@ let AdminSidebar = (props) => {
   return (
     <div className={`${className} ${menuOpen ? 'isOpen' : ''}`}>
       <PrimaryButton onClick={toggleMenu} classNames={['menu-button']}><SVGIcon icon="arrow-right" /></PrimaryButton>
-      <ul>{renderLinks()}</ul>
+      <ul>
+        {renderLinks()}
+        <li>
+          <BasicButton onClick={logout}><SVGIcon icon="logout" /></BasicButton>
+        </li>
+      </ul>
     </div>
   );
 }
@@ -100,4 +107,4 @@ AdminSidebar = styled(AdminSidebar)`
   }
 `;
 
-export default AdminSidebar;
+export default connect(null, { logout })(AdminSidebar);

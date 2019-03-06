@@ -1,13 +1,49 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import { FormBuilder, SecondaryButton } from '../common';
 import { connect } from 'react-redux';
+import { UsersContext } from '../../screens/Dashboard/Users/Users';
 
 import { isEmail, isEmpty } from 'validator';
-import { addUser } from '../../actions';
+import { addUser, updateUser, deleteUser } from '../../actions';
 
 const EditNewUserForm = (props) => {
 
   const [error, setError] = useState(null);
+
+  const { formMode, activeUser, setUsers, users, setShowModal } = useContext(UsersContext);
+
+  // useEffect(() => {
+  //   console.log('formMode: ', formMode);
+  //   console.log('activeUser: ', activeUser);
+  // })
+
+  // const successfulSave = (string) => {
+  //   console.log('callback: ', string);
+  // }
+
+  const addUserToUsers = (user) => {
+    const updatedUsers = [ ...users, user ];
+    setUsers(updatedUsers);
+    setShowModal(false);
+  }
+
+  const removeUserFromUsers = (id) => {
+    const updatedUsers = users.filter(user => user._id !== id);
+    setUsers(updatedUsers)
+    setShowModal(false);
+  }
+
+  const updateUserInUsers = (updatedUser) => {
+    const updatedUsers = users.map(user => {
+      if (user._id !== updatedUser._id) {
+        return user;
+      } else {
+        return updatedUser;
+      }
+    })
+    setUsers(updatedUsers);
+    setShowModal(false);
+  }
 
   const form = [
     {
@@ -29,6 +65,7 @@ const EditNewUserForm = (props) => {
                 name: 'firstName',
                 label: 'First Name',
                 placeholder: 'eg. John',
+                defaultValue: activeUser && activeUser.firstName ? activeUser.firstName : '',
                 validations: [
                   {
                     method: isEmpty,
@@ -45,6 +82,7 @@ const EditNewUserForm = (props) => {
                 name: 'lastName',
                 label: 'Last Name',
                 placeholder: 'eg. Smith',
+                defaultValue: activeUser && activeUser.lastName ? activeUser.lastName : '',
                 validations: [
                   {
                     method: isEmpty,
@@ -69,6 +107,7 @@ const EditNewUserForm = (props) => {
                 name: 'emailAddress',
                 label: 'Email address',
                 placeholder: 'eg. john.smith@example.com',
+                defaultValue: activeUser && activeUser.email ? activeUser.email : '',
                 validations: [
                   {
                     method: isEmail,
@@ -88,7 +127,7 @@ const EditNewUserForm = (props) => {
                   {name: 'Admin', value: 'admin'},
                   {name: 'Super-admin', value: 'super-admin'}
                 ],
-                defaultValue: 'admin',
+                defaultValue: activeUser && activeUser.role ? activeUser.role : 'admin',
                 validations: [
                   {
                     method: isEmpty,
@@ -119,16 +158,13 @@ const EditNewUserForm = (props) => {
           component: SecondaryButton,
           props: {
             type: 'button',
+            onClick: () => props.deleteUser(activeUser._id, removeUserFromUsers)
           },
           children: 'Delete user'
         }
       ]
     }
   ]
-
-  const successfulSave = (string) => {
-    console.log('callback: ', string);
-  }
 
   const submitHandler = (state) => {
     const { firstName, lastName, emailAddress, role } = state;
@@ -138,7 +174,17 @@ const EditNewUserForm = (props) => {
       email: emailAddress.value,
       role: role.value,
     }
-    props.addUser(user, successfulSave);
+    switch (formMode) {
+      case 'add':
+        props.addUser(user, addUserToUsers);
+        break;
+      case 'edit':
+        const update = {...user, _id: activeUser._id}
+        props.updateUser(update, updateUserInUsers);
+        break;
+      default:
+        console.log('invalid formMode specified')
+    }
   }
 
   return (
@@ -148,4 +194,4 @@ const EditNewUserForm = (props) => {
   );
 };
 
-export default connect(null, { addUser })(EditNewUserForm);
+export default connect(null, { addUser, updateUser, deleteUser })(EditNewUserForm);
