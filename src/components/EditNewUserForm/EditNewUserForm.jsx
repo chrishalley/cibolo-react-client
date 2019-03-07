@@ -187,9 +187,19 @@ const EditNewUserForm = (props) => {
     }
   }
 
+  // const isFormDisabled = () => {
+  //   if (props.currentUser.role === 'super-admin') { // Return false for all super-admin users
+  //     return false;
+  //   } else if (props.currentUser._id === activeUser._id) { // Return false for admin users accessing their own data
+  //     return false
+  //   } else {  // Return true for all other cases
+  //     return true
+  //   }
+  // }
+
   return (
     <Fragment>
-      <FormBuilder form={form} submitHandler={submitHandler} error={error}></FormBuilder>
+      <FormBuilder disabled={formMode === 'view'} form={form} submitHandler={submitHandler} error={error}></FormBuilder>
     </Fragment>
   );
 };

@@ -10,7 +10,7 @@ const proptypes = {
 
 const Select = (props) => {
 
-  const { name, value, options, onChange } = props;
+  const { disabled, name, value, options, onChange } = props;
 
   useEffect(() => {
     console.log('Select props: ', props);
@@ -29,9 +29,8 @@ const Select = (props) => {
   }
 
   return (
-    <select value={value} onChange={(e) => onChangeHandler(e)}>
-      {renderOptions()}
-    </select>
+    !disabled ? <select value={value} onChange={(e) => onChangeHandler(e)}>{renderOptions()}</select> :
+    <p>{value}</p>
   );
 }
 

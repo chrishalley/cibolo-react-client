@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import AdminUserListItem from './AdminUserListItem/AdminUserListItem';
+import styles from './AdminUserList.module.css';
 
 const AdminUserList = (props) => {
 
@@ -21,7 +22,7 @@ const AdminUserList = (props) => {
   }
 
   return (
-    <ul>
+    <ul className={styles['admin-user-list']}>
       {renderUsers()}
     </ul>
   )

@@ -6,7 +6,7 @@ import { Toast } from '../../../../index';
 import styles from './Fieldset.module.css';
 
 const Fieldset = (props) => {
-  const { defaultValue, type, name, label, onChange, validations } = props;
+  const { disabled, defaultValue, type, name, label, onChange, validations } = props;
   const [value, setValue] = useState(defaultValue || '');
 
 
@@ -92,7 +92,7 @@ const Fieldset = (props) => {
     <fieldset className={styles.fieldset}>
       <label className={styles.label} htmlFor={name}>{label}</label>
       {switchInput(type)}
-      <Toast type="error" content={errorMessage} style={toastVisibility()}></Toast>
+      {!disabled && <Toast type="error" content={errorMessage} style={toastVisibility()}></Toast>}
     </fieldset>
   );
 }

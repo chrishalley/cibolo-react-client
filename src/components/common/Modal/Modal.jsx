@@ -5,7 +5,9 @@ import { Card, SVGIcon, SecondaryButton, FormBuilder } from '../';
 
 import styles from './Modal.module.css';
 
-const Modal = ({ closeHandler, children }) => {
+const Modal = (props) => {
+
+  const { closeHandler, children, ...restProps } = props;
 
   useEffect(() => {
     // document.querySelector('body').classList.add('noScroll')
@@ -24,8 +26,7 @@ const Modal = ({ closeHandler, children }) => {
       e.stopPropagation();
       closeHandler();
     }}>
-      <Card className={styles['modal-card']}>
-        <SecondaryButton className={styles['modal-close']} onClick={() => closeHandler()}><SVGIcon style={{ width: '20px' }} icon="close" /></SecondaryButton>
+      <Card {...restProps} closeMethod={closeHandler} className={styles['modal-card']}>
         {children}
       </Card>
     </div>,

@@ -15,14 +15,14 @@ const defaultProps = {
 }
 
 const TextInput = (props) => {
-  const { type, placeholder, onChange, onBlur, name, value } = props
+  const { type, disabled, placeholder, onChange, onBlur, name, value } = props
 
   const onChangeHandler = (e) => {
     onChange({ path: name, value: e.target.value })
   }
 
   return (
-    <input
+    !disabled ? <input
       key={name}
       value={value}
       className={styles.input}
@@ -30,7 +30,8 @@ const TextInput = (props) => {
       placeholder={placeholder}
       onChange={(e) => onChangeHandler(e)}
       onBlur={(e) => onBlur({ value: e.target.value })}
-    />
+    /> :
+    <p>{value}</p>
   )
 }
 

@@ -24,7 +24,7 @@ class Header extends Component {
             </button>
           </HeaderLink>
           <HeaderLink to="/dashboard">
-            <SVGIcon icon="calendar" />
+            <SVGIcon icon="tools" />
             Dashboard
           </HeaderLink>
         </Fragment>

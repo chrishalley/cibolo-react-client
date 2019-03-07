@@ -7,7 +7,7 @@ const BookingsScreen = () => {
   return (
     <Fragment>
       <AdminPageHeader title="Bookings"></AdminPageHeader>
-      <Card>
+      <Card closeMethod={() => console.log('close')}>
         Info for bookings here
       </Card>
     </Fragment>

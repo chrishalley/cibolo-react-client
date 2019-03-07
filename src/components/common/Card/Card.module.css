@@ -7,3 +7,27 @@
   width: auto;
   margin-bottom: 3rem;
 }
+
+.card-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.card-title {
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+.card-close {
+  align-self: flex-end;
+  padding: 1rem;
+}
+
+.header-divider {
+  height: .3rem;
+  background-color: var(--color-primary);
+  border: none;
+  margin-bottom: 2rem;
+}

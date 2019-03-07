@@ -1,4 +1,5 @@
 import React, { Fragment, createContext, useContext, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
 import api from '../../../apis/api';
 
@@ -9,7 +10,9 @@ import { PrimaryButton, Modal } from '../../../components/common';
 
 export const UsersContext = createContext();
 
-const UsersScreen = () => {
+const UsersScreen = (props) => {
+
+  const { currentUser } = props;
 
   const [users, setUsers] = useState([]);
   const [activeUser, setActiveUser] = useState(null);
@@ -40,29 +43,54 @@ const UsersScreen = () => {
   }, [users]);
 
 
-  const initAddNewUser = () => {
-    setFormMode('add');
-    toggleModal();
-  }
+  // const initAddNewUser = () => {
+  //   setFormMode('add');
+  //   toggleModal();
+  // }
+
+  const currentUserCanEdit = (user) => currentUser.role === 'super-admin' || currentUser._id === user._id;
 
   const openEditForm = (user) => {
-    setFormMode('edit');
-    setActiveUser(user);
+    if (user) {
+      setActiveUser(user);
+      if (!currentUserCanEdit(user)) {
+        setFormMode('view');
+      } else {
+        setFormMode('edit');
+      }
+    } else {
+      setFormMode('add');
+    }
     setShowModal(true);
+  }
+
+  const renderFormTitle = () => {
+    switch (formMode) {
+      case 'add':
+        return 'Add user';
+      case 'edit':
+        return 'Edit user';
+      default:
+        return 'View user'
+    }
   }
 
 
   return (
     <Fragment>
-      <UsersContext.Provider value={{ formMode, activeUser, openEditForm, setUsers, users, setShowModal}}>
+      <UsersContext.Provider value={{ formMode, activeUser, openEditForm, setUsers, users, setShowModal, currentUser}}>
         <AdminPageHeader title="Users">
-          <PrimaryButton onClick={initAddNewUser}>Add new user</PrimaryButton>
+          {currentUser.role === 'super-admin' && <PrimaryButton onClick={openEditForm}>Add new user</PrimaryButton>}
         </AdminPageHeader>
         <AdminUserList users={users}></AdminUserList>
-        {showModal && <Modal closeHandler={toggleModal}><EditNewUserForm /></Modal>}
+        {showModal && <Modal title={renderFormTitle()} closeHandler={toggleModal}><EditNewUserForm /></Modal>}
       </UsersContext.Provider>
     </Fragment>
   );
 }
 
-export default UsersScreen;
+const mapStateToProps = state => {
+  return { currentUser: state.currentUser }
+}
+
+export default connect(mapStateToProps)(UsersScreen);

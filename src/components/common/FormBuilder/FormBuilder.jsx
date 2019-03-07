@@ -7,7 +7,7 @@ import { Fieldset, FieldGroup, FormSection } from './components/sections';
 export * from './components/sections';
 
 const FormBuilder = (props) => {
-  const { form, submitHandler, error } = props;
+  const { disabled, form, submitHandler, error } = props;
 
   const [state, setState] = useState(setInitialState());
 
@@ -23,12 +23,13 @@ const FormBuilder = (props) => {
 
   function getStateValues(array, state) { // Recursively searches through (nested) array and assigns form field names/values to state argument
     return array.forEach(elem => {
+      console.log(elem)
       // console.log('getStateValues: ', typeof(elem.component));
-      if (elem.props.name && !elem.children) { 
+      if ((elem.props && elem.props.name) && !elem.children) { 
         return set(state, elem.props.name, elem.props.defaultValue || ''); // Assigns name and value of inputs to component level state
-      } else if (elem.props.type === 'submit' || elem.props.type === 'button') { 
+      } else if ((elem.props && elem.props.type === 'submit') || (elem.props && elem.props.type === 'button')) { 
         return; // Exclude buttons from recursion
-      } else if (!elem.props.name && elem.children) { 
+      } else if ((!elem.props || !elem.props.name) && elem.children) { 
         return getStateValues(elem.children, state); // Recurse function inside any wrapping components
       }
     });
@@ -79,11 +80,12 @@ const FormBuilder = (props) => {
       if (child.component === 'Fieldset') {
         fieldsetProps.onChange = onChangeHandler;
         fieldsetProps.value = get(state, child.props.name);
+        disabled ? fieldsetProps.disabled = true : fieldsetProps.disabled = false;
       }
       const component = typeof(child.component) === 'string' ? switchComponent(child.component) : child.component;
       // console.log(component);
       let children;
-      if (child.props.type === 'submit' || child.props.type === 'button') {
+      if ((child.props && child.props.type === 'submit') || (child.props && child.props.type === 'button')) {
         children = child.children;
       } else if (!child.children) {
         children = null;
