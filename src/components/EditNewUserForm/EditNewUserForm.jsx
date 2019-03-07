@@ -179,7 +179,7 @@ const EditNewUserForm = (props) => {
         props.addUser(user, addUserToUsers);
         break;
       case 'edit':
-        const update = {...user, _id: activeUser._id}
+        const update = { ...activeUser, ...user };
         props.updateUser(update, updateUserInUsers);
         break;
       default:

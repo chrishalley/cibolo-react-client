@@ -80,7 +80,7 @@ const UsersScreen = (props) => {
     <Fragment>
       <UsersContext.Provider value={{ formMode, activeUser, openEditForm, setUsers, users, setShowModal, currentUser}}>
         <AdminPageHeader title="Users">
-          {currentUser.role === 'super-admin' && <PrimaryButton onClick={openEditForm}>Add new user</PrimaryButton>}
+          {currentUser.role === 'super-admin' && <PrimaryButton onClick={() => openEditForm(null)}>Add new user</PrimaryButton>}
         </AdminPageHeader>
         <AdminUserList users={users}></AdminUserList>
         {showModal && <Modal title={renderFormTitle()} closeHandler={toggleModal}><EditNewUserForm /></Modal>}
