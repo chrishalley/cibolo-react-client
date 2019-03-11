@@ -10,7 +10,7 @@ import styles from './Login.module.css';
 const Login = (props) => {
   return (
     <Screen extStyles={styles}>
-      <Card>
+      <Card title="Login">
         <LoginForm></LoginForm>
         <Button onClick={() => props.changeAuth({ email: 'ted@teddison.com', password: 'password' })}>Quick Login</Button>
       </Card>

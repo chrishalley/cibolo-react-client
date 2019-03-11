@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { isEmail, isEmpty, isLength } from 'validator'
 
 import * as actions from '../../actions'
-import { FormBuilder, Card } from '../common'
+import { FormBuilder } from '../common'
 
 const LoginForm = (props) => {
 

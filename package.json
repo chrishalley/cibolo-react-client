@@ -20,7 +20,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
@@ -33,13 +33,21 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "faker": "^4.1.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "cypress": "^3.1.5",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "jest-cli": "^24.3.1",
+    "moxios": "^0.4.0",
     "postcss-import": "^12.0.1",
     "postcss-mixins": "^6.2.1",
     "postcss-nested": "^4.1.1",
     "postcss-preset-env": "^6.5.0",
     "postcss-simple-vars": "^5.0.1",
     "react-app-rewire-postcss": "^3.0.2",
-    "react-app-rewired": "^2.1.0"
+    "react-app-rewired": "^2.1.0",
+    "react-test-renderer": "^16.8.4",
+    "redux-mock-store": "^1.5.3",
+    "sinon": "^7.2.7"
   }
 }

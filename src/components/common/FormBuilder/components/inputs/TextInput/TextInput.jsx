@@ -24,6 +24,7 @@ const TextInput = (props) => {
   return (
     !disabled ? <input
       key={name}
+      id={name}
       value={value}
       className={styles.input}
       type={type}

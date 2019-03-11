@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { set, merge, get, uniqueId, values } from 'lodash';
 
 import { Button, Toast } from '../';
@@ -16,15 +16,9 @@ const FormBuilder = (props) => {
     getStateValues(form, state);
     return state;
   }
-  
-  // useEffect(() => {
-  //   console.log('initial state: ', state);
-  // }, [state]);
 
   function getStateValues(array, state) { // Recursively searches through (nested) array and assigns form field names/values to state argument
     return array.forEach(elem => {
-      console.log(elem)
-      // console.log('getStateValues: ', typeof(elem.component));
       if ((elem.props && elem.props.name) && !elem.children) { 
         return set(state, elem.props.name, elem.props.defaultValue || ''); // Assigns name and value of inputs to component level state
       } else if ((elem.props && elem.props.type === 'submit') || (elem.props && elem.props.type === 'button')) { 
@@ -55,7 +49,6 @@ const FormBuilder = (props) => {
   }
 
   const switchComponent = (type) => { // Returns component to render in place of string provided in form config object
-    // console.log('component type: ', type);
     switch(type) {
       case 'FormSection':
         return FormSection;
@@ -75,7 +68,6 @@ const FormBuilder = (props) => {
   // todo: Refactor this mess!
   function renderChildren(children) { // Recursively renders component tree
     return children.map((child, i) => {
-      // console.log('renderChildren', child);
       const fieldsetProps = {};
       if (child.component === 'Fieldset') {
         fieldsetProps.onChange = onChangeHandler;
@@ -83,7 +75,6 @@ const FormBuilder = (props) => {
         disabled ? fieldsetProps.disabled = true : fieldsetProps.disabled = false;
       }
       const component = typeof(child.component) === 'string' ? switchComponent(child.component) : child.component;
-      // console.log(component);
       let children;
       if ((child.props && child.props.type === 'submit') || (child.props && child.props.type === 'button')) {
         children = child.children;

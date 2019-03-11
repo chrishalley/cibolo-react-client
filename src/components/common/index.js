@@ -12,3 +12,4 @@ export * from './Datepicker/Datepicker';
 export * from './SVGIcon/SVGIcon';
 export * from './FormBuilder/FormBuilder';
 export * from './Spinner/Spinner';
+export * from './UserAvatar/UserAvatar';

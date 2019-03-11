@@ -6,7 +6,7 @@ import styles from './HeaderLink.module.css'
 const HeaderLink = ({ to, children }) => {
   return (
     <Fragment>
-      <Link className={styles['header-link']} to={to}>{children}</Link>
+      <Link id={`header-link${to.replace('/', '-')}`} className={styles['header-link']} to={to}>{children}</Link>
     </Fragment>
   )
 }

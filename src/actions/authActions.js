@@ -28,7 +28,7 @@ export const initAuth = () => dispatch => {
     if (!token) { // If there is no token, resolve
       resolve();
     } else { // Pull id and exp off token and validate
-      const { id, exp } = jwt.decode(token)
+      const { id, exp } = jwt.decode(token);
       if (!id || !exp || exp * 1000 < new Date().getTime()) {
         // Token has expired, log user out
         logout();
@@ -42,11 +42,11 @@ export const initAuth = () => dispatch => {
           })
           .catch(e => {
             reject(e);
-          })
+          });
       }
     }
-  })
-}
+  });
+};
 
 export const logout = () => {
   console.log('logout() action');
@@ -56,4 +56,4 @@ export const logout = () => {
     type: CHANGE_AUTH,
     payload: null
   }
-}
+};
