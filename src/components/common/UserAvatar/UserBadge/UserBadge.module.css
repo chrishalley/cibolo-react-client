@@ -1,0 +1,16 @@
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid purple;
+  height: 8rem;
+}
+
+.badge-initials {
+  color: #FFFFFF;
+  display: block;
+  font-size: 3rem;
+  letter-spacing: .5rem;
+  margin-right: -.5rem;
+  font-weight: 400;
+}

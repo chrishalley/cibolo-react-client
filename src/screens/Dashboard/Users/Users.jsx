@@ -32,6 +32,7 @@ const UsersScreen = (props) => {
   useEffect(() => {
     api.get('/users')
       .then(res => {
+        console.log('***USERS*** ', res.data)
         setUsers(res.data)
       })
       .catch(e => console.log(e));

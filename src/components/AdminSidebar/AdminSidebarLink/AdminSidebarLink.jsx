@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-let AdminSidebarLink = ({label, className, to, children, icon}) => {
+const propTypes = {
+  label: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  to: PropTypes.string.isRequired
+}
+
+let AdminSidebarLink = ({label, className, to, children}) => {
   return (
     <li className={className} key={label}>
       <Link to={to}>{children}</Link>
@@ -29,5 +36,6 @@ li {
     height: auto;
   }
 `
+AdminSidebarLink.propTypes = propTypes;
 
 export default AdminSidebarLink;

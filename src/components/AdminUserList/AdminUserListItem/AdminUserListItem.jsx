@@ -9,9 +9,9 @@ const AdminUserListItem = (props) => {
   const { openEditForm } = useContext(UsersContext);
   const { user } = props;
 
-  // useEffect(() => {
-  //   console.log('check: ', openEditForm);
-  // });
+  useEffect(() => {
+    console.log('useEffect()');
+  });
 
   return (
     <Card className={styles['user-list-item']}>
