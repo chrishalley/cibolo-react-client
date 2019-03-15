@@ -6,11 +6,6 @@ import styles from './BasicButton.module.css';
 const proptypes = {
   classNames: PropTypes.array, // custom css class names passed in at component instance
   className: PropTypes.string, // class name passed in by styled-components
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.string,
-    PropTypes.func
-  ]),
   onClick: PropTypes.func
 }
 
@@ -24,7 +19,13 @@ const BasicButton = (props) => {
   const { classNames, className, children, onClick, ...restProps } = props;
 
   return (
-    <button type="button" onClick={(e) => onClick && onClick(e)} className={`${styles['button']} ${className} ${[...classNames]}`} {...restProps}>{children}</button>
+    <button
+      type="button"
+      onClick={(e) => onClick && onClick(e)}
+      className={`${styles['button']} ${className} ${[...classNames]}`}
+      {...restProps}>
+        {children}
+    </button>
   );
 }
 

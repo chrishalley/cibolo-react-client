@@ -11,7 +11,8 @@ const proptypes = {
 
 const defaultProps = {
   type: 'text',
-  onChange: () => { console.warn('onChange callback is not set') }
+  onChange: () => { console.warn('onChange callback is not set') },
+  onBlur: () => {}
 }
 
 const TextInput = (props) => {

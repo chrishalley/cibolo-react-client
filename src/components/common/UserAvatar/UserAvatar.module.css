@@ -1,12 +1,24 @@
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-right: 3rem;
+}
+
 .avatar {
   height: 8rem;
   width: 8rem;
   border-radius: 100px;
   border: 5px solid;
-  margin-right: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,0.2);
+  background-color: '#FFFFFF';
+}
+
+.chip-slot {
+  position: absolute;
+  right: 5%;
+  top: 5%;
 }

@@ -13,6 +13,7 @@ const AdminUserListItem = (props) => {
     console.log('useEffect()');
   });
 
+  console.log(user);
   return (
     <Card className={styles['user-list-item']}>
       <UserAvatar user={user} />

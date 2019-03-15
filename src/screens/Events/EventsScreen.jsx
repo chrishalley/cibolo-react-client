@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 
-import { Screen, Card, Button, Modal } from '../../components/common'
-import BookingForm from '../../components/BookingForm/BookingForm'
-import Draggable from '../../components/Draggable/Draggable'
-import BuiltForm from '../../components/BuiltForm/BuiltForm'
+import { Screen, Card, Button, Modal, Chip, SVGIcon, UserAvatar } from '../../components/common';
+import BookingForm from '../../components/BookingForm/BookingForm';
+import Draggable from '../../components/Draggable/Draggable';
+import BuiltForm from '../../components/BuiltForm/BuiltForm';
 
-import { Fieldset } from '../../components/common/FormBuilder/components/sections'
+import { Fieldset } from '../../components/common/FormBuilder/components/sections';
+import { ColorPicker, ImageInput } from '../../components/common/FormBuilder/components/inputs';
 
 class EventScreen extends Component {
 
-  state = { showModal: false }
+  state = { showModal: false };
 
   toggleModal = () => {
-    this.setState({ showModal: !this.state.showModal })
-  }
+    this.setState({ showModal: !this.state.showModal });
+  };
 
   renderModal = () => {
     if (this.state.showModal) {
@@ -21,9 +22,20 @@ class EventScreen extends Component {
         <Modal closeHandler={this.toggleModal}>
           <BookingForm></BookingForm>
         </Modal>
-      )
+      );
     }
-  }
+  };
+
+  colors = [
+    '#00BCD4',
+    '#F79256',
+    '#FBD1A2',
+    '#7DCFB6',
+    '#1D4E89',
+    '#FC5130',
+    '#06908F',
+    '#7AE582'
+  ];
 
   render() {
     return (
@@ -35,14 +47,20 @@ class EventScreen extends Component {
           <p>Liquorice jelly beans sweet. Cookie toffee toffee candy canes cake bear claw icing gingerbread. Tart tootsie roll brownie danish jelly beans candy brownie powder sesame snaps.</p>
           <p>Cake candy canes cake brownie. Biscuit liquorice croissant candy canes. Powder gummies chocolate gummies lollipop. Sweet cotton candy cake danish biscuit candy ice cream carrot cake jujubes.</p>
           <Button clickHandler={this.toggleModal}>Request Booking</Button>
+          <ImageInput />
+          <ColorPicker colors={this.colors}/>
+          <Chip onClick={() => console.log('clicked')}>
+            <SVGIcon icon="close" strokeWidth="20"/>
+          </Chip>
+          <UserAvatar user={{firstName: 'Chris', lastName: 'Halley'}} chip={<Chip onClick={() => console.log('click')}><SVGIcon strokeWidth="20" icon="close"/></Chip>} />
         </Card>
         {/* <div style={{ backgroundColor: 'red', height: '200vh' }}></div> */}
         {this.renderModal()}
         <Draggable></Draggable>
         <BuiltForm></BuiltForm>
       </Screen>
-    )
-  }
+    );
+  };
 }
 
-export default EventScreen
+export default EventScreen;

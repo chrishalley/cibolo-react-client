@@ -1,0 +1,13 @@
+.add-file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.back {
+  align-self: flex-start;
+  width: 4rem;
+  height: 4rem;
+}

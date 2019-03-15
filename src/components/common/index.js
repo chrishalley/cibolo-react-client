@@ -13,3 +13,7 @@ export * from './SVGIcon/SVGIcon';
 export * from './FormBuilder/FormBuilder';
 export * from './Spinner/Spinner';
 export * from './UserAvatar/UserAvatar';
+export * from './EditUserAvatar/EditUserAvatar';
+export * from './Chip/Chip';
+export * from './Dropzone/Dropzone';
+export * from './AddFile/AddFile';

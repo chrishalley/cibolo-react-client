@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { set, merge, get, uniqueId, values } from 'lodash';
 
 import { Button, Toast } from '../';
@@ -16,6 +16,10 @@ const FormBuilder = (props) => {
     getStateValues(form, state);
     return state;
   }
+
+  useEffect(() => {
+    console.log('STATE: ', state);
+  })
 
   function getStateValues(array, state) { // Recursively searches through (nested) array and assigns form field names/values to state argument
     return array.forEach(elem => {

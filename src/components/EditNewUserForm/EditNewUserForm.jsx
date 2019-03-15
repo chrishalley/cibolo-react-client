@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
-import { FormBuilder, SecondaryButton } from '../common';
+import { FormBuilder, SecondaryButton, EditUserAvatar } from '../common';
 import { connect } from 'react-redux';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
 
@@ -138,6 +138,26 @@ const EditNewUserForm = (props) => {
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      component: 'FormSection',
+      props: {
+        title: 'Customise Avatar',
+        flexDirection: 'row'
+      },
+      children: [
+        {
+          component: 'Fieldset',
+          props: {
+            type: EditUserAvatar,
+            name: 'avatar',
+            defaultValue: {
+              profileImage: '',
+              color: ''
+            }
+          }
         }
       ]
     },

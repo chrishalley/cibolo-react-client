@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { TextInput, Checkbox, RadioInput, TextArea, Select } from '../../inputs';
+import { TextInput, Checkbox, RadioInput, TextArea, Select, ColorPicker } from '../../inputs';
 import { Toast } from '../../../../index';
 
 import styles from './Fieldset.module.css';
@@ -80,6 +80,8 @@ const Fieldset = (props) => {
         return renderInput(TextArea);
       case 'select':
         return renderInput(Select);
+      case 'color-picker':
+        return renderInput(ColorPicker)
       case 'email':
       case 'password':
       case 'text':

@@ -15,14 +15,8 @@ const defaultProps = {
 
 const UserBadge = ({text, color}) => {
 
-  const style = {
-    backgroundColor: color
-  };
-
   return (
       <span className={styles['badge-initials']}>{text}</span>
-    // <div className={styles['badge']} style={style}>
-    // </div>
   );
 }
 

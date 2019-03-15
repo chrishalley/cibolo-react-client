@@ -1,0 +1,20 @@
+.container {
+
+}
+
+.container:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.input {
+  
+}
+
+.swatch {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 10rem;
+  display: block;
+  box-shadow: 0 .5rem .5rem rgba(0,0,0,.2);
+  cursor: pointer;
+}
