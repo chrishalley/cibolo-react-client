@@ -13,6 +13,7 @@ export const addUser = (user, callback) => (dispatch) => {
 };
 
 export const updateUser = (user, callback) => (dispatch) => {
+  console.log('action user:', user);
   api.patch(`/users/${user._id}`, (user))
     .then(res => {
       callback(user);

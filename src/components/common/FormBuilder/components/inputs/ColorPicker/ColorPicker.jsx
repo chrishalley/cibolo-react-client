@@ -6,7 +6,8 @@ import ColorPickerInput from './ColorPickerInput/ColorPickerInput';
 import styles from './ColorPicker.module.css';
 
 const propTypes = {
-  colors: PropTypes.array.isRequired
+  colors: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
@@ -14,22 +15,34 @@ const defaultProps = {
     '#FF0000',
     '#00FF00',
     '#0000FF',
-  ]
+  ],
+  onChange: () => console.warn('onChange method not specified')
 }
 
-const ColorPicker = ({ colors, onChange }) => {
+const ColorPicker = (props) => {
 
-  const [value, setValue] = useState(colors[0]);
+  const { colors, onChange, defaultValue } = props;
 
- useEffect(() => {
-  
- }, [value])
+  const [value, setValue] = useState(defaultValue || colors[0]);
+
+  // useEffect(() => {
+  //   console.log('colorPicker props:', props)
+  // }, [])
+
+  useEffect(() => {
+    onChange(value);
+  }, [value])
 
   const renderInputs = colors.map(color => {
     return (
-      <ColorPickerInput key={color} color={color} selected={color === value} onChange={() => setValue(color)}/>
+      <ColorPickerInput
+        key={color} 
+        color={color}
+        selected={color === value}
+        onChange={() => setValue(color)}
+      />
     );
-  })
+  });
 
   return (
     <div className={styles.picker}>

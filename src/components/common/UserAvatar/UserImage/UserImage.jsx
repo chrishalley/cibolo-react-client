@@ -8,7 +8,7 @@ const propTypes = {
 
 const UserImage = ({ src, alt }) => {
   return (
-    <img src={src} alt={alt} style={{ width: '100%'}}/>
+    <img data-testid="avatar-image" src={src} alt={alt} style={{ width: '100%'}}/>
   );
 }
 

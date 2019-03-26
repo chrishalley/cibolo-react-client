@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import { UserAvatar, AddFile } from '../';
+import { UserAvatar, AddImage } from '../';
 import { ColorPicker } from '../FormBuilder/components/inputs';
 import styles from './EditUserAvatar.module.css';
 
@@ -15,22 +16,55 @@ const colors = [
   '#7AE582'
 ];
 
+const propTypes = {
+  user: PropTypes.object
+};
+
+const defaultProps = {
+  user: {
+    firstName: '',
+    lastName: '',
+    avatar: {
+      profileImage: null,
+      color: colors[0]
+    }
+  }
+};
+
 const EditUserAvatar = (props) => {
+  const { user, onChange } = props;
   console.log('EditUserAvatar props: ', props);
+  const { avatar: initialAvatar } = user;
+  // console.log('initialAvatar', initialAvatar)
+  const [avatar, setAvatar] = useState(initialAvatar);
 
-  const [profileImage, setProfileImage] = useState(null);
+  const onColorChange = (color) => {
+    setAvatar({ ...avatar, color: color });
+  };
 
-  const [color, setColor] = useState(colors[0]);
+  const onImageChange = (profileImage) => {
+    setAvatar({ ...avatar, profileImage: profileImage });
+  };
+
+  useEffect(() => {
+    console.log('avatar:', avatar)
+    onChange(avatar);
+  }, [avatar]);
+
+
 
   return (
     <div className={styles['edit-user-avatar']}>
       <div className={styles['avatar-preview']}>
-        <UserAvatar />
-        <ColorPicker colors={colors}></ColorPicker>
+        <UserAvatar user={{ ...user, avatar: { color: avatar.color, profileImage: avatar.profileImage} }}/>
+        <ColorPicker defaultValue={avatar.color} colors={colors} onChange={onColorChange}></ColorPicker>
       </div>
-      <AddFile></AddFile>
+      {/* <AddImage /> */}
     </div>
   );
 };
+
+EditUserAvatar.propTypes = propTypes;
+EditUserAvatar.defaultProps = defaultProps;
 
 export { EditUserAvatar };

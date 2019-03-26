@@ -1,39 +1,57 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const proptypes = {
+import styles from './Select.module.css';
+
+const propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
-  })).isRequired
-}
+  })).isRequired,
+  disabled: PropTypes.bool,
+  name:  PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func
+};
+
+const defaultProps = {
+  onChange: () => console.warn("no onChange prop provided"),
+  disabled: false
+};
 
 const Select = (props) => {
-
-  const { disabled, name, value, options, onChange } = props;
+  const {
+    defaultValue,
+    name,
+    onChange,
+    onBlur,
+    disabled,
+    options,
+  } = props;
+  
+  const [state, setState] = useState(defaultValue || options[0].value);
 
   useEffect(() => {
-    console.log('Select props: ', props);
-  })
+    onChange(state);
+  }, [state]);
 
-  const onChangeHandler = (e) => {
-    onChange({ path: name, value: e.target.value })
-  }
-
-  const renderOptions = () => {
-    return options.map(option => {
-      return (
-        <option key={option.value} value={option.value}>{option.name}</option>
-      )
-    });
-  }
+  const renderOptions = () => options.map(option => <option data-testid="selectOption" key={option.value} value={option.value}>{option.label}</option>);
 
   return (
-    !disabled ? <select value={value} onChange={(e) => onChangeHandler(e)}>{renderOptions()}</select> :
-    <p>{value}</p>
+    !disabled ? 
+    <select 
+      id={name}
+      data-testid="select"
+      value={state}
+      onChange={(e) => setState(e.target.value)}
+      onBlur={onBlur}
+      className={styles.select}
+    >{renderOptions()}</select> :
+    <p data-testid="readOnly">{state}</p>
   );
 }
 
-Select.propTypes = proptypes;
+Select.propTypes = propTypes;
+Select.defaultProps = defaultProps;
 
 export { Select };

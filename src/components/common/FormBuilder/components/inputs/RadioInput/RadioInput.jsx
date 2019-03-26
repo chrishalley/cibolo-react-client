@@ -1,36 +1,60 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const proptypes = {
+  defaultValue: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     value: PropTypes.node
-  })),
-  onChange: PropTypes.func.isRequired
+  }).isRequired),
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  disabled: PropTypes.bool
 }
 
 const defaultProps = {
-  onChange: () => { console.warn('onChange callback is not set') }
-}
+  onChange: () => console.warn("no onChange prop provided")
+};
 
 const RadioInput = (props) => {
-  console.log('radioInput props: ', props);
+  const { 
+    defaultValue,
+    name,
+    onChange,
+    onBlur,
+    disabled,
+    options
+  } = props;
 
-  const renderInputs = (props) => {
-    const { options, name, value, onChange } = props
+  const [state, setState] = useState(defaultValue || options[0].value);
+
+  useEffect(() => {
+    onChange(state)
+  }, [state])
+
+  const renderInputs = () => {
 
     return options.map(option => (
-      <Fragment key={option.label}>
-        <label htmlFor={option.value}>{option.label}</label>
-        <input checked={value[name] === option.value} type="radio" name={name} value={option.value} onChange={() => { onChange(option.value) }}></input>
-      </Fragment>
+      <div key={option.label}>
+        <label data-testid="radioButtonLabel" htmlFor={option.value}>{option.label}</label>
+        <input
+          data-testid="radioButton"
+          checked={state === option.value}
+          type="radio"
+          name={name}
+          value={option.value} onChange={() => { setState(option.value) }}
+        ></input>
+      </div>
       )
     );
   }
 
   return (
-    <div>
-      {renderInputs(props)}
+    <div data-testid="radioInput" onBlur={onBlur}>
+      {!disabled ? 
+      renderInputs(props) :
+      <p>Value: {state}</p>}
+      
     </div>
   );
 }

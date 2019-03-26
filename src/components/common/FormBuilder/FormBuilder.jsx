@@ -1,118 +1,138 @@
-import React, { useState, useEffect } from 'react';
-import { set, merge, get, uniqueId, values } from 'lodash';
+import React, { useReducer, useEffect } from 'react';
+import { set, unset } from 'lodash';
+import validator from 'validator';
 
-import { Button, Toast } from '../';
-import { Fieldset, FieldGroup, FormSection } from './components/sections';
 
-export * from './components/sections';
+import { FieldGroup, FormSection, Fieldset, FormControl } from './components/layout';
+import { TextInput, TextArea, Select, RadioInput, Checkbox } from './components/inputs';
+
+import styles from './FormBuilder.module.css';
+import { pathsFromObject } from './helperFunctions';
+
+// Set up form-level reducer, to be updated by Fieldset components through
+// dispatch callback passed down through context
+const appReducer = (state, action) => {
+  switch(action.type) {
+    case 'update':
+    // console.log('action.payload', action.payload);
+      return { ...updateState(state, action.payload) }
+    default:
+      return state;
+  }
+}
+
+
+
+const updateState = function (state, update) {
+  // console.log('update', update)
+  const { path, value, valid } = pathsFromObject(update, 'value')[0];
+  // console.log(path, value, valid);
+  unset(state, path);
+  return set(state, path, { value , valid });
+}
+
+// Initialise context
+const FormBuilderContext = React.createContext();
 
 const FormBuilder = (props) => {
-  const { disabled, form, submitHandler, error } = props;
+  const { form, debug, onSubmit, disabled } = props;
 
-  const [state, setState] = useState(setInitialState());
+  // Initialise state as an empty object, connect it to reducer
+  const [state, dispatch] = useReducer(appReducer, {});
 
-  function setInitialState() { // Returns state object after recursive mapping of form prop
-    let state = {};
-    getStateValues(form, state);
-    return state;
-  }
+  // Debugging console logs
+  useEffect(() => {
+    // console.log('FormBuilder has mounted');
+  }, []);
 
   useEffect(() => {
-    console.log('STATE: ', state);
-  })
+    // console.log('FormBuilder has rerendered');
+  });
 
-  function getStateValues(array, state) { // Recursively searches through (nested) array and assigns form field names/values to state argument
-    return array.forEach(elem => {
-      if ((elem.props && elem.props.name) && !elem.children) { 
-        return set(state, elem.props.name, elem.props.defaultValue || ''); // Assigns name and value of inputs to component level state
-      } else if ((elem.props && elem.props.type === 'submit') || (elem.props && elem.props.type === 'button')) { 
-        return; // Exclude buttons from recursion
-      } else if ((!elem.props || !elem.props.name) && elem.children) { 
-        return getStateValues(elem.children, state); // Recurse function inside any wrapping components
-      }
+  useEffect(() => {
+    // console.log('FormBuilder state has changed', state)
+  }, [state])
+
+  const submitHandler = (e) => {
+    // console.log('submitHandler()', e)
+    e.preventDefault();
+    onSubmit(state);
+  }
+
+  // Assigns most common input components to string equivalents,
+  // or returns a custom component if passed in via form config prop,
+  // throws error if component string cannot be parsed
+  const switchComponent = function (component) {
+    // console.log('switchComponent:', component);
+    if (typeof (component) !== 'string') return component;
+    switch (component) {
+      case 'FieldGroup':
+        return FieldGroup
+      case 'Fieldset':
+        return Fieldset;
+      case 'FormSection':
+        return FormSection;
+      case 'FormControl':
+        return FormControl;
+      case 'TextInput':
+        return TextInput;
+      case 'TextArea':
+        return TextArea;
+      case 'Select':
+        return Select;
+      case 'RadioInput':
+        return RadioInput;
+      case 'Checkbox':
+        return Checkbox;
+      default:
+        throw new Error('Form component not recognised');
+    }
+  }
+
+  const assignValidationFunctions = function (validations) {
+    return validations.map(rule => {
+      rule.method = typeof (rule.method) === 'string' ? validator[rule.method] : rule.method
+      return rule;
+    });
+  };
+
+  // Recursively render component tree implied through form config prop
+  const renderChildren = function (children) {
+    return children.map((child, i) => {
+      let nestedChildren = child.props.children ? renderChildren(child.props.children) : null;
+      let inputComponent = child.props.component ? switchComponent(child.props.component) : null;
+      let validations = child.props.validations ? assignValidationFunctions(child.props.validations) : null;
+      return React.createElement(
+        switchComponent(child.component),
+        { ...child.props, context: FormBuilderContext, component: inputComponent, validations: validations, disabled: disabled, key: i },
+        nestedChildren
+      );
     });
   }
 
-  // Form level validation, returns true if values of all inputs are valid
-  const isFormValid = () => {
-    const fields = values(state);
-    const validations = fields.map(field => {
-      return field.valid;
-    })
-    if (validations.indexOf(false) !== -1) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  function onChangeHandler(path, data) { // Updates component level state each time the value of an input changes
-    const nestedUpdate = {};
-    set(nestedUpdate, path, { value: data.value, valid: data.valid });
-    setState(merge(state, nestedUpdate));
-  }
-
-  const switchComponent = (type) => { // Returns component to render in place of string provided in form config object
-    switch(type) {
-      case 'FormSection':
-        return FormSection;
-      case 'FieldGroup':
-        return FieldGroup;
-      case 'Fieldset':
-        return Fieldset;
-      case 'Submit':
-        return Button;
-      default:
-        return 'div';
-    }
-  }
-
-  const children = renderChildren(form);
-
-  // todo: Refactor this mess!
-  function renderChildren(children) { // Recursively renders component tree
-    return children.map((child, i) => {
-      const fieldsetProps = {};
-      if (child.component === 'Fieldset') {
-        fieldsetProps.onChange = onChangeHandler;
-        fieldsetProps.value = get(state, child.props.name);
-        disabled ? fieldsetProps.disabled = true : fieldsetProps.disabled = false;
-      }
-      const component = typeof(child.component) === 'string' ? switchComponent(child.component) : child.component;
-      let children;
-      if ((child.props && child.props.type === 'submit') || (child.props && child.props.type === 'button')) {
-        children = child.children;
-      } else if (!child.children) {
-        children = null;
-      } else {
-        children = renderChildren(child.children);
-      }
-      return React.createElement(
-        component,
-        { 
-          ...child.props,
-          ...fieldsetProps,
-          key: uniqueId()
-        },
-        children
-      )
-    })
-  }
-
+  // Render the generated form, wrapping with context to pass reducer's dispatch method down to inputs
   return (
-    <form onSubmit={(e) => {
-        e.preventDefault();
-        if (isFormValid()) {
-          submitHandler(state);
-        } else {
-          console.log('form is not valid');
-        }
-    }}>
-      {children}
-      <button></button>
-      <Toast type="error" content={error}></Toast>
-    </form>
+    <FormBuilderContext.Provider value={dispatch}>
+      <form data-testid="formBuilder" onSubmit={submitHandler} className={styles.form}>
+        {renderChildren(form)}
+        {debug && <pre data-testid="debug"><p className={styles.debug}>Sandbox state: {JSON.stringify(state, null, 2)}</p></pre>}
+      </form>
+    </FormBuilderContext.Provider>
   );
-}
+};
+
+
+
+// const initialiseState = function(config) {
+//   let state = {};
+//   getStateValues(config, state)
+//   return state;
+// };
+
+// const getStateValues = function(array, state) {
+//   array.forEach(item => {
+//     state[item.props.name] = ''
+//   })
+// };
 
 export { FormBuilder };

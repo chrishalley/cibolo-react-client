@@ -7,3 +7,4 @@ export * from './Select/Select';
 export * from './ColorPicker/ColorPicker';
 export * from './ImageInput/ImageInput';
 export * from './FileInput/FileInput';
+export * from './LinkInput/LinkInput';

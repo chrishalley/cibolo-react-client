@@ -7,23 +7,24 @@ import UserBadge from './UserBadge/UserBadge';
 import styles from './UserAvatar.module.css';
 
 const propTypes = {
-  chip: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  chip: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.element]),
+  user: PropTypes.object
 };
 
 const defaultProps = {
   user: {
-    firstName: '',
-    lastName: '',
+    firstName: "",
+    lastName: "",
     avatar: {
       profileImage: null,
+      color: "#00BCD4"
     }
-  },
-  defaultColor: '#00BCD4'
-}
+  }
+};
 
 const UserAvatar = (props) => {
 
-  const { user, defaultColor, chip } = props;
+  const { user, chip } = props;
 
   const renderUserImage = (user) => {
     return <UserImage src={user.avatar.profileImage} alt={`${user.firstName} ${user.lastName}`} />
@@ -40,11 +41,11 @@ const UserAvatar = (props) => {
   }
 
   return (
-    <div className={styles['avatar-wrapper']} data-test="avatar-wrapper">
-      <div className={styles['chip-slot']}>{chip}</div>
+    <div data-testid="avatar-wrapper" className={styles['avatar-wrapper']} data-test="avatar-wrapper">
+      <div data-testid="avatar-chip" className={styles['chip-slot']}>{chip}</div>
       <div
         className={styles.avatar}
-        style={{ color: (user.avatar && user.avatar.color) || defaultColor, borderColor: (user.avatar && user.avatar.color) || defaultColor }}
+        style={{ color: user.avatar.color , borderColor: user.avatar.color }}
         data-test="avatar"
       >
         {(user.avatar && user.avatar.profileImage) ? renderUserImage(user) : renderUserBadge(user)}

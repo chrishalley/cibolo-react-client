@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Checkbox.module.css';
 
 const propTypes = {
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired),
   name: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func
 };
 
 const defaultProps = {
@@ -14,23 +18,51 @@ const defaultProps = {
 };
 
 const Checkbox = (props) => {
-  const { options, onChange, value, name } = props;
+  const {
+    defaultValue,
+    onChange,
+    onBlur,
+    options
+  } = props;
 
-  const renderCheckboxes = (options, value, name) => {
+  const [state, setState] = useState(defaultValue || []);
+  
+  useEffect(() => {
+    onChange(state);
+  }, [state]);
+
+  const renderCheckboxes = () => {
+    
     return options.map(option => {
-      const optionName = option.name;
+      
+      const { label, value } = option;
+      
+      const isChecked = () => {
+        return state.indexOf(value) !== -1
+      };
+
+      const updateState = (value) => 
+        state.indexOf(value) === -1 ? [...state, value] : state.filter(elem => elem !== value);
+
       return (
-        <div key = { optionName } >
-          <label className={styles.label} htmlFor={optionName}>{optionName}</label>
-          <input checked={value[name][optionName]} className={styles.input} onChange={() => onChange({ [optionName]: !value[name][optionName] })} type="checkbox" name={optionName} />
+        <div data-testid="checkboxGroup" key={label}>
+          <label data-testid="checkboxLabel" className={styles.label} htmlFor={label}>{label}</label>
+          <input
+            id={label}
+            data-testid="checkboxInput"
+            checked={isChecked()}
+            className={styles.input}
+            onChange={() => setState([...updateState(value)])}
+            type="checkbox"
+          />
         </div>
       );
     });
-  }
+  };
 
   return (
-    <div>
-      {renderCheckboxes(options, value, name)}
+    <div data-testid="checkbox" onBlur={onBlur}>
+      {renderCheckboxes()}
     </div>
   );
 }

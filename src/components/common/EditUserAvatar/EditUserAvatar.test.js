@@ -1,12 +1,31 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 
 import { EditUserAvatar } from './EditUserAvatar';
-import { UserAvatar } from '../UserAvatar/UserAvatar';
+
+afterEach(cleanup);
 
 describe('EditUserAvatar', () => {
+
+  const defaultProps = {
+    // user: {
+    // firstName: 'Joe',
+    // lastName: 'Smith',
+    //   avatar: {
+    //     profileImage: null,
+    //     color: '#FF0000'
+    //   }
+    // }
+    onChange: () => {}
+  }
+
+  const setup = props => {
+    return render(<EditUserAvatar {...defaultProps} {...props} />)
+  }
+
   it('should contain one instance of the UserAvatar component', () => {
-    const wrapper = mount(<EditUserAvatar />);
-    expect(wrapper.find(UserAvatar).length).toEqual(1);
+    const { getAllByTestId } = setup();
+    const userAvatar = getAllByTestId('avatar-wrapper');
+    expect(userAvatar.length).toBe(1);
   });
 });

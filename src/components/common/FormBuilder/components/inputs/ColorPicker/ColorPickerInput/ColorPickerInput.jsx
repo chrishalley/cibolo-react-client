@@ -4,28 +4,33 @@ import PropTypes from 'prop-types';
 import styles from './ColorPickerInput.module.css';
 
 const propTypes = {
-  color: PropTypes.string,
+  color: PropTypes.string.isRequired,
   selected: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func.isRequired
 }
 
 const ColorPickerInput = ({ color, selected, onChange }) => {
-
-  let classNames = [styles.input];
-  selected && classNames.push('selected');
-
+  
+  const selectedStyles = selected ? { border: '2px solid rgba(255, 255, 255, 0.3)' } : null;
+  
   return (
-      <div className={styles.container}>
-        <label htmlFor={color} className={styles.swatch} style={{ backgroundColor: color }} onClick={() => onChange(color)}></label>
-        {/* <p>Classnames: {classNames.join(' ')}</p>
-        <p>Id: {`color_${color.slice(1)}`}</p> */}
+    <div className={styles.container} data-testid="color-picker-input">
+        <label
+          htmlFor={color}
+          className={styles.swatch}
+          style={{ backgroundColor: color, ...selectedStyles }}
+          onClick={() => onChange(color)}
+          data-testid="color-picker-input-label"
+        ></label>
         <input 
+          data-testid="color-picker-input-radio"
           id={`color_${color.slice(1)}`}
           type="radio"
-          className={classNames.join(' ')}
+          // className={classNames.join(' ')}
           checked={selected}
           value={color}
           onChange={(e) => onChange(e.target.value)}
+          className={styles.input}
         />
       </div>
   )

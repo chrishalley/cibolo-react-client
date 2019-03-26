@@ -12,51 +12,58 @@ const LoginForm = (props) => {
 
   const form = [
     {
-      component: 'Fieldset',
+      component: "Fieldset",
       props: {
-        type: 'text',
-        name: 'email',
-        label: 'Email', 
-        placeholder: 'eg. test@test.com',
+        component: "TextInput",
+        type: "text",
+        name: "email",
+        label: "Email",
+        placeholder: "eg. test@test.com",
         validations: [
           {
             method: isEmpty,
             validWhen: false,
-            errorMessage: 'Please enter something'
+            errorMessage: "Please enter something"
           },
           {
             method: isEmail,
             validWhen: true,
-            errorMessage: 'Please enter a valid email address'
+            errorMessage: "Please enter a valid email address"
           }
         ]
       }
     },
     {
-      component: 'Fieldset',
+      component: "Fieldset",
       props: {
-        type: 'password',
-        name: 'password',
-        label: 'Password',
-        placeholder: 'eg. password123',
+        component: "TextInput",
+        type: "password",
+        name: "password",
+        label: "Password",
+        placeholder: "eg. password123",
         validations: [
           {
             method: isLength,
             methodOptions: { min: 6, max: undefined },
             validWhen: true,
-            errorMessage: 'Please enter a minimum of 6 characters'
+            errorMessage: "Please enter a minimum of 6 characters"
           }
         ]
       }
     },
     {
-      component: 'Submit',
+      component: "FormControl",
       props: {
-        type: 'submit',
-      },
-      children: 'Sign in'
+        controls: [
+          {
+            onClick: () => {},
+            label: "Seeend",
+            type: "submit"
+          }
+        ]
+      }
     }
-  ]
+  ];
 
   function login(state) {
     console.log('login')
@@ -75,7 +82,7 @@ const LoginForm = (props) => {
 
 
   return (
-    <FormBuilder error={error} form={form} submitHandler={login}></FormBuilder>
+    <FormBuilder error={error} form={form} onSubmit={login}></FormBuilder>
   )
 }
 

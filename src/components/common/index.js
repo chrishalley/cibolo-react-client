@@ -17,3 +17,4 @@ export * from './EditUserAvatar/EditUserAvatar';
 export * from './Chip/Chip';
 export * from './Dropzone/Dropzone';
 export * from './AddFile/AddFile';
+export * from './AddImage/AddImage';

@@ -4,9 +4,10 @@ import { Screen, Card, Button, Modal, Chip, SVGIcon, UserAvatar } from '../../co
 import BookingForm from '../../components/BookingForm/BookingForm';
 import Draggable from '../../components/Draggable/Draggable';
 import BuiltForm from '../../components/BuiltForm/BuiltForm';
+import Sandbox from '../../components/common/Sandbox/Sandbox';
 
-import { Fieldset } from '../../components/common/FormBuilder/components/sections';
-import { ColorPicker, ImageInput } from '../../components/common/FormBuilder/components/inputs';
+import { Fieldset } from '../../components/common/FormBuilder/components/inputs';
+import { ColorPicker, ImageInput, LinkInput } from '../../components/common/FormBuilder/components/inputs';
 
 class EventScreen extends Component {
 
@@ -42,6 +43,15 @@ class EventScreen extends Component {
       <Screen>
         <h1>Event Screen</h1>
         <Card>
+          <LinkInput />
+        </Card>
+        <Card>
+          <Sandbox />
+        </Card>
+        {/* <Card>
+          <SandboxForm />
+        </Card>
+        <Card>
           <h2>Hire our space!</h2>
           <p>Marzipan apple pie gingerbread lemon drops oat cake oat cake gummies wafer donut. Brownie marzipan topping candy canes lemon drops candy canes liquorice. Muffin chocolate bar carrot cake sugar plum candy canes sweet sweet jelly beans.</p>
           <p>Liquorice jelly beans sweet. Cookie toffee toffee candy canes cake bear claw icing gingerbread. Tart tootsie roll brownie danish jelly beans candy brownie powder sesame snaps.</p>
@@ -54,10 +64,10 @@ class EventScreen extends Component {
           </Chip>
           <UserAvatar user={{firstName: 'Chris', lastName: 'Halley'}} chip={<Chip onClick={() => console.log('click')}><SVGIcon strokeWidth="20" icon="close"/></Chip>} />
         </Card>
-        {/* <div style={{ backgroundColor: 'red', height: '200vh' }}></div> */}
+        <div style={{ backgroundColor: 'red', height: '200vh' }}></div>
         {this.renderModal()}
         <Draggable></Draggable>
-        <BuiltForm></BuiltForm>
+        <BuiltForm></BuiltForm> */}
       </Screen>
     );
   };

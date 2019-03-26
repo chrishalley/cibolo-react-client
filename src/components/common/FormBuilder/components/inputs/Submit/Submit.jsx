@@ -5,7 +5,7 @@ import { Button } from '../../../../'
 const Submit = (props) => {
   const { children } = props
   return (
-    <Button clickHandler={null}>{children}</Button>
+    <Button data-testid="submit" clickHandler={null}>{children}</Button>
   )
 }
 

@@ -1,0 +1,25 @@
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row > * {
+  flex: 1 1 100%;
+}
+
+.row>*:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.row>*:not(:first-child) {
+  margin-left: 1rem;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column>*:not(:last-child) {
+  margin-bottom: 2rem;
+}

@@ -1,16 +1,27 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+// import { shallow } from 'enzyme';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 
 import ColorPickerInput from './ColorPickerInput';
 
+afterEach(cleanup);
+
 describe('ColorPickerInput', () => {
+
+  const defaultProps = {
+    color: "rgb(0, 255, 0)",
+    onChange: () => {},
+    selected: true
+  };
+
+  const setup = (props) => {
+    return render(<ColorPickerInput {...defaultProps} {...props} />)
+  }
+
   it('should render a checkbox with background color equal to color prop', () => {
-    const wrapper = shallow(<ColorPickerInput color="#FF0000" />);
-    expect(wrapper.find('input[type="radio"]').length).toEqual(1);
+    const { getByTestId } = setup();
+    const label = getByTestId('color-picker-input-label');
+    expect(label).toHaveStyle(`background-color: ${defaultProps.color}`);
   });
 
-  it('should have a CSS style of .selected if the selected prop is passed', () => {
-    const wrapper = shallow(<ColorPickerInput selected color="#FF0000" />);
-    expect(wrapper.find('input[type="radio"]').get(0).props.className).toContain('selected');
-  })
 });

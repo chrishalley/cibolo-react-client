@@ -1,43 +1,84 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import styles from './TextInput.module.css'
+import styles from './TextInput.module.css';
 
-const proptypes = {
+const propTypes = {
+  defaultValue: PropTypes.string,
+  name: PropTypes.string.isRequired,
   type: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  disabled: PropTypes.bool,
   placeholder: PropTypes.string,
-  onChange: PropTypes.func.isRequired
-}
+  value: PropTypes.string
+};
 
 const defaultProps = {
+  defaultValue: '',
   type: 'text',
-  onChange: () => { console.warn('onChange callback is not set') },
-  onBlur: () => {}
-}
+  onChange: () => console.warn('no onChange prop provided'),
+  onBlur: () => console.warn('no onBlur prop provided'),
+  disabled: false,
+  value: null
+};
 
 const TextInput = (props) => {
-  const { type, disabled, placeholder, onChange, onBlur, name, value } = props
+  const {
+    defaultValue,
+    name,
+    type,
+    onChange,
+    onBlur,
+    disabled,
+    placeholder,
+    value
+  } = props;
+  const [state, setState] = useState(defaultValue);
 
-  const onChangeHandler = (e) => {
-    onChange({ path: name, value: e.target.value })
-  }
+  useEffect(() => {
+
+    // console.log(`${name} input mounted`);
+  }, []);
+ 
+  useEffect(() => {
+    // console.log(`${name} input rerendered`);
+  });
+
+  useEffect(() => {
+    // console.log(`${name} input state has changed`);
+    onChange(state);
+  }, [state]);
+
+  // Input component can be responsible for maintaining value in it's own state or receiving it from parent component,
+  // depending on null/non-null value prop
+  // onChangeHandler and onValueHandlers differ according to state responsibility
+  const onChangeHandler = (val) => value !== null ? onChange(val) : setState(val);
+
+  const valueHandler = () => value !== null ? value : state;
 
   return (
-    !disabled ? <input
-      key={name}
-      id={name}
-      value={value}
-      className={styles.input}
-      type={type}
-      placeholder={placeholder}
-      onChange={(e) => onChangeHandler(e)}
-      onBlur={(e) => onBlur({ value: e.target.value })}
-    /> :
-    <p>{value}</p>
-  )
-}
+    <div>
+      {!disabled ? (
+        <input
+          id={name}
+          data-testid="textInput"
+          value={valueHandler()}
+          type={type}
+          placeholder={placeholder}
+          onChange={e => onChangeHandler(e.target.value)}
+          onBlur={onBlur}
+          className={styles.input}
+        />
+      ) : (
+        <p data-testid="disabledField">{valueHandler()}</p>
+      )}
+      {/* <p data-testid="output">{name} state: {state}</p> */}
+    </div>
+  );
+};
 
-TextInput.propTypes = proptypes
-TextInput.defaultProps = defaultProps
+TextInput.propTypes = propTypes;
+TextInput.defaultProps = defaultProps;
 
-export { TextInput }
+export { TextInput };

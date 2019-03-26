@@ -5,16 +5,21 @@ import { Dropzone, BasicButton, SecondaryButton, SVGIcon } from '../';
 import { TextInput } from '../FormBuilder/components/inputs';
 import styles from './AddFile.module.css';
 
-const AddFile = () => {
+const AddFile = (props) => {
 
-  const [mode, setMode] = useState(null)
+  const [mode, setMode] = useState(null);
+  const [file, setFile] = useState('blah');
+
+  // const onChangeHandler = () => {
+  //   console.log('change***')
+  // };
 
   const renderContents = () => {
     switch (mode) {
       case 'file':
         return <Dropzone></Dropzone>
       case 'link':
-        return <TextInput></TextInput>
+        return <TextInput name="avatar.profileImage" onChange={(value) => setFile(value)}></TextInput>
       default:
         return (
           <Fragment>
@@ -35,6 +40,7 @@ const AddFile = () => {
     <div className={styles['add-file']} data-test="addFile">
       {mode !== null && <BasicButton className={styles.back} onClick={() => setMode(null)}><SVGIcon icon="arrow-left"/></BasicButton>}
       {renderContents()}
+      <p>{file}</p>
     </div>
   );
 }

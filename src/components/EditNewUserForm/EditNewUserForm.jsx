@@ -12,6 +12,9 @@ const EditNewUserForm = (props) => {
 
   const { formMode, activeUser, setUsers, users, setShowModal } = useContext(UsersContext);
 
+  useEffect(() => {
+    console.log('EditNewUserForm props:', props)
+  }, []) 
   // useEffect(() => {
   //   console.log('formMode: ', formMode);
   //   console.log('activeUser: ', activeUser);
@@ -45,155 +48,16 @@ const EditNewUserForm = (props) => {
     setShowModal(false);
   }
 
-  const form = [
-    {
-      component: 'FormSection',
-      props: {
-        flexDirection: 'row'
-      },
-      children: [
-        {
-          component: 'FieldGroup',
-          props: {
-            flexDirection: 'column'
-          },
-          children: [
-            {
-              component: 'Fieldset',
-              props: {
-                type: 'text',
-                name: 'firstName',
-                label: 'First Name',
-                placeholder: 'eg. John',
-                defaultValue: activeUser && activeUser.firstName ? activeUser.firstName : '',
-                validations: [
-                  {
-                    method: isEmpty,
-                    validWhen: false,
-                    errorMessage: 'Please enter a first name'
-                  }
-                ]
-              }
-            },
-            {
-              component: 'Fieldset',
-              props: {
-                type: 'text',
-                name: 'lastName',
-                label: 'Last Name',
-                placeholder: 'eg. Smith',
-                defaultValue: activeUser && activeUser.lastName ? activeUser.lastName : '',
-                validations: [
-                  {
-                    method: isEmpty,
-                    validWhen: false,
-                    errorMessage: 'Please enter a last name'
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          component: 'FieldGroup',
-          props: {
-            flexDirection: 'column'
-          },
-          children: [
-            {
-              component: 'Fieldset',
-              props: {
-                type: 'text',
-                name: 'emailAddress',
-                label: 'Email address',
-                placeholder: 'eg. john.smith@example.com',
-                defaultValue: activeUser && activeUser.email ? activeUser.email : '',
-                validations: [
-                  {
-                    method: isEmail,
-                    validWhen: true,
-                    errorMessage: 'Please enter a valid email address'
-                  }
-                ]
-              }
-            },
-            {
-              component: 'Fieldset',
-              props: {
-                type: 'select',
-                name: 'role',
-                label: 'Role',
-                options: [
-                  {name: 'Admin', value: 'admin'},
-                  {name: 'Super-admin', value: 'super-admin'}
-                ],
-                defaultValue: activeUser && activeUser.role ? activeUser.role : 'admin',
-                validations: [
-                  {
-                    method: isEmpty,
-                    validWhen: false,
-                    errorMessage: 'Please enter a user role'
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      component: 'FormSection',
-      props: {
-        title: 'Customise Avatar',
-        flexDirection: 'row'
-      },
-      children: [
-        {
-          component: 'Fieldset',
-          props: {
-            type: EditUserAvatar,
-            name: 'avatar',
-            defaultValue: {
-              profileImage: '',
-              color: ''
-            }
-          }
-        }
-      ]
-    },
-    {
-      component: 'FormSection',
-      props: {
-        flexDirection: 'row'
-      },
-      children: [
-        {
-          component: 'Submit',
-          props: {
-            type: 'submit',
-          },
-          children: 'Save user'
-        },
-        {
-          component: SecondaryButton,
-          props: {
-            type: 'button',
-            onClick: () => props.deleteUser(activeUser._id, removeUserFromUsers)
-          },
-          children: 'Delete user'
-        }
-      ]
-    }
-  ]
-
-  const submitHandler = (state) => {
-    const { firstName, lastName, emailAddress, role } = state;
+  const onSubmit = (state) => {
+    const { firstName, lastName, emailAddress, role, avatar } = state;
     const user = {
       firstName: firstName.value,
       lastName: lastName.value,
       email: emailAddress.value,
       role: role.value,
+      avatar: avatar.value
     }
+
     switch (formMode) {
       case 'add':
         props.addUser(user, addUserToUsers);
@@ -207,6 +71,156 @@ const EditNewUserForm = (props) => {
     }
   }
 
+  const form = [
+    {
+      component: "FormSection",
+      props: {
+        flexDirection: "row",
+        children: [
+          {
+            component: "FieldGroup",
+            props: {
+              flexDirection: "column",
+              children: [
+                {
+                  component: "Fieldset",
+                  props: {
+                    component: "TextInput",
+                    type: "text",
+                    name: "firstName",
+                    label: "First Name",
+                    placeholder: "eg. John",
+                    defaultValue:
+                      activeUser && activeUser.firstName
+                        ? activeUser.firstName
+                        : "",
+                    validations: [
+                      {
+                        method: isEmpty,
+                        validWhen: false,
+                        errorMessage: "Please enter a first name"
+                      }
+                    ]
+                  }
+                },
+                {
+                  component: "Fieldset",
+                  props: {
+                    component: "TextInput",
+                    type: "text",
+                    name: "lastName",
+                    label: "Last Name",
+                    placeholder: "eg. Smith",
+                    defaultValue:
+                      activeUser && activeUser.lastName
+                        ? activeUser.lastName
+                        : "",
+                    validations: [
+                      {
+                        method: isEmpty,
+                        validWhen: false,
+                        errorMessage: "Please enter a last name"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            component: "FieldGroup",
+            props: {
+              flexDirection: "column",
+              children: [
+                {
+                  component: "Fieldset",
+                  props: {
+                    component: "TextInput",
+                    type: "text",
+                    name: "emailAddress",
+                    label: "Email address",
+                    placeholder: "eg. john.smith@example.com",
+                    defaultValue:
+                      activeUser && activeUser.email ? activeUser.email : "",
+                    validations: [
+                      {
+                        method: isEmail,
+                        validWhen: true,
+                        errorMessage: "Please enter a valid email address"
+                      }
+                    ]
+                  }
+                },
+                {
+                  component: "Fieldset",
+                  props: {
+                    component: "Select",
+                    name: "role",
+                    label: "Role",
+                    options: [
+                      { label: "Admin", value: "admin" },
+                      { label: "Super-admin", value: "super-admin" }
+                    ],
+                    defaultValue:
+                      activeUser && activeUser.role
+                        ? activeUser.role
+                        : "admin",
+                    validations: [
+                      {
+                        method: isEmpty,
+                        validWhen: false,
+                        errorMessage: "Please enter a user role"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      component: "FormSection",
+      props: {
+        title: "Customise Avatar",
+        flexDirection: "row",
+        children: [
+          {
+            component: "Fieldset",
+            props: {
+              component: EditUserAvatar,
+              name: "avatar",
+              user: activeUser ? activeUser : null
+            }
+          }
+        ]
+      }
+    },
+    {
+      component: "FormControl",
+      props: {
+        controls: [
+          {
+            onClick: () => {},
+            label: "Save",
+            type: "submit"
+          }
+          // {
+          //   component: SecondaryButton,
+          //   props: {
+          //     type: 'button',
+          //     onClick: () => props.deleteUser(activeUser._id, removeUserFromUsers)
+          //   },
+          //   children: 'Delete user'
+          // }
+        ]
+      }
+    }
+  ];
+
+
+
   // const isFormDisabled = () => {
   //   if (props.currentUser.role === 'super-admin') { // Return false for all super-admin users
   //     return false;
@@ -219,7 +233,7 @@ const EditNewUserForm = (props) => {
 
   return (
     <Fragment>
-      <FormBuilder disabled={formMode === 'view'} form={form} submitHandler={submitHandler} error={error}></FormBuilder>
+      <FormBuilder disabled={formMode === 'view'} form={form} onSubmit={onSubmit} error={error}></FormBuilder>
     </Fragment>
   );
 };

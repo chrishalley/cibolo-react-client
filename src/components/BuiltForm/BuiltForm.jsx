@@ -109,6 +109,33 @@ const form = [
             }
           }
         ]
+      },
+      {
+        component: 'Fieldset',
+        props: {
+          type: 'radio',
+          name: 'radio.test',
+          label: 'Radio test',
+          options: [
+            { label: 'Option 1', value: 1 },
+            { label: 'Option 2', value: 2 },
+            { label: 'Option 3', value: 3 }
+          ],
+          value: 1
+        }
+      },
+      {
+        component: 'Fieldset',
+        props: {
+          type: 'checkbox',
+          name: 'checkbox.test',
+          label: 'Checkbox test',
+          options: [
+            { label: 'Option 1', value: false },
+            { label: 'Option 2', value: false },
+            { label: 'Option 3', value: false }
+          ]
+        }
       }
     ]
   },
