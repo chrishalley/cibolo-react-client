@@ -12,7 +12,8 @@ const propTypes = {
 }
 
 const defaultProps = {
-  acceptedTypes: ["jpg", "jpeg", "png", "bmp", "gif"]
+  acceptedTypes: ["jpg", "jpeg", "png", "bmp", "gif"],
+  onChange: () => console.warn('onChange callback not defined')
 };
 
 const checkFileType = (file, acceptedTypes) => {

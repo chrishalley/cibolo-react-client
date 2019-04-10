@@ -14,7 +14,8 @@ const propTypes = {
 
 const defaultProps = {
   name: 'linkInput',
-  showList: true
+  showList: true,
+  onChange: () => console.warn('No onChange callback defined')
 };
 
 

@@ -40,8 +40,9 @@ const TextInput = (props) => {
 
   const [state, setState] = useState(value || defaultValue);
 
+  // Resets text input when cleared from parent
   useEffect(() => {
-    console.log('textInput value changed')
+    value === '' && setState('');
   }, [value]);
 
   useEffect(() => {
