@@ -1,22 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { BasicButton } from '../';
 
-const PrimaryButton = styled(BasicButton)`
-  color: ${props => props.theme.colorPrimary};
-  border: 2px solid;
-  border-color: ${props => props.theme.colorPrimary};
-  border-radius: 100px;
-  
-  &:hover {
-    color: white;
-    background-color: ${props => props.theme.colorPrimary};
-  }
+import styles from './PrimaryButton.module.css';
 
-  &:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-`
+const propTypes = {
+  className: PropTypes.string
+};
+
+const defaultProps = {
+  className: ''
+};
+
+const PrimaryButton = props => {
+  const { children, className, ...restProps } = props;
+
+  return (
+    <BasicButton className={[styles['primary-button'], className].join(' ')} {...restProps}>{children}</BasicButton>
+  );
+}
+
+PrimaryButton.propTypes = propTypes;
+PrimaryButton.defaultProps = defaultProps;
 
 export { PrimaryButton };

@@ -23,3 +23,14 @@
 .column>*:not(:last-child) {
   margin-bottom: 2rem;
 }
+
+.section:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.section-title {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}

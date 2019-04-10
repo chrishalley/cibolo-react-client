@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import AdminSidebar from '../../components/AdminSidebar/AdminSidebar';
 import EventsScreen from './Events/Events';
@@ -13,11 +13,6 @@ import styles from './Dashboard.module.css';
 const Dashboard = () => {
   return (
     <div>
-      {/* <AdminSidebar>
-        <Link to="/dashboard/events">Events</Link>
-        <Link to="/dashboard/users">Users</Link>
-        <Link to="/random">Random</Link>
-      </AdminSidebar> */}
       <AdminSidebar />
       <main className={styles.main}>
         <Switch>

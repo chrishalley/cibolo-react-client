@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Card, SVGIcon, SecondaryButton, FormBuilder } from '../';
+import { Card } from '../';
 
 import styles from './Modal.module.css';
 
@@ -10,7 +10,6 @@ const Modal = (props) => {
   const { closeHandler, children, ...restProps } = props;
 
   useEffect(() => {
-    // document.querySelector('body').classList.add('noScroll')
     document.documentElement.style.overflow = 'hidden';
     document.body.scroll = "no";
     

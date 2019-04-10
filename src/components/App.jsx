@@ -19,7 +19,6 @@ class App extends Component {
     // try to get token from localstorage
     this.props.initAuth()
       .then(() => {
-        console.log('initAuthComplete')
         this.setState({ initAuthComplete: true })
       })
       .catch((e) => { 

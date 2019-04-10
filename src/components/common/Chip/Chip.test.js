@@ -1,12 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, cleanup } from 'react-testing-library';
 
 import { Chip } from './Chip';
 
+afterEach(cleanup);
+
 describe('Chip', () => {
 
-  const wrapper = shallow(<Chip />);
+  const defaultProps = {
+
+  }
+
+  const setup = props => {
+    return render(<Chip {...defaultProps} {...props} />);
+  }
+
   it('should render', () => {
-    expect(wrapper.find('[data-test="chip"]').length).toEqual(1);
+    const { getByTestId } = setup();
+    expect(getByTestId('chip')).toBeInTheDocument();
   });
 });

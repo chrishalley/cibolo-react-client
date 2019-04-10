@@ -8,8 +8,8 @@ const FormSection = (props) => {
   const flexStyle = flexDirection === 'column' ? styles.column : styles.row;
 
   return (
-    <div data-testid="formSection">
-      <h4>{title}</h4>
+    <div className={styles['section']} data-testid="formSection">
+      {title && <h4 className={styles['section-title']}>{title}</h4>}
       <div className={flexStyle}>
         {children}
       </div>

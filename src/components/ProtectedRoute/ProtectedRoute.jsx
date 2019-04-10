@@ -14,11 +14,9 @@ const ProtectedRoute = (props) => {
 
   const currentUserAuthenticated = () => {
     if ( !currentUser ) { // If there is no currentUser logged in, setAuth to false causing redirect to login
-      console.log('no currentUser')
       setAuth(false)
       // props.logout()
     } else if (currentUser && currentUser.tokenExpiry && currentUser.tokenExpiry < new Date().getTime()) { // If token is expired, log user out and redirect to login
-      console.log('token expired')
       props.logout()
       setAuth(false)
     } else { // Otherwise, user must be authenticated
@@ -27,7 +25,6 @@ const ProtectedRoute = (props) => {
   }
 
   const renderRoute = (props) => {
-    console.log('auth: ', auth)
     switch (auth) {
       case true:
         return <Component {...props} />

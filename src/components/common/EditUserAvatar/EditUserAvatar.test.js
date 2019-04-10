@@ -25,7 +25,7 @@ describe('EditUserAvatar', () => {
 
   it('should contain one instance of the UserAvatar component', () => {
     const { getAllByTestId } = setup();
-    const userAvatar = getAllByTestId('avatar-wrapper');
+    const userAvatar = getAllByTestId('avatarWrapper');
     expect(userAvatar.length).toBe(1);
   });
 });

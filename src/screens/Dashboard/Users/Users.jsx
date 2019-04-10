@@ -1,4 +1,4 @@
-import React, { Fragment, createContext, useContext, useEffect, useState } from 'react';
+import React, { Fragment, createContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import api from '../../../apis/api';
@@ -28,11 +28,9 @@ const UsersScreen = (props) => {
     }
   }
 
-
   useEffect(() => {
     api.get('/users')
       .then(res => {
-        console.log('***USERS*** ', res.data)
         setUsers(res.data)
       })
       .catch(e => console.log(e));

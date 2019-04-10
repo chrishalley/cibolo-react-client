@@ -16,7 +16,7 @@ const defaultProps = {
 const UserBadge = ({text, color}) => {
 
   return (
-    <span data-testid="avatar-badge" className={styles['badge-initials']}>{text}</span>
+    <span data-testid="avatarBadge" className={styles['badge-initials']}>{text}</span>
   );
 }
 

@@ -1,38 +1,38 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 
-import { ImageInput } from './ImageInput';
+import ImageInput from './ImageInput';
 
-let wrapper;
+const validUrl = 'https://images.pexels.com/photos/2084699/pexels-photo-2084699.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500';
 
 describe('ImageInput', () => {
 
-  beforeEach(() => {
-    wrapper = mount(<ImageInput />);
+  const defaultProps = {
+
+  };
+
+  const setup = props => render(<ImageInput {...defaultProps} {...props} />)
+
+  it('should render', () => {
+    const { queryByTestId } = setup();
+    const addImage = queryByTestId('addImage');
+    expect(addImage).toBeInTheDocument();
   });
 
-  afterEach(() => {
-    wrapper.unmount();
+  it('should render an image if passed in as a prop', () => {
+    const { queryByTestId } = setup({ initialImage: { src: validUrl }});
+    const imagePreview = queryByTestId("imagePreview");
+    expect(imagePreview).toBeInTheDocument();
   });
 
-  it('should render a single <img> tag', () => {
-    expect(wrapper.find('img').length).toEqual(1);
+  it('should render an image if a valid url is submitted via the linkInput', () => {
+    const { queryByTestId, getByTestId } = setup();
+    const textInput = getByTestId('textInput');
+    const linkForm = getByTestId('linkForm');
+    fireEvent.change(textInput, { target: { value: validUrl } });
+    fireEvent.submit(linkForm);
+    const imagePreview = queryByTestId("imagePreview");
+    expect(imagePreview).toBeInTheDocument();
   });
 
-  it('should render two buttons, one for file uploads, one for URL links', () => {
-    expect(wrapper.find('button').length).toEqual(2);
-    const fileButton = wrapper.find('button').at(0);
-    const linkButton = wrapper.find('button').at(1);
-    expect(fileButton.text()).toMatch(/file/i);
-    expect(linkButton.text()).toMatch(/link/i);
-  });
-
-  it('clicking on the link button should reveal a text input', () => {
-    expect(wrapper.find('input').length).toBe(0);
-    const linkButton = wrapper.find('button').at(1);
-    linkButton.simulate('click');
-    wrapper.update();
-    expect(wrapper.find('input').length).toBe(1);
-    
-  });
 });

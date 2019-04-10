@@ -1,25 +1,57 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
-import './Dropzone.css';
+import { FileList } from '../';
+
+import styles from './Dropzone.module.css';
+
+const propTypes = {
+  onDrop: PropTypes.func,
+  files: PropTypes.array,
+  disabled: PropTypes.bool,
+  multiple: PropTypes.bool,
+  maxFiles: PropTypes.string,
+  showList: PropTypes.bool,
+  onChange: PropTypes.func
+};
+
+const defaultProps = {
+  onDrop: () => console.warn('No onDrop callback set'),
+  files: [],
+  disabled: false,
+  multiple: false,
+  showList: true,
+  onChange: () => console.warn('No onChange callback set')
+};
+
 
 const Dropzone = (props) => {
-  const { defaultValue } = props;
+  const { maxFiles, showList, onChange } = props;
 
-  const [file, setFile] = useState( defaultValue || '' );
+  const [files, setFiles] = useState(props.files);
   const [highlight, setHighlight] = useState(false);
+  const [disabled, setDisabled] = useState(props.disabled)
+
+  useEffect(() => {
+    if (files.length >= maxFiles) {
+      return setDisabled(true);
+    }
+    files.length > 0 && onChange(files);
+  }, [files]);
 
   const fileInputRef = useRef(null);
 
-  const openFileDialog = () => {
-    if (props.disabled) return;
+  const openFileDialog = (e) => {
+    e.stopPropagation();
+    if (disabled) return;
     fileInputRef.current.click();
   };
 
   const onFilesAdded = (e) => {
-    if (props.diabled) return;
-    const files = e.target.files;
+    if (disabled && files < parseInt(maxFiles)) return;
+    const addedFiles = e.target.files;
     if (props.onFilesAdded) {
-      const array = fileListToArray(files);
+      const array = fileListToArray(addedFiles);
       props.onFilesAdded(array);
     }
   }
@@ -34,140 +66,84 @@ const Dropzone = (props) => {
 
   const onDragOver = (e) => {
     e.preventDefault();
-    if (props.disabled) return;
+    if (disabled) return;
     setHighlight(true);
   };
-
+  
   const onDragLeave = () => {
     setHighlight(false);
   };
-
-  const onDrop = (e) => {
+  
+  const onDropHandler = (e) => {
     e.preventDefault();
-    if (props.disabled) return;
-
-    const files = e.dataTransfer.files;
-    if (props.onFilesAdded) {
-      const array = fileListToArray(files);
-      props.onFilesAdded(array);
-    }
+    if (disabled) return;
+    addFile(e.dataTransfer.files[0])
     setHighlight(false)
   };
 
+  const addFile = (file) => {
+    setFiles([...files, file]);
+  }
 
+  const removeFile = (remFile) => {
+    setFiles([...files.filter(file => file.name !== remFile.name)]);
+  }
+
+  // const renderFile = (file, i) => {
+  //   return (
+  //     <li data-testid="fileListItem" className={styles['file-list-item']} key={i}>
+  //       <BasicButton className={styles['remove-button']} onClick={() => removeFile(file)}>
+  //         <SVGIcon strokeWidth="20" style={{ width: "1rem", height: "1rem" }} icon="close" />
+  //       </BasicButton>
+  //       <SVGIcon style={{ width: "4rem", height: "4rem" }} icon="document-approved" />
+  //       <p>{file.name}</p>
+  //     </li>
+  //   )
+  // }
+
+  // const renderFiles = () => {
+  //   if (files.length > 0) {
+  //     return (
+  //       <ul className={styles['file-list']}>
+  //         {files.map((file, i) => {
+  //           return renderFile(file, i);
+  //         })}
+  //       </ul>
+  //     );
+  //   }
+  // }
 
   return (
-    <div
-      className={`Dropzone ${highlight ? "Highlight" : ""}`}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-      onClick={openFileDialog}
-      style={{ cursor: props.disabled ? "default" : "pointer" }}
-    >
-      {/* <img
-        src={`${process.env.PUBLIC_URL}/outline-cloud_upload-24px.svg`}
-        className="Icon"
-        alt="upload"
-      /> */}
+    <div data-testid="dropzone-wrapper" className={styles['dropzone-wrapper']}>
+      <div
+        data-testid="dropzone-area"
+        className={[styles['dropzone-area'], highlight ? styles['highlight-outline'] : ""].join(' ')}
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
+        onDrop={onDropHandler}
+        onClick={(e) => openFileDialog(e)}
+        style={{ cursor: disabled ? "default" : "pointer" }}
+      >
+      <div className={[styles['dropzone-core'], highlight ? styles['highlight'] : ""].join(' ')}>
+        <span className={styles['instructions']}>{ !disabled ? `Drag file or click to add` : `Maximum number of files added` }</span>
+      </div>
+        
+      </div>
+      {/* <FileInput /> */}
       <input
         type="file"
         ref={fileInputRef}
-        className="FileInput"
+        className={styles['file-input']}
         multiple
-        onChange={onFilesAdded}
+        onChange={(e) => addFile(e.target.files[0])}
       />
-      <span>Drag file here</span>
+      {files.length > 0 && showList && <FileList files={files}/>}
     </div>
+    
   );
 };
 
+Dropzone.propTypes = propTypes;
+Dropzone.defaultProps = defaultProps;
+
 export { Dropzone };
-
-// class Dropzone extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.fileInputRef = React.createRef();
-
-//     this.state = {highlight: false};
-
-//     this.openFileDialog = this.openFileDialog.bind(this);
-//     this.onFilesAdded = this.onFilesAdded.bind(this);
-//     this.onDragOver = this.onDragOver.bind(this);
-//     this.onDragLeave = this.onDragLeave.bind(this);
-//     this.onDrop = this.onDrop.bind(this);
-//   }
-
-//   openFileDialog() {
-//     if (this.props.disabled) return;
-//     this.fileInputRef.current.click();
-//   }
-
-//   onFilesAdded(e) {
-//     if (this.props.diabled) return;
-//     const files = e.target.files;
-//     if (this.props.onFilesAdded) {
-//       const array = this.fileListToArray(files);
-//       this.props.onFilesAdded(array);
-//     }
-//   }
-
-//   fileListToArray(list) {
-//     const array = [];
-//     for (var i = 0; i < list.length; i++) {
-//       array.push(list.item(i));
-//     }
-//     return array;
-//   }
-
-//   onDragOver(e) {
-//     e.preventDefault();
-//     if (this.props.disabled) return;
-//     this.setState({ highlight: true });
-//   }
-
-//   onDragLeave() {
-//     this.setState({ highlight: false });
-//   }
-
-//   onDrop(e) {
-//     e.preventDefault();
-//     if (this.props.disabled) return;
-
-//     const files = e.dataTransfer.files;
-//     if (this.props.onFilesAdded) {
-//       const array = this.fileListToArray(files);
-//       this.props.onFilesAdded(array);
-//     }
-//     this.setState({ highlight: false });
-//   }
-
-//   render() {
-//     return (
-//       <div 
-//         className={`Dropzone ${this.state.highlight ? "Highlight" : ""}`}
-//         onDragOver={this.onDragOver}
-//         onDragLeave={this.onDragLeave}
-//         onDrop={this.onDrop}
-//         onClick={this.openFileDialog}
-//         style={{ cursor: this.props.disabled ? "default" : "pointer" }}
-//       >
-//         <img 
-//           src={`${process.env.PUBLIC_URL}/outline-cloud_upload-24px.svg`}
-//           className="Icon"
-//           alt="upload"
-//         />
-//         <input 
-//           type="file"
-//           ref={this.fileInputRef}
-//           className="FileInput"
-//           multiple
-//           onChange={this.onFilesAdded}
-//         />
-//         <span>Upload Files</span>
-//       </div>
-//     );
-//   }
-// }
-
-// export { Dropzone };

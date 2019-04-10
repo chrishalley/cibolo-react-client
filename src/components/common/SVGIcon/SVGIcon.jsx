@@ -6,17 +6,20 @@ import styles from './SVGIcon.module.css';
 const proptypes = {
   icon: PropTypes.string,
   style: PropTypes.object,
-  strokeWidth: PropTypes.string
+  strokeWidth: PropTypes.string,
+  width: PropTypes.string,
+  className: PropTypes.string
 };
 
 const defaultProps = {
   icon: 'default',
-  strokeWidth: "5"
+  strokeWidth: "5",
+  width: '40px'
 };
 
 const SVGIcon = (props) => {
 
-  const { icon, style, strokeWidth } = props
+  const { icon, style, strokeWidth, width, className } = props
 
   const icons = {
     'arrow-left': {
@@ -191,11 +194,19 @@ const SVGIcon = (props) => {
           <circle cx="40" cy="50" r="2.5" />
           <circle cx="50" cy="50" r="2.5" />
         </Fragment>
+    },
+    'add': {
+      viewBox: '0 0 100 100',
+      svg:
+        <Fragment>
+          <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M50 10, 50, 90"/>
+          <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M10 50, 90, 50"/>
+        </Fragment>
     }
   }
 
   return (
-  <svg style={style} className={`${styles.icon} svg-icon`} viewBox={icons[icon].viewBox || '0 0 100 100'}>
+  <svg width={width} style={style} className={`${styles.icon} svg-icon ${className}`} viewBox={icons[icon].viewBox || '0 0 100 100'}>
       {icons[icon].svg}
   </svg >
   )

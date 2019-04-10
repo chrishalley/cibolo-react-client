@@ -11,7 +11,7 @@ const Card = (props) => {
         <Fragment>
           <header className={styles['card-header']}>
             {title && <h2 className={styles['card-title']}>{title}</h2>}
-            {closeMethod && <SecondaryButton className={styles['card-close']} onClick={closeMethod}><SVGIcon style={{ width: '1.5rem' }} icon="close" /></SecondaryButton>}
+            {closeMethod && <SecondaryButton className={styles['card-close']} onClick={closeMethod}><SVGIcon strokeWidth="10" style={{ width: '1.5rem' }} icon="close" /></SecondaryButton>}
           </header>
           {title && <hr className={styles['header-divider']}/>}
         </Fragment>

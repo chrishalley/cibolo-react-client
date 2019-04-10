@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
-import { FormBuilder, SecondaryButton, EditUserAvatar } from '../common';
+import React, { useState, useContext } from 'react';
+import { FormBuilder, EditUserAvatar } from '../common';
 import { connect } from 'react-redux';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
 
@@ -11,18 +11,6 @@ const EditNewUserForm = (props) => {
   const [error, setError] = useState(null);
 
   const { formMode, activeUser, setUsers, users, setShowModal } = useContext(UsersContext);
-
-  useEffect(() => {
-    console.log('EditNewUserForm props:', props)
-  }, []) 
-  // useEffect(() => {
-  //   console.log('formMode: ', formMode);
-  //   console.log('activeUser: ', activeUser);
-  // })
-
-  // const successfulSave = (string) => {
-  //   console.log('callback: ', string);
-  // }
 
   const addUserToUsers = (user) => {
     const updatedUsers = [ ...users, user ];
@@ -75,6 +63,7 @@ const EditNewUserForm = (props) => {
     {
       component: "FormSection",
       props: {
+        title: "User Details",
         flexDirection: "row",
         children: [
           {
@@ -232,9 +221,7 @@ const EditNewUserForm = (props) => {
   // }
 
   return (
-    <Fragment>
-      <FormBuilder disabled={formMode === 'view'} form={form} onSubmit={onSubmit} error={error}></FormBuilder>
-    </Fragment>
+    <FormBuilder disabled={formMode === 'view'} form={form} onSubmit={onSubmit} error={error}></FormBuilder>
   );
 };
 

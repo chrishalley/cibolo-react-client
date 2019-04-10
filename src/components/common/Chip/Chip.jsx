@@ -13,7 +13,7 @@ const defaultProps = {
 
 const Chip = ({ onClick, children }) => {
   return (
-    <button onClick={onClick} className={styles.chip} data-test="chip">
+    <button onClick={onClick} className={styles.chip} data-testid="chip">
       <span className={styles.content}>{children}</span>
     </button>
   )

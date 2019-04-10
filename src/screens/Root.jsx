@@ -6,8 +6,6 @@ import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import Dashboard from './Dashboard/Dashboard';
 import Public from '../screens/Public/Public';
 
-import styles from './Root.module.css';
-
 const Root = () => {
   return (
     <Fragment>

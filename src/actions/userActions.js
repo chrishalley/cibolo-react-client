@@ -1,6 +1,6 @@
 import api from '../apis/api';
 
-import { ADD_USER, UPDATE_USER, DELETE_USER } from './types';
+import {  } from './types';
 
 export const addUser = (user, callback) => (dispatch) => {
   api.post('/users', user)

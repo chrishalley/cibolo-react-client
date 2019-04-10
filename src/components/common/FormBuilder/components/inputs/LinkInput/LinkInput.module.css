@@ -1,0 +1,44 @@
+.link-input {
+  
+}
+
+.link-add-button {
+  padding: 1rem;
+  margin-left: 1rem;
+}
+
+.link-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-input-field {
+  width: 100%;
+  flex: 1 0 auto;
+}
+
+.link-list {
+
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  color: var(--color-grey-dark-1)
+}
+
+.link-remove-button {
+  padding: .5rem;
+  margin-right: 1rem;
+}
+
+.link-remove-button:hover + p {
+  color: var(--color-primary);
+}
+
+.preview-image {
+  max-width: 100%;
+  background-color: yellow;
+}

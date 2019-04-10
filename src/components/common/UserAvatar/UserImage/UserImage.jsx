@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './UserImage.module.css';
+
 const propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired
@@ -8,7 +10,7 @@ const propTypes = {
 
 const UserImage = ({ src, alt }) => {
   return (
-    <img data-testid="avatar-image" src={src} alt={alt} style={{ width: '100%'}}/>
+    <img className={styles['avatar-image']} data-testid="avatarImage" src={src} alt={alt} />
   );
 }
 

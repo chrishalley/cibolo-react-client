@@ -1,0 +1,14 @@
+.primary-button {
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: 10rem;
+}
+
+.primary-button:hover {
+  color: #FFFFFF;
+  background-color: var(--color-primary);
+}
+
+.primary-button:focus {
+  background-color: var(--color-grey-light-1)
+}

@@ -1,20 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
 import { BasicButton } from '../';
+import PropTypes from 'prop-types';
 
-const SecondaryButton = styled(BasicButton)`
-  color: ${(props) => props.theme.colorPrimary};
-  border: 2px solid;
-  border-color: ${(props) => props.theme.colorPrimary};
-  border-radius: 100px;
-  
-  &:hover {
-    color: white;
-  }
+import styles from './SecondaryButton.module.css';
 
-  &:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-`
+const propTypes = {
+  className: PropTypes.string
+}
+
+const defaultProps = {
+  className: ''
+}
+
+const SecondaryButton = props => {
+
+  const { className } = props;
+
+  return (
+  <BasicButton {...props} className={[styles['secondary-button'], className].join(' ')}/>
+  );
+}
+
+SecondaryButton.propTypes = propTypes;
+SecondaryButton.defaultProps = defaultProps;
 
 export { SecondaryButton };

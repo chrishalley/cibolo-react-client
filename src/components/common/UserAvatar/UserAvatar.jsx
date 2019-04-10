@@ -7,7 +7,11 @@ import UserBadge from './UserBadge/UserBadge';
 import styles from './UserAvatar.module.css';
 
 const propTypes = {
-  chip: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.element]),
+  chip: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.element
+  ]),
   user: PropTypes.object
 };
 
@@ -41,8 +45,8 @@ const UserAvatar = (props) => {
   }
 
   return (
-    <div data-testid="avatar-wrapper" className={styles['avatar-wrapper']} data-test="avatar-wrapper">
-      <div data-testid="avatar-chip" className={styles['chip-slot']}>{chip}</div>
+    <div data-testid="avatarWrapper" className={styles['avatarWrapper']} data-test="avatarWrapper">
+      {chip && <div data-testid="avatarChip" className={styles['chipSlot']}>{chip}</div> }
       <div
         className={styles.avatar}
         style={{ color: user.avatar.color , borderColor: user.avatar.color }}

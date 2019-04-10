@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { Card, SVGIcon, BasicButton, UserAvatar } from '../../common';
 import { UsersContext } from '../../../screens/Dashboard/Users/Users';
@@ -9,11 +9,6 @@ const AdminUserListItem = (props) => {
   const { openEditForm } = useContext(UsersContext);
   const { user } = props;
 
-  useEffect(() => {
-    console.log('useEffect()');
-  });
-
-  console.log(user);
   return (
     <Card className={styles['user-list-item']}>
       <UserAvatar user={user} />

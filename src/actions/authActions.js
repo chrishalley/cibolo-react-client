@@ -49,9 +49,9 @@ export const initAuth = () => dispatch => {
 };
 
 export const logout = () => {
-  console.log('logout() action');
   localStorage.removeItem('token');
   localStorage.removeItem('refreshToken');
+  Promise.resolve();
   return {
     type: CHANGE_AUTH,
     payload: null

@@ -1,61 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { TextInput } from '../';
+import { PrimaryButton, SVGIcon, FileList } from '../../../../';
+import styles from './LinkInput.module.css';
 
 const propTypes = {
-  links: PropTypes.array
+  links: PropTypes.array,
+  name: PropTypes.string,
+  showList: PropTypes.bool,
+  onChange: PropTypes.func
 };
 
 const defaultProps = {
-  links: []
+  name: 'linkInput',
+  showList: true
 };
+
 
 const LinkInput = (props) => {
   const [link, setLink] = useState('');
-  const [links, setLinks] = useState(props.links);
+  const [links, setLinks] = useState(props.links || []);
+  
+  const { name, showList, onChange, ...restProps } = props;
 
-  const { name } = props;
-
-  const removeLink = (text) => {
+  const removeLink = (remLink) => {
     setLinks(links.filter(link => {
-      return link !== text
+      return link.url !== remLink.url
     }));
   }
 
-  const addLink = () => {
-    setLinks([...links, link]);
-    setLink('');
+  const addLink = (link) => {
+    if (link.length > 0) {
+      setLinks([...links, { url: link }]);
+      onChange({ url: link });
+      setLink('');
+    }
   };
 
-  // useEffect(() => {
-  //   console.log(links)
-  // }, [links])
-
-  const renderLinks = () => {
-    return <ul data-testid="linksList">
-      {links.map((link, i) => {
-          return (
-            <li key={i} data-testid="linkItem">
-              <button data-testid="removeLink" onClick={() => removeLink(link)}>x</button>
-              {link}
-            </li>
-        );
-      })}
-    </ul>;
+  const keyPressHandler = (e, link) => {
+    if (e.key === "Enter") {
+      addLink(link);
+    }
   }
 
   return (
-    <div data-testid="linkInput">
-      <form data-testid="linkForm" onSubmit={(e) => { e.preventDefault(); addLink(link)}}>
+    <div data-testid="linkInput" className={styles['link-input']} {...restProps} onClick={e => e.stopPropagation()}>
+      <div data-testid="linkForm" className={styles['link-form']}>
         <TextInput
           name={name}
           onChange={(val) => setLink(val)}
           value={link}
+          className={styles['link-input-field']}
+          onBlur={() => {}}
+          onKeyPress={(e) => keyPressHandler(e, link)}
         />
-        <button type="submit" data-testid="addLink" onClick={() => {}}>Add</button>
-      </form>
-      {renderLinks()}
+        <PrimaryButton className={styles['link-add-button']} type="submit" data-testid="addLink" onClick={() => addLink(link)}><SVGIcon strokeWidth="15" style={{ width: '1.5rem' }} icon="add"/></PrimaryButton>
+      </div>
+      {showList && <FileList files={links} onRemove={(link) => removeLink(link)}/>}
     </div>
   );
 }

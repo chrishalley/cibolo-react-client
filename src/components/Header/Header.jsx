@@ -40,9 +40,13 @@ class Header extends Component {
           <SVGIcon icon="close" />
           Log in
         </HeaderLink>
-        <HeaderLink to="/events">
+        <HeaderLink to="/">
           <SVGIcon icon="calendar" />
           Events
+        </HeaderLink>
+        <HeaderLink to="/sandbox">
+          <SVGIcon icon="close" />
+          Sandbox
         </HeaderLink>
         <HeaderLink to="/dashboard">
           <SVGIcon icon="tools" />
