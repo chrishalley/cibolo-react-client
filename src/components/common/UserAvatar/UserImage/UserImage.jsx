@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { cloudinaryUrl } from '../../../../apis/cloudinary';
 import styles from './UserImage.module.css';
 
 const propTypes = {
@@ -10,7 +11,7 @@ const propTypes = {
 
 const UserImage = ({ src, alt }) => {
   return (
-    <img className={styles['avatar-image']} data-testid="avatarImage" src={src} alt={alt} />
+    <img className={styles['avatar-image']} data-testid="avatarImage" src={cloudinaryUrl(src, 'w_140')} alt={alt} />
   );
 }
 

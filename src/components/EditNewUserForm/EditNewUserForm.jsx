@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
+import api from '../../apis/api';
+
 import { FormBuilder, EditUserAvatar } from '../common';
 import { connect } from 'react-redux';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
-
 import { isEmail, isEmpty } from 'validator';
 import { addUser, updateUser, deleteUser } from '../../actions';
 
@@ -38,25 +39,52 @@ const EditNewUserForm = (props) => {
 
   const onSubmit = (state) => {
     const { firstName, lastName, emailAddress, role, avatar } = state;
-    const user = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: emailAddress.value,
-      role: role.value,
-      avatar: avatar.value
-    }
 
-    switch (formMode) {
-      case 'add':
-        props.addUser(user, addUserToUsers);
-        break;
-      case 'edit':
-        const update = { ...activeUser, ...user };
-        props.updateUser(update, updateUserInUsers);
-        break;
-      default:
-        console.log('invalid formMode specified')
-    }
+    console.log(avatar);
+    
+    const processImage = new Promise((resolve, reject) => {
+      console.log('HERE', avatar.value, activeUser.avatar);
+      if ( activeUser.avatar.profileImage && avatar.value.profileImage && activeUser.avatar.profileImage.url !== avatar.value.profileImage.url) { // Diff the avatar images
+          // Cloudinary upload goes here
+          const { profileImage } = avatar.value;
+          let fd = new FormData();
+          fd.append('file', profileImage.url);
+          fd.append('filename', profileImage.name);
+          api.post('/profileImages', fd)
+            .then(res => {
+              const { data } = res;
+              resolve(data);
+            })
+            .catch(e => { console.error(e); reject(); })
+        } else {
+          resolve(avatar.value.profileImage);
+        }
+      });
+
+      processImage.then((profileImage) => {
+        const user = {
+          firstName: firstName.value,
+          lastName: lastName.value,
+          email: emailAddress.value,
+          role: role.value,
+          avatar: {...avatar.value, profileImage}
+        }
+    
+        switch (formMode) {
+          case 'add':
+            props.addUser(user, addUserToUsers);
+            break;
+          case 'edit':
+            const update = { ...activeUser, ...user };
+            props.updateUser(update, updateUserInUsers);
+            break;
+          default:
+            console.log('invalid formMode specified')
+        }
+      })
+      .catch(e => {
+        console.log('processImage error:', e);
+      })
   }
 
   const form = [

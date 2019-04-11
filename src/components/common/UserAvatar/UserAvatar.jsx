@@ -31,7 +31,7 @@ const UserAvatar = (props) => {
   const { user, chip } = props;
 
   const renderUserImage = (user) => {
-    return <UserImage src={user.avatar.profileImage} alt={`${user.firstName} ${user.lastName}`} />
+    return <UserImage src={user.avatar.profileImage.url} alt={`${user.firstName} ${user.lastName}`} />
   }
 
   const renderUserBadge = (user) => {

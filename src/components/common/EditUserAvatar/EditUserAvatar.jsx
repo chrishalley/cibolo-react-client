@@ -42,23 +42,23 @@ const EditUserAvatar = (props) => {
   };
 
   const onImageChange = (image) => {
-    let url
-    url = image ? image.url : null;
-    setAvatar({ ...avatar, profileImage: url });
+    let profileImage = image ? { name: image.name, url: image.src } : null;
+    
+    setAvatar({ ...avatar, profileImage: profileImage });
+
   };
 
   useEffect(() => {
     onChange(avatar);
-    console.log('avatar', avatar)
   }, [avatar]);
 
   return (
     <div className={styles['edit-user-avatar']}>
       <div className={styles['avatar-preview']}>
-        <UserAvatar user={{ ...user, avatar: { color: avatar.color, profileImage: avatar.profileImage} }}/>
+        <UserAvatar user={{ ...user, avatar: { color: avatar.color, profileImage: avatar.profileImage } }}/>
         <ColorPicker defaultValue={avatar.color} colors={colors} onChange={onColorChange}></ColorPicker>
       </div>
-      <ImageInput initialImage={avatar.profileImage ? {url: avatar.profileImage} : null} onChange={onImageChange}/>
+      <ImageInput initialImage={avatar.profileImage ? {src: avatar.profileImage.url} : null} onChange={onImageChange}/>
     </div>
   );
 };

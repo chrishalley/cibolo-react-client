@@ -26,7 +26,7 @@ const ImageInput = ({initialImage, onChange, acceptedTypes, ...restProps}) => {
   const [image, setImage] = useState(initialImage || null);
 
   useEffect(() => {
-    if (image && image.url) {
+    if (image && image.src) {
       onChange(image);
     } else {
       onChange(null);
@@ -43,22 +43,24 @@ const ImageInput = ({initialImage, onChange, acceptedTypes, ...restProps}) => {
   }
 
   const addImage = (val) => {
-    setImage({url: val.url});
+    const { url } = val;
+    const urlArray = url.split('/');
+    const name = urlArray[urlArray.length - 1].split('?')[0];
+    setImage({ src: val.url, name: name });
     setHighlight(false);
   }
 
   const openFileDialog = e => {
     e.stopPropagation();
-    console.log('Error', e);
     fileInputRef.current.click();
   }
 
   const readFile = (file) => {
-    console.log(file);
+    const { name } = file;
     if (file && checkFileType(file, acceptedTypes)) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = file => setImage({ url: file.target.result });
+      reader.onload = file => setImage({ src: file.target.result, name: name });
     } else {
       console.error('filetype not supported')
       setErrorMessage('File type not supported')
@@ -87,7 +89,7 @@ const ImageInput = ({initialImage, onChange, acceptedTypes, ...restProps}) => {
   const renderDropzoneContents = () => {
     return image ? (
       <div className={styles['image-preview-wrapper']}>
-        <img className={styles['image-preview']} src={image.url} alt="preview" data-testid="imagePreview"/>
+        <img className={styles['image-preview']} src={image.src} alt="preview" data-testid="imagePreview"/>
         <SecondaryButton className={styles['button-image-remove']} onClick={removeImage}><SVGIcon width="1rem" strokeWidth="20" icon="close"/></SecondaryButton>
       </div>
       ) : (

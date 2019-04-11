@@ -112,7 +112,7 @@ const FormBuilder = (props) => {
 
   const onKeyPress = e => {
     if (e.key === 'Enter') {
-      e.preventDefault();
+      e.target.type !== 'submit' && e.preventDefault();
     }
   }
 
