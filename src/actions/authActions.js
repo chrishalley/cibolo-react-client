@@ -34,7 +34,11 @@ export const initAuth = () => dispatch => {
         logout();
         resolve();
       } else { // Token is valid, retrieve user details from database
-        api.get(`/users/${id}`)
+        api.get(`/users/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
           .then(res => {
             dispatch({ type: CHANGE_AUTH, payload: { ...res.data, tokenExpiry: exp * 1000 } })
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
