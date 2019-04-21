@@ -1,0 +1,78 @@
+.carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-wrapper {
+  background-color: 'teal';
+  width: 100%;
+  display: flex;
+  /* overflow-x: hidden; */
+}
+
+.slide-wrapper {
+  position: relative;
+  display: flex;
+  flex: 0 0 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+}
+
+.navigation {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  top: 50%;
+  width: 100%;
+  padding: 4rem;
+  transform: translateY(-50%);
+}
+
+.pips {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pip {
+  height: 1.6rem;
+  width: 1.6rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 2rem;
+  box-shadow: 0 .5rem .3rem rgba(0, 0, 0, 0.2);
+  transition: height .4s, width .4s;
+}
+
+.pip:not(:last-child) {
+  margin-right: 6rem;
+}
+
+.pip-active {
+  height: 2rem;
+  width: 2rem;
+  background-color: #FFFFFF;
+}
+
+.slide-info {
+  position: absolute;
+  bottom: 10rem;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--color-primary);
+  padding: 2rem;
+  padding-left: 4rem;
+}
+
+/* .inner {
+  height: 100%;
+  flex: 0 0 100%;
+} */
