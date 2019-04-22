@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import { Card } from '../';
 
 import styles from './Modal.module.css';
+
+const propTypes = {
+  closeHandler: PropTypes.func
+}
+
+const defaultProps = {
+  closeHandler: () => console.warn('no closeHandler() specified')
+}
 
 const Modal = (props) => {
 
@@ -32,5 +41,8 @@ const Modal = (props) => {
     document.querySelector('#modal')
   );
 }
+
+Modal.propTypes = propTypes;
+Modal.defaultProps = defaultProps;
 
 export { Modal };

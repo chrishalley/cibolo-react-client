@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import posed from 'react-pose';
 
@@ -55,12 +55,12 @@ const Carousel = props => {
         <img
           className={styles["image"]}
           data-testid="carouselSlide"
-          src={image.url}
+          src={image.imgUrl}
           alt={image.alt}
         />
         <div className={styles['slide-info']}>
           <h2>{image.title}</h2>
-          <p>{image.time}</p>
+          <p>{image.startDateTime}</p>
           <p>{i}</p>
         </div>
       </div>

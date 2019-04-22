@@ -1,6 +1,8 @@
-.appHeader {
+.header {
   background-color: var(--color-primary);
-  padding: 1rem;
+  padding: 2rem 4rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  color: #FFFFFF;
 }

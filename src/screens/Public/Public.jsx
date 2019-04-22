@@ -6,16 +6,18 @@ import Footer from '../../components/Footer/Footer';
 import Login from '../Login/Login';
 import EventsScreen from '../Events/EventsScreen';
 import SandboxScreen from '../Sandbox/SandboxScreen';
+import NoMatch from "../NoMatch/NoMatch";
 
 const Public = (props) => {
+  const {location} = props;
   return (
     <Fragment>
-      <Header></Header>
+      <Header location={location}></Header>
       <Switch>
         <Route path="/" exact component={EventsScreen}></Route>
-        <Route path="/sandbox" exact component={SandboxScreen}></Route>
+        <Route path="/sandbox" component={SandboxScreen}></Route>
         <Route path="/login" component={Login}></Route>
-        <Route render={() => `<h1>404 page not found</h1>`} />
+        <Route component={NoMatch}/>
       </Switch>
       <Footer></Footer>
     </Fragment>

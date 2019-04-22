@@ -1,0 +1,34 @@
+.public-nav {
+  list-style: none;
+  display: flex;
+}
+
+.public-nav-item {
+  display: flex;
+  flex-direction: column;
+  padding: .5rem 1rem;
+  cursor: pointer;
+}
+
+.public-nav-item:not(:last-child) {
+  margin-right: 3rem;
+}
+
+.public-nav-item a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.8rem;
+}
+
+.link-underline {
+  height: 3px;
+  background-color: #FFFFFF;
+  margin-top: 6px;
+  border-radius: 10rem;
+  transform: scaleX(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+.public-nav-item:hover .link-underline, .active + .link-underline {
+  transform: scaleX(1);
+}

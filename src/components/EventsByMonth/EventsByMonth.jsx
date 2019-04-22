@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+
+import styles from './EventsByMonth.module.css';
+import { Card, PrimaryButton, SVGIcon } from '../../components/common';
 
 const propTypes = {
 
@@ -24,7 +27,68 @@ const months = [
   'December',
 ];
 
+const FittedImage = props => {
+  const { src, alt, ...restProps } = props;
+
+  const imgWrapperRef = useRef();
+  const imgRef = useRef();
+
+  useEffect(() => {
+    let { offsetWidth: parentOffsetWidth, offsetHeight: parentOffsetHeight } = imgWrapperRef.current;
+    const parentRatio = parentOffsetHeight / parentOffsetWidth;
+    imgRef.current.onload = () => {
+      const imgRatio = imgRef.current.height / imgRef.current.width;
+      // If difference between parentRatio and imgRatio is positive, image must be height 100%, else width 100%
+      // console.log('parentRatio:', parentRatio);
+      // console.log('imgRatio:', imgRatio);
+      if (parentRatio - imgRatio > 0) {
+        imgRef.current.style.height = '100%';
+        imgRef.current.style.width = 'auto';
+      } else {
+        imgRef.current.style.height = 'auto';
+        imgRef.current.style.width = '100%';
+      }
+    }
+    imgRef.current.onload();
+  }, [src])
+
+  return (
+    <div ref={imgWrapperRef} {...restProps}>
+      <img ref={imgRef} style={{position: 'absolute', width: '100%'}} src={src} alt={alt}/>
+    </div>
+  )
+}
+
+const EventsList = props => {
+
+  const { events, viewEvent } = props;
+
+  if (events.length > 0) {
+    return events.map(event => {
+
+      return (
+        <Card key={event.startDateTime} style={{display: 'flex', flexDirection: 'row', padding: '0', border: '2px solid #FFFFFF', overflow: 'hidden'}}>
+          
+          <FittedImage src={event.imgUrl} alt={event.title} style={{width: '20rem', flex: '0 0 auto', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', overflow: 'hidden'}}/>
+
+          <div style={{marginLeft: '2rem', padding: '2rem'}}>
+            <h3 style={{color: 'var(--color-primary)'}}>{event.title}</h3>
+            <p style={{whiteSpace: 'pre-wrap'}}>{event.description}</p>
+            <p>{event.startDateTime} - {event.endDateTime}</p>
+            <button onClick={() => viewEvent(event)}>View</button>
+          </div>
+        </Card>
+      )
+    })
+  } else {
+    return (
+      <p>There are currently no events scheduled for this month.</p>
+    )
+  }
+}
+
 const EventsByMonth = props => {
+  const { events, viewEvent } = props;
 
   const getMonthDetails = (timestamp) => {
     const date = new Date(timestamp);
@@ -42,6 +106,12 @@ const EventsByMonth = props => {
     const fullYear = date.getFullYear();
     const nextMonth = new Date(fullYear, monthIndex + step, 1).getTime();
 
+    // Prevent users from looking into previous months
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const startOfCurrentMonth = new Date(currentYear, currentMonth, 1).getTime();
+    if (nextMonth < startOfCurrentMonth) return
     setState({...state, ...getMonthDetails(nextMonth)});
   }
 
@@ -52,13 +122,20 @@ const EventsByMonth = props => {
     setState({ ...state, ...getMonthDetails(currentTimeStamp) })
   }, [])
 
+  const getMonthEvents = () => {
+    return events.filter(event => {
+      return event.startDateTime > state.startTimeStamp && event.startDateTime < state.endTimeStamp;
+    });
+  }
+
   return (
-    <div data-testid="eventsByMonth">
-      <div>
-        <button data-testid="prevButton" onClick={() => changeMonth(-1)}>prev</button>
+    <div className={styles['events-by-month']} data-testid="eventsByMonth">
+      <div className={styles['controller']}>
+        <PrimaryButton className={styles['controller-button']} data-testid="prevButton" onClick={() => changeMonth(-1)}><SVGIcon icon="arrow-left"/></PrimaryButton>
         <h4>{state.currentMonthString}</h4>
-        <button data-testid="nextButton" onClick={() => changeMonth(1)}>next</button>
+        <PrimaryButton className={styles['controller-button']} data-testid="nextButton" onClick={() => changeMonth(1)}><SVGIcon icon="arrow-right"/></PrimaryButton>
       </div>
+      <EventsList events={getMonthEvents()} viewEvent={viewEvent}/>
     </div>
   )
 }
@@ -66,4 +143,4 @@ const EventsByMonth = props => {
 EventsByMonth.propTypes = propTypes;
 EventsByMonth.defaultProps = defaultProps;
 
-export default EventsByMonth;
+export default React.memo(EventsByMonth);

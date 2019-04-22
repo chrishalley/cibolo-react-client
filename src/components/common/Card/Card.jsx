@@ -4,7 +4,7 @@ import styles from './Card.module.css';
 import { SecondaryButton, SVGIcon } from '../';
 
 const Card = (props) => {
-  const { closeMethod, title, children, className } = props
+  const { closeMethod, title, children, className, ...restProps } = props
 
   const renderHeader = () => {
       return (
@@ -19,8 +19,8 @@ const Card = (props) => {
   }
 
   return (
-    <div className={`${styles['card']} ${className}`} onClick={e => e.stopPropagation()}>
-      {renderHeader()}
+    <div className={`${styles['card']} ${className}`} onClick={e => e.stopPropagation()} {...restProps}>
+      {(title || closeMethod) && renderHeader()}
       {children}
     </div>
   )
