@@ -5,11 +5,11 @@ import styles from './EventsByMonth.module.css';
 import { Card, PrimaryButton, SVGIcon } from '../../components/common';
 
 const propTypes = {
-
+  pastEvents: PropTypes.bool
 }
 
 const defaultProps = {
-
+  pastEvents: false
 }
 
 const months = [
@@ -88,7 +88,7 @@ const EventsList = props => {
 }
 
 const EventsByMonth = props => {
-  const { events, viewEvent } = props;
+  const { events, viewEvent, pastEvents } = props;
 
   const getMonthDetails = (timestamp) => {
     const date = new Date(timestamp);
@@ -111,7 +111,7 @@ const EventsByMonth = props => {
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
     const startOfCurrentMonth = new Date(currentYear, currentMonth, 1).getTime();
-    if (nextMonth < startOfCurrentMonth) return
+    if (!pastEvents && nextMonth < startOfCurrentMonth) return
     setState({...state, ...getMonthDetails(nextMonth)});
   }
 
@@ -122,8 +122,8 @@ const EventsByMonth = props => {
     setState({ ...state, ...getMonthDetails(currentTimeStamp) })
   }, [])
 
-  const getMonthEvents = () => {
-    return events.filter(event => {
+  const getMonthEvents = (eventArray) => {
+    return eventArray.filter(event => {
       return event.startDateTime > state.startTimeStamp && event.startDateTime < state.endTimeStamp;
     });
   }
@@ -135,7 +135,7 @@ const EventsByMonth = props => {
         <h4>{state.currentMonthString}</h4>
         <PrimaryButton className={styles['controller-button']} data-testid="nextButton" onClick={() => changeMonth(1)}><SVGIcon icon="arrow-right"/></PrimaryButton>
       </div>
-      <EventsList events={getMonthEvents()} viewEvent={viewEvent}/>
+      <EventsList events={getMonthEvents(events)} viewEvent={viewEvent}/>
     </div>
   )
 }

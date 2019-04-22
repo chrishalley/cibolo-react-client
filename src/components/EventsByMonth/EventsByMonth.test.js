@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, cleanup } from 'react-testing-library';
 
 import EventsByMonth from './EventsByMonth';
+import events from './events';
 
 afterEach(cleanup);
 
@@ -23,7 +24,7 @@ const months = [
 describe('EventsByMonth', () => {
 
   const defaultProps = {
-
+    events: events
   }
 
   const setup = props => {
@@ -41,8 +42,8 @@ describe('EventsByMonth', () => {
 describe('EventsByMonth navigation functions', () => {
 
   const defaultProps = {
-
-  }
+    events: events
+  };
 
   const setup = props => {
     return render(<EventsByMonth {...defaultProps} {...props} />)
@@ -58,8 +59,8 @@ describe('EventsByMonth navigation functions', () => {
     expect(eventsByMonth).toHaveTextContent(`${months[currentMonthIndex]} ${currentYear}`);
   });
 
-  it("should change to previous month on prev button click", () => {
-    const { getByTestId } = setup();
+  it("if pastEvents prop is true, should display previous month on prev button click", () => {
+    const { getByTestId } = setup({pastEvents: true});
     const eventsByMonth = getByTestId("eventsByMonth");
     const prevButton = getByTestId('prevButton');
     const previousMonthIndex = currentMonthIndex > 0 ? currentMonthIndex - 1 : 11;
@@ -68,6 +69,14 @@ describe('EventsByMonth navigation functions', () => {
     expect(eventsByMonth).toHaveTextContent(`${months[previousMonthIndex]} ${yearOfPreviousMonth}`);
   });
   
+  it("if pastEvents prop is false, should display current month on prev button click", () => {
+    const { getByTestId } = setup();
+    const eventsByMonth = getByTestId("eventsByMonth");
+    const prevButton = getByTestId('prevButton');
+    fireEvent.click(prevButton);
+    expect(eventsByMonth).toHaveTextContent(`${months[currentMonthIndex]} ${currentYear}`);
+  });
+
   it("should change to next month on next button click", () => {
     const { getByTestId } = setup();
     const eventsByMonth = getByTestId("eventsByMonth");
