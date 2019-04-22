@@ -12,7 +12,10 @@ const users = [
     firstName: 'John',
     lastName: 'Smith',
     avatar: {
-      profileImage: 'https://images.pexels.com/photos/1675870/pexels-photo-1675870.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      profileImage: {
+        url: 'https://images.pexels.com/photos/1675870/pexels-photo-1675870.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        name: 'profilePic1.jpg'
+      },
       color: '#21f5ff'
     }
   },
@@ -28,7 +31,10 @@ const users = [
     firstName: 'John',
     lastName: 'Smith',
     avatar: {
-      profileImage: 'https://images.pexels.com/photos/1675870/pexels-photo-1675870.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
+      profileImage: {
+        url: 'https://images.pexels.com/photos/1675870/pexels-photo-1675870.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        name: 'profilePic2.jpg'
+      }
     }
   },
 ]
