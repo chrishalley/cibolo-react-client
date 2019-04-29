@@ -17,3 +17,6 @@ export const UPDATE_USER_REQUEST = 'update_user_request';
 export const ADD_USER = 'add_user';
 export const UPDATE_USER = 'update_user';
 export const DELETE_USER = 'delete_user';
+
+export const GET_EVENTS_REQUEST = 'get_events_request';
+export const GET_EVENTS_SUCCESS = 'get_events_success';

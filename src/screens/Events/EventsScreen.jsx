@@ -1,4 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { getEventsRequest } from '../../actions';
 
 import { Screen, Card, Modal, PrimaryButton } from '../../components/common';
 import Carousel from '../../components/Carousel/Carousel';
@@ -9,8 +12,13 @@ import events from '../../components/EventsByMonth/events';
 
 const EventScreen = props => {
 
+  useEffect(() => {
+    props.getEventsRequest();
+  }, [])
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(BookingForm);
+  const [modalTitle, setModalTitle] = useState('Request a booking');
 
   const carouselEvents = events.sort((a, b) => {
     if (a.startDateTime < b.startDateTime) {
@@ -27,11 +35,13 @@ const EventScreen = props => {
 
   const viewEvent = event => {
     setModalContent(<EventDetails event={event}/>);
+    setModalTitle(event.title);
     toggleModal();
   };
 
   const viewBookingForm = () => {
     setModalContent(<BookingForm />);
+    setModalTitle('Request a booking');
     toggleModal();
   }
 
@@ -41,7 +51,7 @@ const EventScreen = props => {
       <Screen>
         <div style={{display: 'flex'}}>
           <div style={{flex: '2 0'}}>
-            <EventsByMonth viewEvent={(event) => viewEvent(event)} events={events}/>
+            <EventsByMonth viewEvent={(event) => viewEvent(event)} events={props.events}/>
           </div>
           <Card style={{display: 'flex', flexDirection: 'column', flex: '1 0', marginLeft: '3rem', alignSelf: 'flex-start'}}>
             <h3>Hire our space!</h3>
@@ -52,9 +62,13 @@ const EventScreen = props => {
           </Card>
         </div>
       </Screen>
-      {modalOpen && <Modal closeHandler={toggleModal}>{modalContent}</Modal>}
+      {modalOpen && <Modal title={modalTitle} closeHandler={toggleModal}>{modalContent}</Modal>}
     </Fragment>
   )
 }
 
-export default EventScreen;
+const mapStateToProps = state => ({
+  events: state.events
+});
+
+export default connect(mapStateToProps, { getEventsRequest })(EventScreen);

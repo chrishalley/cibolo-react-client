@@ -5,11 +5,13 @@ import styles from './EventsByMonth.module.css';
 import { Card, PrimaryButton, SVGIcon } from '../../components/common';
 
 const propTypes = {
-  pastEvents: PropTypes.bool
+  pastEvents: PropTypes.bool,
+  events: PropTypes.array
 }
 
 const defaultProps = {
-  pastEvents: false
+  pastEvents: false,
+  events: []
 }
 
 const months = [
