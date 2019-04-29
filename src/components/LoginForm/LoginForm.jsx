@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { isEmail, isEmpty, isLength } from 'validator'
 
-import * as actions from '../../actions'
+import { loginRequest } from '../../actions'
 import { FormBuilder } from '../common'
 
 const LoginForm = (props) => {
@@ -66,18 +66,18 @@ const LoginForm = (props) => {
   ];
 
   function login(state) {
-    console.log('login')
-    setError(null)
-    const { email, password } = state
-    props.changeAuth({ email: email.value, password: password.value })
-      .then(result => {
-        console.log('success')
-        props.history.push('/dashboard')
-      })
-      .catch(e => {
-        console.log('error')
-        e.response && e.response.data && e.response.data.message ? setError(e.response.data.message) : console.log(e);
-      })
+    console.log('login');
+    setError(null);
+    const { email, password } = state;
+    props.loginRequest({ email: email.value, password: password.value });
+      // .then(result => {
+      //   console.log('success')
+      //   props.history.push('/dashboard')
+      // })
+      // .catch(e => {
+      //   console.log('error')
+      //   e.response && e.response.data && e.response.data.message ? setError(e.response.data.message) : console.log(e);
+      // })
   }
 
 
@@ -86,7 +86,7 @@ const LoginForm = (props) => {
   )
 }
 
-export default withRouter(connect(null, actions)(LoginForm))
+export default withRouter(connect(null, { loginRequest })(LoginForm))
 
 // class LoginForm extends Component {
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 
 import theme from '../assets/theme/theme';
-import { initAuth } from '../actions';
+import { initAuthRequest } from '../actions';
 import Root from '../screens/Root';
 
 import { Spinner } from '../components/common';
@@ -17,17 +17,17 @@ class App extends Component {
 
   componentDidMount() {
     // try to get token from localstorage
-    this.props.initAuth()
-      .then(() => {
-        this.setState({ initAuthComplete: true })
-      })
-      .catch((e) => { 
-        console.log('initAuthError: ', e)
-        this.setState({ initAuthComplete: true })
-      });
+    this.props.initAuthRequest()
+      // .then(() => {
+      //   this.setState({ initAuthComplete: true })
+      // })
+      // .catch((e) => { 
+      //   console.log('initAuthError: ', e)
+      //   this.setState({ initAuthComplete: true })
+      // });
   }
 
-  renderApp = () => this.state.initAuthComplete ? <Router><Root></Root></Router> : <Spinner></Spinner>
+  renderApp = () => this.props.initAuthComplete ? <Router><Root></Root></Router> : <Spinner></Spinner>
 
   render() {
     return (
@@ -40,4 +40,6 @@ class App extends Component {
   }
 }
 
-export default connect(null, { initAuth })(App);
+const mapStateToProps = state => ({ initAuthComplete: state.auth.initAuthComplete });
+
+export default connect(mapStateToProps, { initAuthRequest })(App);

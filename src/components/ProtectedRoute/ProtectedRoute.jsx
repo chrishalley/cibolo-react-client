@@ -5,7 +5,7 @@ import { logout } from '../../actions';
 import { Spinner } from '../common';
 
 const ProtectedRoute = (props) => {
-  const { component: Component, currentUser, ...rest } = props;
+  const { component: Component, currentUser, tokenExpiry, ...rest } = props;
   const [ auth, setAuth ] = useState(null) // Set initial auth value to null
 
   useEffect(() => {
@@ -13,13 +13,17 @@ const ProtectedRoute = (props) => {
   })
 
   const currentUserAuthenticated = () => {
+    console.log(new Date(tokenExpiry), new Date());
     if ( !currentUser ) { // If there is no currentUser logged in, setAuth to false causing redirect to login
+      console.log('no current user')
       setAuth(false)
       // props.logout()
-    } else if (currentUser && currentUser.tokenExpiry && currentUser.tokenExpiry < new Date().getTime()) { // If token is expired, log user out and redirect to login
+    } else if (tokenExpiry < new Date().getTime()) { // If token is expired, log user out and redirect to login
+      console.log('token is expired')
       props.logout()
       setAuth(false)
     } else { // Otherwise, user must be authenticated
+      console.log('authenticated')
       setAuth(true)
     }
   }
@@ -43,7 +47,8 @@ const ProtectedRoute = (props) => {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.auth.user,
+    tokenExpiry: state.auth.tokenExpiry
   }
 }
 

@@ -1,6 +1,10 @@
 import api from '../apis/api';
 
-import {  } from './types';
+import { GET_USERS } from './types';
+
+export const fetchUsers = () => ({
+  type: GET_USERS
+})
 
 export const addUser = (user, callback) => (dispatch) => {
   api.post('/users', user)
