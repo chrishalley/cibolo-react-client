@@ -30,8 +30,9 @@ export const loginRequest = ({ email, password }) => ({
 })
 
 // * KEEP THIS - Works with switch to Redux-Saga
-export const changeAuth = ({ user, initAuthComplete, tokenExpiry }) => {
+export const changeAuth = ({ user, initAuthComplete, tokenExpiry, token }) => {
   console.log('changeAuth() action');
+  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   return {
     type: CHANGE_AUTH_SUCCESS,
     payload: {

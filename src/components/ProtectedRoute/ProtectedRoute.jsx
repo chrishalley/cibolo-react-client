@@ -13,17 +13,13 @@ const ProtectedRoute = (props) => {
   })
 
   const currentUserAuthenticated = () => {
-    console.log(new Date(tokenExpiry), new Date());
     if ( !currentUser ) { // If there is no currentUser logged in, setAuth to false causing redirect to login
-      console.log('no current user')
       setAuth(false)
       // props.logout()
     } else if (tokenExpiry < new Date().getTime()) { // If token is expired, log user out and redirect to login
-      console.log('token is expired')
       props.logout()
       setAuth(false)
     } else { // Otherwise, user must be authenticated
-      console.log('authenticated')
       setAuth(true)
     }
   }

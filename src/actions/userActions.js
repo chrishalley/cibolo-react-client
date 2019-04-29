@@ -1,10 +1,23 @@
 import api from '../apis/api';
 
-import { GET_USERS } from './types';
+import { GET_USERS, GET_USERS_SUCCESS } from './types';
 
-export const fetchUsers = () => ({
-  type: GET_USERS
-})
+//* KEEP this one, works with Redux-Saga
+export const getUsers = () => {
+  return {
+    type: GET_USERS
+  }
+}
+
+export const getUsersSuccess = ({ users }) => {
+  console.log('in getUsersSuccess()');
+  return {
+    type: GET_USERS_SUCCESS,
+    payload: {
+      users
+    }
+  }
+}
 
 export const addUser = (user, callback) => (dispatch) => {
   api.post('/users', user)

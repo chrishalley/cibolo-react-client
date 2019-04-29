@@ -25,7 +25,8 @@ function* initAuth() {
       yield put(actions.changeAuth({
         initAuthComplete: true,
         user: response.data,
-        tokenExpiry: exp * 1000
+        tokenExpiry: exp * 1000,
+        token: token
       }))
     }
     
