@@ -33,8 +33,12 @@ const defaultProps = {
 };
 
 const EditUserAvatar = (props) => {
-  const { user, onChange } = props;
-  const { avatar: initialAvatar } = user;
+  console.log('editAvatar props', props);
+  const { onChange } = props;
+  let { user } = props;
+  if (!user) user = defaultProps.user;
+
+  const { avatar: initialAvatar } = user || defaultProps.user.avatar;
   const [avatar, setAvatar] = useState(initialAvatar);
 
   const onColorChange = (color) => {

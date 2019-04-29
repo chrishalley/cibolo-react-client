@@ -11,7 +11,6 @@ export default function(state = INITIAL_STATE, action) {
       console.log('change_auth_fail')
       return {...state}
     case CHANGE_AUTH_SUCCESS:
-      console.log('change_auth_success', action)
       return {
         ...state,
         ...action.payload

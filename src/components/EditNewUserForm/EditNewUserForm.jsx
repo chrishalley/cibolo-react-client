@@ -5,9 +5,10 @@ import { FormBuilder, EditUserAvatar } from '../common';
 import { connect } from 'react-redux';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
 import { isEmail, isEmpty } from 'validator';
-import { addUser, updateUser, deleteUser } from '../../actions';
+import { addUserRequest, updateUser, deleteUser, updateUserRequest } from '../../actions';
 
 const EditNewUserForm = (props) => {
+  console.log('editNewUserForm props', props);
 
   const [error, setError] = useState(null);
 
@@ -25,17 +26,17 @@ const EditNewUserForm = (props) => {
     setShowModal(false);
   }
 
-  const updateUserInUsers = (updatedUser) => {
-    const updatedUsers = users.map(user => {
-      if (user._id !== updatedUser._id) {
-        return user;
-      } else {
-        return updatedUser;
-      }
-    })
-    setUsers(updatedUsers);
-    setShowModal(false);
-  }
+  // const updateUserInUsers = (updatedUser) => {
+  //   const updatedUsers = users.map(user => {
+  //     if (user._id !== updatedUser._id) {
+  //       return user;
+  //     } else {
+  //       return updatedUser;
+  //     }
+  //   })
+  //   setUsers(updatedUsers);
+  //   setShowModal(false);
+  // }
 
   const onSubmit = (state) => {
     const { firstName, lastName, emailAddress, role, avatar } = state;
@@ -75,8 +76,10 @@ const EditNewUserForm = (props) => {
             props.addUser(user, addUserToUsers);
             break;
           case 'edit':
-            const update = { ...activeUser, ...user };
-            props.updateUser(update, updateUserInUsers);
+            const cb = () => setShowModal(false);
+            const updatedUser = { ...activeUser, ...user };
+            props.updateUserRequest({ updatedUser }, cb);
+            // props.updateUser(update, updateUserInUsers);
             break;
           default:
             console.log('invalid formMode specified')
@@ -253,4 +256,4 @@ const EditNewUserForm = (props) => {
   );
 };
 
-export default connect(null, { addUser, updateUser, deleteUser })(EditNewUserForm);
+export default connect(null, { addUserRequest, updateUserRequest, deleteUser })(EditNewUserForm);

@@ -38,12 +38,6 @@ const UsersScreen = (props) => {
     //   .catch(e => console.log(e));
   }, []);
 
-  useEffect(() => {
-    console.log('users state updated');
-    console.log(users);
-  }, [users]);
-
-
   // const initAddNewUser = () => {
   //   setFormMode('add');
   //   toggleModal();
