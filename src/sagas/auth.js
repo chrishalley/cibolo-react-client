@@ -45,7 +45,7 @@ function* watchInitAuthRequest() {
 };
 
 function* login(action) {
-  const { email, password } = action.payload;
+  const { email, password, cb } = action.payload;
   try {
     const response = yield api.post("/auth/login", { email, password });
     const { exp } = jwt.decode(response.headers["x-token"]);
@@ -54,12 +54,14 @@ function* login(action) {
     localStorage.setItem('refreshToken', response.headers['x-refresh-token']);
 
     api.defaults.headers.common['Authorization'] = `Bearer ${response.headers['x-token']}`;
+
     yield put(actions.changeAuth({
       initAuthComplete: true,
       user: response.data,
       tokenExpiry: exp * 1000
     }));
-
+    
+    cb();
 
   } catch(e) {
     console.log(e);

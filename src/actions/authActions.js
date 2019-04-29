@@ -21,11 +21,12 @@ import api from '../apis/api'
 // }
 
 // * KEEP THIS - Works with switch to Redux-Saga
-export const loginRequest = ({ email, password }) => ({
+export const loginRequest = ({ email, password }, cb) => ({
   type: LOGIN_REQUEST,
   payload: {
     email,
-    password
+    password,
+    cb
   }
 })
 

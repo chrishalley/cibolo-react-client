@@ -65,11 +65,15 @@ const LoginForm = (props) => {
     }
   ];
 
+  const cb = () => {
+    props.history.push("/dashboard");
+  }
+
   function login(state) {
     console.log('login');
     setError(null);
     const { email, password } = state;
-    props.loginRequest({ email: email.value, password: password.value });
+    props.loginRequest({ email: email.value, password: password.value }, cb);
       // .then(result => {
       //   console.log('success')
       //   props.history.push('/dashboard')
