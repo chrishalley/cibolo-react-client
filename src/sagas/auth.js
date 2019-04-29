@@ -53,12 +53,13 @@ function* login(action) {
     localStorage.setItem('token', response.headers['x-token']);
     localStorage.setItem('refreshToken', response.headers['x-refresh-token']);
 
-    api.defaults.headers.common['Authorization'] = `Bearer ${response.headers['x-token']}`;
-
+    console.log(response.headers["x-token"]);
+    console.log(api.defaults);
     yield put(actions.changeAuth({
       initAuthComplete: true,
       user: response.data,
-      tokenExpiry: exp * 1000
+      tokenExpiry: exp * 1000,
+      token: response.headers['x-token']
     }));
     
     cb();

@@ -57,12 +57,21 @@ const publicRoutes = [
   }
 ];
 
-const adminRoutes = [
+const adminRoutesLoggedIn = [
+  {
+    to: "/dashboard",
+    label: "Dashboard"
+  }
+];
+
+const adminRoutesLoggedOut = [
   {
     to: "/login",
     label: "Log in"
   }
 ];
+
+
 
 const propTypes = {
 
@@ -74,6 +83,9 @@ const defaultProps = {
 
 
 const PublicHeader = props => {
+
+  const adminRoutes = props.currentUser ? adminRoutesLoggedIn : adminRoutesLoggedOut;
+
   return (
     <header className={styles['header']}>
       <PublicNav routes={publicRoutes}/>
@@ -82,7 +94,7 @@ const PublicHeader = props => {
   );
 }
 
-const mapStateToProps = state => ({ currentUser: state.currentUser });
+const mapStateToProps = state => ({ currentUser: state.auth.user });
 
 export default connect(mapStateToProps, actions)(PublicHeader);
 
