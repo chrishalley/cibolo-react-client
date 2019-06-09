@@ -22,7 +22,7 @@ const EditNewUserForm = (props) => {
 
   const removeUserFromUsers = (id) => {
     const updatedUsers = users.filter(user => user._id !== id);
-    setUsers(updatedUsers)
+    setUsers(updatedUsers);
     setShowModal(false);
   }
 
@@ -56,7 +56,10 @@ const EditNewUserForm = (props) => {
               const { data } = res;
               resolve(data);
             })
-            .catch(e => { console.error(e); reject(); })
+            .catch(e => { 
+              console.log('somethings fucked')
+              reject(e); 
+            })
         } else {
           resolve(avatar.value.profileImage);
         }
@@ -86,7 +89,8 @@ const EditNewUserForm = (props) => {
         }
       })
       .catch(e => {
-        console.log('processImage error:', e);
+        console.log('processImage error:', JSON.stringify(e, null, 2));
+        setError(`Error: ${e.response.data.message}`);
       })
   }
 

@@ -26,6 +26,7 @@ const Fieldset = React.memo((props) => {
 
   const onChange = (input) => {
     const { valid, errorMessages } = validate(input);
+    console.log(validations);
     setErrorMessages(errorMessages);
     let update = {};
     set(update, name, { value: input, valid: valid });

@@ -191,8 +191,8 @@ const SVGIcon = (props) => {
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M75 30, L75 10, L25 10, L25 90, L75 90, L75 70 " />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M60 50, L90 50" />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M80 40, L90 50, L80 60" />
-          <circle cx="40" cy="50" r="2.5" />
-          <circle cx="50" cy="50" r="2.5" />
+          <circle fill="currentColor" cx="40" cy="50" r="2.5" />
+          <circle fill="currentColor" cx="50" cy="50" r="2.5" />
         </Fragment>
     },
     'add': {

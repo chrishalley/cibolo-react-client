@@ -23,6 +23,7 @@
 .link-underline {
   height: 3px;
   background-color: #FFFFFF;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
   margin-top: 6px;
   border-radius: 10rem;
   transform: scaleX(0);

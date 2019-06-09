@@ -43,7 +43,7 @@ const EventScreen = props => {
     setModalContent(<BookingForm />);
     setModalTitle('Request a booking');
     toggleModal();
-  }
+  };
 
   return (
     <Fragment>

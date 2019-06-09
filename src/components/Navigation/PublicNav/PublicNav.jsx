@@ -19,7 +19,6 @@ const PublicNav = props => {
   const renderRoutes = routes.map(route => {
     return <PublicNavItem key={route.label} {...route}/>
   })
-
   return (
     <nav>
       <ul className={styles['public-nav']}>

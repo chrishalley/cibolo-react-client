@@ -2,7 +2,6 @@ import React, { useReducer, useEffect } from 'react';
 import { set, unset } from 'lodash';
 import validator from 'validator';
 
-
 import { FieldGroup, FormSection, Fieldset, FormControl } from './components/layout';
 import { TextInput, TextArea, Select, RadioInput, Checkbox } from './components/inputs';
 
@@ -21,10 +20,8 @@ const appReducer = (state, action) => {
   }
 }
 
-
-
 const updateState = function (state, update) {
-  // console.log('update', update)
+  console.log('update', update)
   const { path, value, valid } = pathsFromObject(update, 'value')[0];
   // console.log(path, value, valid);
   unset(state, path);

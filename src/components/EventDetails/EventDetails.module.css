@@ -1,0 +1,17 @@
+.event-details {
+  max-width: 100rem;
+}
+
+.event-details__image {
+  height: 30rem;
+  width: 100%;
+}
+
+.event-details__time {
+  margin-top: 2rem;
+}
+
+.event-details__description {
+  margin-top: 2rem;
+  white-space: pre-wrap;
+}
