@@ -1,33 +1,35 @@
+@import '../../../styles/sizing.module.css';
+
 .card {
   display: inline-block;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: var(--box-shadow);
-  padding: 3rem;
+  padding: var(--page-pad);
   width: auto;
-  margin-bottom: 3rem;
+  margin-bottom: var(--page-pad);
 }
 
-.card-header {
+.cardHeader {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--page-pad-half);
 }
 
-.card-title {
+.cardTitle {
   flex-grow: 1;
   margin-bottom: 0;
 }
 
-.card-close {
+.cardClose {
   align-self: flex-end;
-  padding: 1rem;
+  padding: var(--page-pad-third);
 }
 
-.header-divider {
+.headerDivider {
   height: .3rem;
   background-color: var(--color-primary);
   border: none;
-  margin-bottom: 2rem;
+  margin-bottom: var(--page-pad-half);
 }

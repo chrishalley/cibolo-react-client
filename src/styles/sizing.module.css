@@ -1,11 +1,17 @@
 :root {
   --page-pad: 3rem;
   --page-pad-double: calc(var(--page-pad) * 2);
+  --page-pad-triple: calc(var(--page-pad) * 3);
   --page-pad-half: calc(var(--page-pad) / 2);
+  --page-pad-third: calc(var(--page-pad) / 3);
   --page-pad-quarter: calc(var(--page-pad) / 4);
   --page-pad-eighth: calc(var(--page-pad) / 8);
 
   --font-size-base: 1.6rem;
   --font-size-l: calc(var(--font-size-base) * 2);
   --font-size-s: calc(var(--font-size-base) * 0.8);
+
+  --font-size-h1: calc(var(--font-size-base) * 3);
+  --font-size-h2: calc(var(--font-size-base) * 2);
+  --font-size-h3: calc(var(--font-size-base) * 1.5);
 }

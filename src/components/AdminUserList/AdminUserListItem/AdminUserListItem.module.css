@@ -1,3 +1,5 @@
+@import '../../../styles/sizing.module.css';
+
 .user-list-item {
   display: flex;
   flex-direction: row;
@@ -16,5 +18,5 @@
 
 .quick-info {
   flex-grow: 1;
-  margin-left: 3rem;
+  margin-left: var(--page-pad);
 }

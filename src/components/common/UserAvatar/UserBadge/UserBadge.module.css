@@ -1,13 +1,15 @@
+@import '../../../../styles/sizing.module.css';
+
 .badge {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8rem;
+  height: var(--page-pad-triple);
 }
 
 .badge-initials {
   display: block;
-  font-size: 3rem;
+  font-size: var(--font-size-h2);
   letter-spacing: .5rem;
   margin-right: -.5rem;
   font-weight: 500;

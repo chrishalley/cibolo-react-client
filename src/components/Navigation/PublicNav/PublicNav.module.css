@@ -1,3 +1,5 @@
+@import '../../../styles/sizing.module.css';
+
 .public-nav {
   list-style: none;
   display: flex;
@@ -11,7 +13,7 @@
 }
 
 .public-nav-item:not(:last-child) {
-  margin-right: 3rem;
+  margin-right: var(--page-pad);
 }
 
 .public-nav-item a {

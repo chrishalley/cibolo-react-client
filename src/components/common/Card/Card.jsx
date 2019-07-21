@@ -1,30 +1,31 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import cx from 'classnames';
 
 import styles from './Card.module.css';
 import { SecondaryButton, SVGIcon } from '../';
 
-const Card = (props) => {
-  const { closeMethod, title, children, className, ...restProps } = props
+export const Card = ({
+  closeMethod,
+  title,
+  children,
+  className,
+  ...restProps
+}) => {
 
-  const renderHeader = () => {
-      return (
-        <Fragment>
-          <header className={styles['card-header']}>
-            {title && <h2 className={styles['card-title']}>{title}</h2>}
-            {closeMethod && <SecondaryButton className={styles['card-close']} onClick={closeMethod}><SVGIcon strokeWidth="10" style={{ width: '1.5rem' }} icon="close" /></SecondaryButton>}
-          </header>
-          {title && <hr className={styles['header-divider']}/>}
-        </Fragment>
-      );
-  }
+  const renderHeader = () => (
+    <>
+      <header className={styles.cardHeader}>
+        {title && <h2 className={styles.cardTitle}>{title}</h2>}
+        {closeMethod && <SecondaryButton className={styles.cardClose} onClick={closeMethod}><SVGIcon strokeWidth="10" style={{ width: '1.5rem' }} icon="close" /></SecondaryButton>}
+      </header>
+      {title && <hr className={styles.headerDivider}/>}
+    </>
+  );
 
   return (
-    <div className={`${styles['card']} ${className}`} onClick={e => e.stopPropagation()} {...restProps}>
+    <div className={cx(styles.card, className)} onClick={e => e.stopPropagation()} {...restProps}>
       {(title || closeMethod) && renderHeader()}
       {children}
     </div>
   )
 }
-
-export { Card };
-export default Card;

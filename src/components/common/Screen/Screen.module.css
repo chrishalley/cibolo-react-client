@@ -1,6 +1,8 @@
+@import '../../../styles/sizing.module.css';
+
 .screen {
   flex-grow: 1;
-  padding: 3rem;
+  padding: var(--page-pad);
   display: flex;
   flex-direction: column;
 }

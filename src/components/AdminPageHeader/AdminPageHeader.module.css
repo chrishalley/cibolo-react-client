@@ -1,11 +1,13 @@
+@import '../../styles/sizing.module.css';
+
 .header {
-  margin-bottom: 3rem;
+  margin-bottom: var(--page-pad);
 }
 
 .title {
   color: var(--color-black);
   display: inline-block;
-  margin-right: 3rem;
+  margin-right: var(--page-pad);
 }
 
 .divider {
