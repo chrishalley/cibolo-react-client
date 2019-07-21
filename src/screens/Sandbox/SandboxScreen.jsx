@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Screen, Card, Modal } from '../../components/common';
+import { Screen, Card, Modal, Spinner } from '../../components/common';
 
 import { ImageInput, LinkInput } from '../../components/common/FormBuilder/components/inputs';
 
@@ -33,6 +33,9 @@ const EventScreen = props => {
         </Card>
         <Card>
           <LinkInput onChange={() => {}}/>
+        </Card>
+        <Card>
+          <Spinner />
         </Card>
         {renderModal()}
       </Screen>

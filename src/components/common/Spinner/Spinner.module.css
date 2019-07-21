@@ -1,0 +1,26 @@
+.Spinner {
+  stroke: var(--color-primary);
+}
+
+.SpinnerSize--m {
+  width: 8rem;
+}
+
+.SpinnerPath {
+  animation: dash 2s ease-in-out forwards infinite,
+            spin 2s ease-in-out forwards infinite;
+  transform-origin: 50% 50%;
+  transform: rotateZ(0deg);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotateZ(360deg)
+  }
+}
