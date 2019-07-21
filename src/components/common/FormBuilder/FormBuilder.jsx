@@ -104,11 +104,20 @@ const FormBuilder = ({
       let nestedChildren = child.props.children ? renderChildren(child.props.children) : null;
       let inputComponent = child.props.component ? switchComponent(child.props.component) : null;
       let validations = child.props.validations ? assignValidationFunctions(child.props.validations) : null;
-      return React.createElement(
-        switchComponent(child.component),
-        { ...child.props, context: FormBuilderContext, component: inputComponent, validations: validations, disabled: disabled, key: i },
-        nestedChildren
-      );
+      if (child.component !== 'FormControl') {
+        return React.createElement(
+          switchComponent(child.component),
+          { ...child.props, context: FormBuilderContext, component: inputComponent, validations: validations, disabled: disabled, key: i },
+          nestedChildren
+        );
+      } else {
+        console.log(child)
+        return React.createElement(
+          switchComponent(child.component),
+          { ...child.props, disabled: !formValid(state), key: i },
+          nestedChildren
+        );
+      }
     });
   }
 
@@ -116,6 +125,11 @@ const FormBuilder = ({
     if (e.key === 'Enter') {
       e.target.type !== 'submit' && e.preventDefault();
     }
+  }
+
+  const formValid = (state) => {
+    const validArray = Object.keys(state).map(key => state[key].valid);
+    return validArray.indexOf(false) === -1;
   }
 
   // Render the generated form, wrapping with context to pass reducer's dispatch method down to inputs
