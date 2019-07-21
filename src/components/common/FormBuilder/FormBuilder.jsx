@@ -116,7 +116,7 @@ const FormBuilder = (props) => {
   // Render the generated form, wrapping with context to pass reducer's dispatch method down to inputs
   return (
     <FormBuilderContext.Provider value={dispatch}>
-      <form data-testid="formBuilder" onSubmit={submitHandler} className={styles.form} onKeyPress={ e => onKeyPress(e) }>
+      <form data-testid="formBuilder" onSubmit={submitHandler} onKeyPress={ e => onKeyPress(e) }>
         {renderChildren(form)}
         {debug && <pre data-testid="debug"><p className={styles.debug}>Sandbox state: {JSON.stringify(state, null, 2)}</p></pre>}
       </form>

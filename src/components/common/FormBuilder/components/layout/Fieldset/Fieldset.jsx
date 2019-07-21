@@ -49,9 +49,9 @@ const Fieldset = React.memo((props) => {
 
   return (
     <div className={styles.fieldset} data-testid="fieldset">
-      <label htmlFor={name}>{label}</label>
+      <label className={styles.label} htmlFor={name}>{label}</label>
       <Component name={name} onBlur={onBlur} onChange={onChange} {...restProps} />
-      {dirty && errorMessages.length > 0 && <p style={{ display: 'inline-block' }}>Error message: {errorMessages[0]}</p>}
+      {dirty && errorMessages.length > 0 && <p className={styles.error} style={{ display: 'inline-block' }}>{errorMessages[0]}</p>}
       {/* <p>Dirty: {dirty ? 'true' : 'false'}</p> */}
     </div>
   );

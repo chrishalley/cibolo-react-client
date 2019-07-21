@@ -1,0 +1,11 @@
+:root {
+  --page-pad: 3rem;
+  --page-pad-double: calc(var(--page-pad) * 2);
+  --page-pad-half: calc(var(--page-pad) / 2);
+  --page-pad-quarter: calc(var(--page-pad) / 4);
+  --page-pad-eighth: calc(var(--page-pad) / 8);
+
+  --font-size-base: 1.6rem;
+  --font-size-l: calc(var(--font-size-base) * 2);
+  --font-size-s: calc(var(--font-size-base) * 0.8);
+}

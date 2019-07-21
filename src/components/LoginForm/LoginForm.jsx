@@ -6,6 +6,8 @@ import { isEmail, isEmpty, isLength } from 'validator'
 import { loginRequest } from '../../actions'
 import { FormBuilder } from '../common'
 
+import styles from './LoginForm.module.css'
+
 const LoginForm = (props) => {
 
   const [error, setError] = useState(null)
@@ -86,7 +88,9 @@ const LoginForm = (props) => {
 
 
   return (
-    <FormBuilder error={error} form={form} onSubmit={login}></FormBuilder>
+    <div className={styles.loginForm}>
+      <FormBuilder error={error} form={form} onSubmit={login}></FormBuilder>
+    </div>
   )
 }
 
