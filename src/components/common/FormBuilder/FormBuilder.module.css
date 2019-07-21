@@ -1,6 +1,15 @@
+@import '../../../styles/colors.module.css';
+@import '../../../styles/sizing.module.css';
+
 .debug { 
   padding: 1rem;
   background-color: palevioletred;
   color: white;
   margin-top: 1rem;
+}
+
+.formError {
+  text-align: center;
+  color: var(--color-error);
+  margin-top: var(--page-pad-third);
 }

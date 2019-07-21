@@ -31,8 +31,13 @@ const updateState = function (state, update) {
 // Initialise context
 const FormBuilderContext = React.createContext();
 
-const FormBuilder = (props) => {
-  const { form, debug, onSubmit, disabled } = props;
+const FormBuilder = ({
+  form,
+  debug,
+  onSubmit,
+  disabled,
+  error
+}) => {
 
   // Initialise state as an empty object, connect it to reducer
   const [state, dispatch] = useReducer(appReducer, {});
@@ -119,6 +124,7 @@ const FormBuilder = (props) => {
       <form data-testid="formBuilder" onSubmit={submitHandler} onKeyPress={ e => onKeyPress(e) }>
         {renderChildren(form)}
         {debug && <pre data-testid="debug"><p className={styles.debug}>Sandbox state: {JSON.stringify(state, null, 2)}</p></pre>}
+        {error ? <p className={styles.formError}>{error}</p> : null}
       </form>
     </FormBuilderContext.Provider>
   );

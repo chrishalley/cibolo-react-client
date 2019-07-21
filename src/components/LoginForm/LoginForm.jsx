@@ -4,13 +4,14 @@ import { withRouter } from 'react-router-dom'
 import { isEmail, isEmpty, isLength } from 'validator'
 
 import { loginRequest } from '../../actions'
-import { FormBuilder } from '../common'
+import { FormBuilder, Button, Spinner } from '../common'
 
 import styles from './LoginForm.module.css'
 
 const LoginForm = (props) => {
 
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const form = [
     {
@@ -59,7 +60,7 @@ const LoginForm = (props) => {
         controls: [
           {
             onClick: () => {},
-            label: "Seeend",
+            label: "Login",
             type: "submit"
           }
         ]
@@ -67,15 +68,21 @@ const LoginForm = (props) => {
     }
   ];
 
-  const cb = () => {
-    props.history.push("/dashboard");
+  const cb = (success) => {
+    if (success) {
+      props.history.push("/dashboard");
+    }
+    setLoading(false)
+    setError('Invalid email or password')
   }
 
   function login(state) {
-    console.log('login');
+    setLoading(true);
     setError(null);
     const { email, password } = state;
-    props.loginRequest({ email: email.value, password: password.value }, cb);
+    console.log({email, password})
+    props.loginRequest({ email: email.value, password: password.value }, cb)
+
       // .then(result => {
       //   console.log('success')
       //   props.history.push('/dashboard')
@@ -89,7 +96,14 @@ const LoginForm = (props) => {
 
   return (
     <div className={styles.loginForm}>
-      <FormBuilder error={error} form={form} onSubmit={login}></FormBuilder>
+      { 
+        !loading ?
+        <FormBuilder error={error} form={form} onSubmit={login}></FormBuilder> :
+        <Spinner className={styles.spinner}/>
+      }
+      {/* <Button onClick={() => login({ email: {value: 'ted@teddison.com'}, password: {value:'password'} })}>
+        'Quick login'
+      </Button> */}
     </div>
   )
 }

@@ -6,7 +6,8 @@ import styles from './Spinner.module.css'
 
 const propTypes = {
   size: PropTypes.string,
-  color: PropTypes.string
+  color: PropTypes.string,
+  className: PropTypes.string
 }
 
 const defaultProps = {
@@ -15,7 +16,8 @@ const defaultProps = {
 
 const Spinner = ({
   size,
-  color
+  color,
+  className
 }) => {
 
   const [length, setLength] = useState(0)
@@ -25,10 +27,8 @@ const Spinner = ({
     setLength(node.getTotalLength())
   }
 
-  console.log({length})
-
   return (
-    <svg className={cx(styles.Spinner, styles[`SpinnerSize--${size}`])} id="svg" viewBox="0 0 100 100">
+    <svg className={cx(styles.Spinner, styles[`SpinnerSize--${size}`], className)} id="svg" viewBox="0 0 100 100">
       <path
         className={styles.SpinnerPath}
         ref={callbackRef}

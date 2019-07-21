@@ -6,6 +6,10 @@
   width: 8rem;
 }
 
+.SpinnerSize--s {
+  width: 4rem;
+}
+
 .SpinnerPath {
   animation: dash 2s ease-in-out forwards infinite,
             spin 2s ease-in-out forwards infinite;
