@@ -16,7 +16,6 @@ const propTypes = {
 }
 
 const Fieldset = React.memo((props) => {
-  // console.log('FIELDSET PROPS:', props);
 
   const { component, context, name, label, validations, ...restProps } = props;
   const dispatch = useContext(context);
@@ -26,7 +25,6 @@ const Fieldset = React.memo((props) => {
 
   const onChange = (input) => {
     const { valid, errorMessages } = validate(input);
-    console.log(validations);
     setErrorMessages(errorMessages);
     let update = {};
     set(update, name, { value: input, valid: valid });
@@ -36,7 +34,8 @@ const Fieldset = React.memo((props) => {
   const validate = function(value) {
     if (validations && validations.length > 0) {
       return validations.reduce((acc, rule) => {
-        return rule.method(value) !== rule.validWhen ? { valid: false, errorMessages: acc.errorMessages.concat(rule.errorMessage) } : acc;
+        const { method, methodOptions, validWhen, errorMessage } = rule;
+        return method(value, methodOptions) !== validWhen ? { valid: false, errorMessages: acc.errorMessages.concat(errorMessage) } : acc;
       }, { valid: true, errorMessages: [] } );
     } else {
       return { valid: true, errorMessages: [] };

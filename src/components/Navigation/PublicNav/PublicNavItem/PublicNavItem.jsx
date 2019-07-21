@@ -7,24 +7,23 @@ const checkActive = (match, location) => {
   return match && match.isExact;
 };
 
-const renderNavItem = props => {
-  if (props.externalTo) {
-    return <a href={props.externalTo}>{props.label}</a>
-  } else if (props.to) {
-    return <NavLink to={props.to} exact isActive={checkActive} activeClassName={styles['active']}>{props.label}</NavLink>
-  } else {
-    return <BasicButton onClick={props.action}>{props.label}</BasicButton>
-  }
+const renderNavItem = ({
+  externalTo,
+  to,
+  action,
+  label
+}) => {
+  if (action) return <BasicButton onClick={action}>{label}</BasicButton>
+  else if (externalTo) return <a href={externalTo}>{label}</a>
+  else if (to) return <NavLink to={to} exact isActive={checkActive} activeClassName={styles['active']}>{label}</NavLink>
+  else throw new Error('error in PublicNavItem')
 } 
 
-const PublicNavItem = props => {
-
-  return (
-    <li className={styles['public-nav-item']}>
-      {renderNavItem(props)}
-      <div className={styles['link-underline']}></div>
-    </li>
-  )
-}
+const PublicNavItem = props => (
+  <li className={styles['public-nav-item']}>
+    {renderNavItem(props)}
+    <div className={styles['link-underline']}></div>
+  </li>
+)
 
 export default withRouter(PublicNavItem);

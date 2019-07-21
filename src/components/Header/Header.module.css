@@ -7,3 +7,7 @@
   color: #FFFFFF;
   text-shadow: 0 2px 1px rgba(0,0,0,0.2);
 }
+
+.header button {
+  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
