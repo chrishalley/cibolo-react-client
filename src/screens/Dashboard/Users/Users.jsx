@@ -7,7 +7,7 @@ import { getUsers } from '../../../actions';
 import AdminPageHeader from '../../../components/AdminPageHeader/AdminPageHeader';
 import AdminUserList from '../../../components/AdminUserList/AdminUserList';
 import EditNewUserForm from '../../../components/EditNewUserForm/EditNewUserForm';
-import { PrimaryButton, Modal } from '../../../components/common';
+import { Button, Modal } from '../../../components/common';
 
 export const UsersContext = createContext();
 
@@ -75,7 +75,7 @@ const UsersScreen = (props) => {
     <Fragment>
       <UsersContext.Provider value={{ formMode, activeUser, openEditForm, users, setShowModal, currentUser}}>
         <AdminPageHeader title="Users">
-          {currentUser.role === 'super-admin' && <PrimaryButton onClick={() => openEditForm(null)}>Add new user</PrimaryButton>}
+          {currentUser.role === 'super-admin' && <Button onClick={() => openEditForm(null)}>Add new user</Button>}
         </AdminPageHeader>
         <AdminUserList users={users}></AdminUserList>
         {showModal && <Modal title={renderFormTitle()} closeHandler={toggleModal}><EditNewUserForm /></Modal>}

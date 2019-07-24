@@ -1,17 +1,16 @@
 @import '../../styles/sizing.module.css';
 
 .header {
+  display: flex;
+  align-items: center;
+  height: 8rem;
   margin-bottom: var(--page-pad);
+  border-bottom: .5rem solid var(--color-primary);
 }
 
 .title {
   color: var(--color-black);
   display: inline-block;
   margin-right: var(--page-pad);
-}
-
-.divider {
-  height: .5rem;
-  background-color: var(--color-primary);
-  border: none;
+  margin-bottom: 0;
 }

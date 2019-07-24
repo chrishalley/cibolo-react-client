@@ -8,7 +8,6 @@ const AdminPageHeader = (props) => {
     <header className={styles.header}>
       <h1 className={styles.title}>{title}</h1>
       {children}
-      <hr className={styles.divider}></hr>
     </header>
   );
 }
