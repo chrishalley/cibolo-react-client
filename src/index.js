@@ -11,5 +11,5 @@ ReactDOM.render(
   <Root>
     <App />
   </Root>,
-  document.querySelector('#root')
+  document.getElementById('root')
 );
