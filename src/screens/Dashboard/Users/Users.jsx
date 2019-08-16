@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { getUsers } from '../../../actions';
+import { permissions } from '../../../core/constants';
 
 import AdminPageHeader from '../../../components/AdminPageHeader/AdminPageHeader';
 import AdminUserList from '../../../components/AdminUserList/AdminUserList';
@@ -33,7 +34,7 @@ const UsersScreen = ({
     getUsers();
   }, []);
 
-  const currentUserCanEdit = user => currentUser.role === 'super-admin' || currentUser._id === user._id;
+  const currentUserCanEdit = user => currentUser.role === permissions.SUPER_ADMIN || currentUser._id === user._id;
 
   const openEditForm = (user) => {
     if (user) {
@@ -73,7 +74,7 @@ const UsersScreen = ({
         }}>
         <AdminPageHeader title="Users">
           {
-            currentUser.role === 'super-admin' &&
+            currentUser.role === permissions.SUPER_ADMIN &&
             <Button onClick={() => openEditForm(null)}>Add new user</Button>
           }
         </AdminPageHeader>

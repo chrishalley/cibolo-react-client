@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Card, SVGIcon, BasicButton, UserAvatar } from '../../common';
+import { Card, SVGIcon, BasicButton } from '../../common';
 import { UsersContext } from '../../../screens/Dashboard/Users/Users';
 import styles from './AdminUserListItem.module.css';
 
@@ -13,7 +13,6 @@ const AdminUserListItem = ({
   return (
     <li key={user._id}>
       <Card className={styles['user-list-item']}>
-        <UserAvatar user={user} />
         <div className={styles['quick-info']}>
           <h3 className={styles['user-name']}>{user.firstName} {user.lastName}</h3>
           <p className={styles['user-role']}>{user.role}</p>
