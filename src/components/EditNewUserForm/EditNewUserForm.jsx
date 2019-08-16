@@ -5,13 +5,21 @@ import { FormBuilder, EditUserAvatar } from '../common';
 import { connect } from 'react-redux';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
 import { isEmail, isEmpty } from 'validator';
-import { addUserRequest, updateUser, deleteUser, updateUserRequest } from '../../actions';
 
-const EditNewUserForm = (props) => {
+const EditNewUserForm = () => {
 
   const [error, setError] = useState(null);
 
-  const { formMode, activeUser, setUsers, users, setShowModal } = useContext(UsersContext);
+  const {
+    formMode,
+    activeUser,
+    setUsers,
+    users,
+    setShowModal,
+    addUserRequest,
+    updateUserRequest,
+    deleteUser
+  } = useContext(UsersContext);
 
   const addUserToUsers = (user) => {
     const updatedUsers = [ ...users, user ];
@@ -71,13 +79,12 @@ const EditNewUserForm = (props) => {
     
         switch (formMode) {
           case 'add':
-            props.addUser(user, addUserToUsers);
+            addUserRequest(user, addUserToUsers);
             break;
           case 'edit':
             const cb = () => setShowModal(false);
             const updatedUser = { ...activeUser, ...user };
-            props.updateUserRequest({ updatedUser }, cb);
-            // props.updateUser(update, updateUserInUsers);
+            updateUserRequest({ updatedUser }, cb);
             break;
           default:
             console.log('invalid formMode specified')
@@ -198,23 +205,23 @@ const EditNewUserForm = (props) => {
         ]
       }
     },
-    {
-      component: "FormSection",
-      props: {
-        title: "Customise Avatar",
-        flexDirection: "row",
-        children: [
-          {
-            component: "Fieldset",
-            props: {
-              component: EditUserAvatar,
-              name: "avatar",
-              user: activeUser ? activeUser : null
-            }
-          }
-        ]
-      }
-    },
+    // {
+    //   component: "FormSection",
+    //   props: {
+    //     title: "Customise Avatar",
+    //     flexDirection: "row",
+    //     children: [
+    //       {
+    //         component: "Fieldset",
+    //         props: {
+    //           component: EditUserAvatar,
+    //           name: "avatar",
+    //           user: activeUser ? activeUser : null
+    //         }
+    //       }
+    //     ]
+    //   }
+    // },
     {
       component: "FormControl",
       props: {
@@ -254,4 +261,4 @@ const EditNewUserForm = (props) => {
   );
 };
 
-export default connect(null, { addUserRequest, updateUserRequest, deleteUser })(EditNewUserForm);
+export default EditNewUserForm;

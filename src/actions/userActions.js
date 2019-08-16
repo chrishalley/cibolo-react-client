@@ -14,8 +14,11 @@ export const getUsersSuccess = ({ users }) => ({
 })
 
 // TODO: Needs to be COMPLETED
-export const addUserRequest = () => ({
-  type: ADD_USER_REQUEST
+export const addUserRequest = ({ user }) => ({
+  type: ADD_USER_REQUEST,
+  payload: {
+    user
+  }
 });
 
 export const addUserSuccess = ({ user }) => ({

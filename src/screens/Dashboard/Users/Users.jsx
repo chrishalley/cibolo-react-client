@@ -1,8 +1,14 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { getUsers } from '../../../actions';
 import { permissions } from '../../../core/constants';
+
+import {
+  getUsers,
+  addUserRequest,
+  updateUserRequest,
+  deleteUser
+} from '../../../actions';
 
 import AdminPageHeader from '../../../components/AdminPageHeader/AdminPageHeader';
 import AdminUserList from '../../../components/AdminUserList/AdminUserList';
@@ -14,7 +20,10 @@ export const UsersContext = createContext();
 const UsersScreen = ({
   currentUser,
   users,
-  getUsers
+  getUsers,
+  addUserRequest,
+  updateUserRequest,
+  deleteUser
 }) => {
   console.log({users})
   const [activeUser, setActiveUser] = useState(null);
@@ -70,7 +79,10 @@ const UsersScreen = ({
           openEditForm,
           users,
           setShowModal,
-          currentUser
+          currentUser,
+          addUserRequest,
+          updateUserRequest,
+          deleteUser
         }}>
         <AdminPageHeader title="Users">
           {
@@ -92,7 +104,14 @@ const UsersScreen = ({
 
 const mapStateToProps = ({ auth: { user }, users}) => ({
   currentUser: user,
-  users: users
+  users: users,
 })
 
-export default connect(mapStateToProps, { getUsers })(UsersScreen);
+const mapDispatchToProps = {
+  addUserRequest,
+  getUsers,
+  updateUserRequest,
+  deleteUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersScreen);

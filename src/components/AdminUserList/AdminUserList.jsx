@@ -7,7 +7,7 @@ const AdminUserList = ({
   users
 }) => (
   <ul className={styles['admin-user-list']}>
-    {users.map(user => <AdminUserListItem user={user} />)}
+    {users.map(user => <AdminUserListItem key={user._id} user={user} />)}
   </ul>
 )
 
