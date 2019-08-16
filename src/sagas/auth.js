@@ -1,5 +1,6 @@
-import { takeEvery, fork, put, call } from 'redux-saga/effects';
+import { takeEvery, fork, put } from 'redux-saga/effects';
 import jwt from 'jsonwebtoken';
+import { get } from 'lodash'
 
 import * as Types from '../actions/types';
 import * as actions from '../actions';
@@ -47,19 +48,21 @@ function* watchInitAuthRequest() {
 function* login(action) {
   const { email, password, cb } = action.payload;
   try {
-    const response = yield api.post("/auth/login", { email, password });
-    const { exp } = jwt.decode(response.headers["x-token"]);
+    const { data } = yield api.post("/auth/login", { email, password });
+    const token = get(data, 'tokens[0].token')
 
-    localStorage.setItem('token', response.headers['x-token']);
-    localStorage.setItem('refreshToken', response.headers['x-refresh-token']);
+    if (token) {
+      const { exp } = jwt.decode(token);
+      localStorage.setItem('token', token)
+      yield put(actions.changeAuth({
+        initAuthComplete: true,
+        user: data,
+        tokenExpiry: exp * 1000,
+        token
+      }));
+      cb(true);
+    }
 
-    yield put(actions.changeAuth({
-      initAuthComplete: true,
-      user: response.data,
-      tokenExpiry: exp * 1000,
-      token: response.headers['x-token']
-    }));
-    cb(true);
   } catch(e) {
     cb(false);
   }
