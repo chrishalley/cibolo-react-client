@@ -20,12 +20,18 @@ const App = ({
     initAuthRequest()
   }, [])
 
-  const renderApp = () => initAuthComplete ? <Router><Root></Root></Router> : <Spinner></Spinner>
-
   return (
     <ThemeProvider theme={theme}>
       <div id="app" className={styles.app}>
-        {renderApp()}
+        {
+          initAuthComplete ? (
+            <Router>
+              <Root />
+            </Router>
+          ) : (
+            <Spinner />
+          )
+        }
       </div>
     </ThemeProvider>
   );
