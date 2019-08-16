@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getEventsRequest } from '../../actions';
@@ -46,7 +46,7 @@ const EventScreen = props => {
   };
 
   return (
-    <Fragment>
+    <>
       <Carousel maxHeight={600} images={carouselEvents}/>
       <Screen>
         <div style={{display: 'flex'}}>
@@ -63,7 +63,7 @@ const EventScreen = props => {
         </div>
       </Screen>
       {modalOpen && <Modal title={modalTitle} closeHandler={toggleModal}>{modalContent}</Modal>}
-    </Fragment>
+    </>
   )
 }
 

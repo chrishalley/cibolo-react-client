@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './SVGIcon.module.css';
@@ -25,35 +25,35 @@ const SVGIcon = (props) => {
     'arrow-left': {
       viewBox: '-50 -50 100 100',
       svg: 
-        <Fragment>
+        <>
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M 10 0, L -30 0 " />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M -10 -20, L -30 0, L -10 20" />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M 20 0, L 20 0" />
-        </Fragment>
+        </>
     },
     'arrow-right': {
       viewBox: '-50 -50 100 100',
       svg:
-        <Fragment>
+        <>
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M -10 0, L 30 0 " />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M 10 -20, L 30 0, L 10 20" />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M -20 0, L -20 0" />
-        </Fragment>
+        </>
     },
     'login': {
       viewBox: '-50 -50 100 100',
       svg:
-        <Fragment>
+        <>
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M -20 0, L 15 0 " />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M -5 -20, L 15 0, L -5 20" />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M -30 0, L -30 0" />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M 20 -30, L 30 -30, L 30 30, L 20 30" />
-        </Fragment>
+        </>
     },
     'calendar': {
       viewBox: '-50 -50 100 100',
       svg:
-        <Fragment>
+        <>
           <g>
             <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M -30 -40, L -40 -40, L -40 40, L 40, 40, L 40, -40, L 30, -40" />
             <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M -10 -40, L 10 -40" />
@@ -71,12 +71,12 @@ const SVGIcon = (props) => {
             <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M -30 10, L 30, 10" />
             <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M -30 25, L 30, 25" />
           </g>
-        </Fragment>
+        </>
     },
     'person': {
       viewBox: '-50 -50 100 100',
       svg:
-        <Fragment>
+        <>
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M -20 12, L-20 40, L 20 40, L 20 12" />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M -20 12, L -20 30, L -30 30, L -30 12, Z" />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M 20 12, L 20 30, L 30 30, L 30 12, Z" />
@@ -84,29 +84,29 @@ const SVGIcon = (props) => {
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M 0 40, L 25 40" />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinejoin="round" strokeLinecap="round" d="M 0 40, L -25 40" />
           <circle fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} cx="0" cy="-10" r="30"></circle>
-        </Fragment>
+        </>
     },
     'close': {
       viewBox: '-50 -50 100 100',
       svg:
-        <Fragment>
+        <>
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M -40 -40, L 40, 40"/>
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M 40 -40, L -40, 40"/>
-        </Fragment>
+        </>
     },
     'menu': {
       viewBox: '-50 -50 100 100',
       svg:
-        <Fragment>
+        <>
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M -40 -30, L 40, -30" />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M -40 0, L 40, 0" />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M -40 30, L 40, 30" />
-        </Fragment>
+        </>
     },
     'deskbell': {
       viewBox: '0 0 100 100',
       svg:
-        <Fragment>
+        <>
           <rect fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" x="10" y="75.00002" width="80" height="10"/>
           <polyline fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" points="55,22.5 60,22.5 60,12.5 40,12.5 40,22.5 
 	          44.99619,22.48595"
@@ -115,43 +115,43 @@ const SVGIcon = (props) => {
 	          C56.82065,30.49316,53.46927,29.98838,50,29.98838c-3.48071,0-6.84274,0.50812-10.01597,1.45423
 	          c-14.44826,4.3078-24.98229,17.69574-24.98229,33.54404H84.99826z"
           />
-        </Fragment>
+        </>
     },
     'document-approved': {
       viewBox: '0 0 100 100',
       svg:
-        <Fragment>
+        <>
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M80 55, L80 10, L20 10, L20 90, L80 90, L80 85" />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M 30 25, L70 25," />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M 30 40, L70 40," />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M 30 55, L70 55," />
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M 30 70, L45 70," />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" d="M60 70, L70 80, L90 60" />
-        </Fragment>
+        </>
     },
     'eye': {
       viewBox: '0 0 100 100',
       svg: 
-        <Fragment>
+        <>
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M10 50, C25 20, 75 20, 90 50, C75 80, 25 80, 10 50" />
           <circle fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} cx="50" cy="50" r="20" />
           <circle fill="currentColor" cx="50" cy="50" r="7.5" />
-        </Fragment>
+        </>
     },
     'pen': {
       viewBox: '0 0 100 100',
       svg:
-        <Fragment>
+        <>
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M80 10, L10 80, L10 90, L20 90, L90 20 Z" />
           <path stroke="currentColor" strokeWidth={strokeWidth} d="M70 20, L80 30" />
           <path stroke="currentColor" strokeWidth={strokeWidth} d="M75 15, L85 25" />
           <path stroke="currentColor" strokeWidth={strokeWidth} d="M15 75, L25 85" />
-        </Fragment>
+        </>
     },
     'tools': {
       viewBox: '0 0 100 100',
       svg:
-        <Fragment>
+        <>
           <path stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" fill="transparent" d="M36.21778,74.38882l38.17103-38.17103c5.00965,1.33791,10.57367,0.05554,14.50385-3.87463
             s5.21254-9.4942,3.87463-14.50385l-9.17975,9.17974l-10.6066-10.6066l9.17974-9.17974
             c-5.00965-1.33791-10.57367-0.05554-14.50385,3.87463s-5.21254,9.49419-3.87463,14.50385L25.61118,63.78222
@@ -182,26 +182,26 @@ const SVGIcon = (props) => {
             <line stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"x1="73.17538" y1="-28.73357" x2="58.11221" y2="-43.79674"/>
             <line stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round"x1="78.12513" y1="-33.68332" x2="63.06196" y2="-48.74649"/>
           </g>
-        </Fragment>
+        </>
     },
     'logout': {
       viewBox: '0 0 100 100',
       svg:
-        <Fragment>
+        <>
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M75 30, L75 10, L25 10, L25 90, L75 90, L75 70 " />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M60 50, L90 50" />
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M80 40, L90 50, L80 60" />
           <circle fill="currentColor" cx="40" cy="50" r="2.5" />
           <circle fill="currentColor" cx="50" cy="50" r="2.5" />
-        </Fragment>
+        </>
     },
     'add': {
       viewBox: '0 0 100 100',
       svg:
-        <Fragment>
+        <>
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M50 10, 50, 90"/>
           <path fill="transparent" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" d="M10 50, 90, 50"/>
-        </Fragment>
+        </>
     }
   }
 

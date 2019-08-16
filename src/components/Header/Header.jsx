@@ -110,7 +110,7 @@ export default withRouter(connect(mapStateToProps, actions)(PublicHeader));
 //     const { currentUser } = this.props
 //     if (currentUser) {
 //       return (
-//         <Fragment>
+//         <>
 //           <HeaderLink to="/">
 //             <button onClick={() => this.logout()}>
 //               <SVGIcon icon="close" />
@@ -121,13 +121,13 @@ export default withRouter(connect(mapStateToProps, actions)(PublicHeader));
 //             <SVGIcon icon="tools" />
 //             Dashboard
 //           </HeaderLink>
-//         </Fragment>
+//         </>
 //       )
 //     }
     
 //     return (
 //       <PublicNav />
-//     //   <Fragment>
+//     //   <>
 //     //     <HeaderLink to="/">
 //     //       Home
 //     //     </HeaderLink>
@@ -147,7 +147,7 @@ export default withRouter(connect(mapStateToProps, actions)(PublicHeader));
 //     //       <SVGIcon icon="tools" />
 //     //       Dashboard
 //     //     </HeaderLink>
-//     //   </Fragment>
+//     //   </>
 //     // )
 //   }
 

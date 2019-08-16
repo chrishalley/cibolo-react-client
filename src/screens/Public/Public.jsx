@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -11,7 +11,7 @@ import NoMatch from "../NoMatch/NoMatch";
 const Public = (props) => {
   const {location} = props;
   return (
-    <Fragment>
+    <>
       <Header location={location}></Header>
       <Switch>
         <Route path="/" exact component={EventsScreen}></Route>
@@ -20,7 +20,7 @@ const Public = (props) => {
         <Route component={NoMatch}/>
       </Switch>
       <Footer></Footer>
-    </Fragment>
+    </>
   );
 }
 

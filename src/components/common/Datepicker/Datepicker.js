@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 
 import styles from './Datepicker.module.css'
 
@@ -50,7 +50,7 @@ class Datepicker extends Component {
   render() {
     const {increaseDate, decreaseDate, increaseMonth, decreaseMonth, increaseYear, decreaseYear} = this
     return (
-      <Fragment>
+      <>
         <div className={styles.datepicker}>
           <div>
             <button onClick={increaseDate}>Inc</button>
@@ -70,7 +70,7 @@ class Datepicker extends Component {
         </div>
         <p>{this.state.dateTime}</p>
         <p>{this.monthDays()}</p>
-      </Fragment>
+      </>
 
     )
   }
