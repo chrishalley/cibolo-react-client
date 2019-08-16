@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
@@ -11,33 +11,24 @@ import { Spinner } from '../components/common';
 
 import styles from './App.module.css';
 
-class App extends Component {
+const App = ({
+  initAuthRequest,
+  initAuthComplete
+}) => {
 
-  state = { initAuthComplete: false };
+  useEffect(() => {
+    initAuthRequest()
+  }, [])
 
-  componentDidMount() {
-    // try to get token from localstorage
-    this.props.initAuthRequest()
-      // .then(() => {
-      //   this.setState({ initAuthComplete: true })
-      // })
-      // .catch((e) => { 
-      //   console.log('initAuthError: ', e)
-      //   this.setState({ initAuthComplete: true })
-      // });
-  }
+  const renderApp = () => initAuthComplete ? <Router><Root></Root></Router> : <Spinner></Spinner>
 
-  renderApp = () => this.props.initAuthComplete ? <Router><Root></Root></Router> : <Spinner></Spinner>
-
-  render() {
-    return (
-      <ThemeProvider theme={theme}>
-        <div id="app" className={styles.app}>
-          {this.renderApp()}
-        </div>
-      </ThemeProvider>
-    );
-  }
+  return (
+    <ThemeProvider theme={theme}>
+      <div id="app" className={styles.app}>
+        {renderApp()}
+      </div>
+    </ThemeProvider>
+  );
 }
 
 const mapStateToProps = state => ({ initAuthComplete: state.auth.initAuthComplete });
