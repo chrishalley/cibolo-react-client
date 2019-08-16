@@ -33,7 +33,6 @@ const defaultProps = {
 };
 
 const EditUserAvatar = (props) => {
-  console.log('editAvatar props', props);
   const { onChange } = props;
   let { user } = props;
   if (!user) user = defaultProps.user;

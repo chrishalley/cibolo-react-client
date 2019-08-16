@@ -19,7 +19,6 @@ function* watchGetUsers() {
 };
 
 function* addUser(action) {
-  console.log(action);
   yield;
 };
 
@@ -28,8 +27,6 @@ function* watchAddUser() {
 };
 
 function* updateUser(action) {
-  console.log('updateUser saga');
-  console.log(action);
   const { updatedUser: user, cb } = action.payload;
   try {
     const response = yield api.patch(`/users/${user._id}`, user);

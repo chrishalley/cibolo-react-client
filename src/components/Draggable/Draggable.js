@@ -13,9 +13,7 @@ class Draggable extends Component {
         <div className={styles.basket}
          onDragOver={(e) => e.preventDefault()} 
          onDrop={() => {
-           this.setState({ score: this.state.score + 1 }, () => {
-             console.log('Score: ', this.state.score)
-           })
+           this.setState({ score: this.state.score + 1 })
          }}/>
       </div>
     )

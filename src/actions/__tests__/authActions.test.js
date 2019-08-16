@@ -60,10 +60,7 @@ describe('auth actions', () => {
       headers: authResponse.headers
     });
 
-    console.log(authResponse.headers['x-token']);
-
     const { exp } = jwt.decode(authResponse.headers['x-token']);
-    console.log(exp);
 
     const expectedActions = [
       { 

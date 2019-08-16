@@ -3,7 +3,6 @@ import validator from 'validator'
 class FormValidator {
   constructor(validations) {
     this.validations = validations
-    console.log(this.validations)
   }
 
   validate(state) {
@@ -34,7 +33,6 @@ class FormValidator {
         }
       }
     })
-    console.log('FormValidator: ', validation)
     return validation
   }
 

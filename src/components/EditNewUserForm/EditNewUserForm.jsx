@@ -8,7 +8,6 @@ import { isEmail, isEmpty } from 'validator';
 import { addUserRequest, updateUser, deleteUser, updateUserRequest } from '../../actions';
 
 const EditNewUserForm = (props) => {
-  console.log('editNewUserForm props', props);
 
   const [error, setError] = useState(null);
 
@@ -40,11 +39,8 @@ const EditNewUserForm = (props) => {
 
   const onSubmit = (state) => {
     const { firstName, lastName, emailAddress, role, avatar } = state;
-
-    console.log(avatar);
     
     const processImage = new Promise((resolve, reject) => {
-      console.log('HERE', avatar.value, activeUser.avatar);
       if ( activeUser.avatar.profileImage && avatar.value.profileImage && activeUser.avatar.profileImage.url !== avatar.value.profileImage.url) { // Diff the avatar images
           // Cloudinary upload goes here
           const { profileImage } = avatar.value;
@@ -57,7 +53,6 @@ const EditNewUserForm = (props) => {
               resolve(data);
             })
             .catch(e => { 
-              console.log('somethings fucked')
               reject(e); 
             })
         } else {
@@ -89,7 +84,6 @@ const EditNewUserForm = (props) => {
         }
       })
       .catch(e => {
-        console.log('processImage error:', JSON.stringify(e, null, 2));
         setError(`Error: ${e.response.data.message}`);
       })
   }

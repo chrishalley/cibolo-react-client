@@ -5,7 +5,6 @@ export const getEventsRequest = () => ({
 })
 
 export const getEventsSuccess = ({ events }) => {
-  console.log('getEventsSuccess', events);
   return {
     type: GET_EVENTS_SUCCESS,
     payload: {

@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case CHANGE_AUTH_FAIL:
-      console.log('change_auth_fail')
       return {...state}
     case CHANGE_AUTH_SUCCESS:
       return {

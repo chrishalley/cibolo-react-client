@@ -28,8 +28,6 @@ const FittedImage = props => {
     imgRef.current.onload = () => {
       const imgRatio = imgRef.current.height / imgRef.current.width;
       // If difference between parentRatio and imgRatio is positive, image must be height 100%, else width 100%
-      // console.log('parentRatio:', parentRatio);
-      // console.log('imgRatio:', imgRatio);
       if (parentRatio - imgRatio > 0) {
         imgRef.current.style.height = '100%';
         imgRef.current.style.width = 'auto';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './BasicButton.module.css';
@@ -15,10 +15,6 @@ const defaultProps = {
 }
 
 const BasicButton = (props) => {
-
-  useEffect(() => {
-    // console.log('buttonProps:', props)
-  }, [])
 
   const { className, children, onClick, ...restProps } = props;
 

@@ -24,19 +24,17 @@ const defaultProps = {
   onKeyPress: (e) => e.Key === 'Enter' && e.preventDefault()
 };
 
-const TextInput = (props) => {
-
-  const {
-    defaultValue,
-    name,
-    type,
-    onChange,
-    onBlur,
-    disabled,
-    placeholder,
-    value,
-    onKeyPress
-  } = props;
+const TextInput = ({
+  defaultValue,
+  name,
+  type,
+  onChange,
+  onBlur,
+  disabled,
+  placeholder,
+  value,
+  onKeyPress
+}) => {
 
   const [state, setState] = useState(value || defaultValue);
 
@@ -55,11 +53,6 @@ const TextInput = (props) => {
   const onChangeHandler = (val) => {
     setState(val);
   };
-
-  // const valueHandler = useCallback(() => {
-  //   console.log('value:', value)
-  //   return !value ? state : value;
-  // }, []);
 
   return (
     !disabled ? (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './EventsByMonth.module.css';
@@ -29,41 +29,10 @@ const months = [
   'December',
 ];
 
-// const FittedImage = props => {
-//   const { src, alt, ...restProps } = props;
-
-//   const imgWrapperRef = useRef();
-//   const imgRef = useRef();
-
-//   useEffect(() => {
-//     let { offsetWidth: parentOffsetWidth, offsetHeight: parentOffsetHeight } = imgWrapperRef.current;
-//     const parentRatio = parentOffsetHeight / parentOffsetWidth;
-//     imgRef.current.onload = () => {
-//       const imgRatio = imgRef.current.height / imgRef.current.width;
-//       // If difference between parentRatio and imgRatio is positive, image must be height 100%, else width 100%
-//       // console.log('parentRatio:', parentRatio);
-//       // console.log('imgRatio:', imgRatio);
-//       if (parentRatio - imgRatio > 0) {
-//         imgRef.current.style.height = '100%';
-//         imgRef.current.style.width = 'auto';
-//       } else {
-//         imgRef.current.style.height = 'auto';
-//         imgRef.current.style.width = '100%';
-//       }
-//     }
-//     imgRef.current.onload();
-//   }, [src])
-
-//   return (
-//     <div ref={imgWrapperRef} {...restProps}>
-//       <img ref={imgRef} style={{position: 'absolute', width: '100%'}} src={src} alt={alt}/>
-//     </div>
-//   )
-// }
-
-const EventsList = props => {
-
-  const { events, viewEvent } = props;
+const EventsList = ({
+  events,
+  viewEvent
+}) => {
 
   if (events.length > 0) {
     return events.map(event => {
@@ -89,8 +58,11 @@ const EventsList = props => {
   }
 }
 
-const EventsByMonth = props => {
-  const { events, viewEvent, pastEvents } = props;
+const EventsByMonth = ({
+  events,
+  viewEvent,
+  pastEvents
+}) => {
 
   const getMonthDetails = (timestamp) => {
     const date = new Date(timestamp);

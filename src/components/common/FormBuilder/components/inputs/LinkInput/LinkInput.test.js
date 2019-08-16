@@ -48,7 +48,6 @@ describe('LinkInput', () => {
     const testLinks = [{ url: 'a' }, { url: 'b' }, { url: 'c' }];
     const { getAllByTestId, debug } = setup({ links: testLinks });
     const removeButtons = getAllByTestId('removeButton');
-    console.log(debug());
     let links = getAllByTestId('fileListItem');
     expect(links.length).toBe(testLinks.length);
     fireEvent.click(removeButtons[0]);

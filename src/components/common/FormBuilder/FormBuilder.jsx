@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import { set, unset } from 'lodash';
 import validator from 'validator';
 
@@ -13,7 +13,6 @@ import { pathsFromObject } from './helperFunctions';
 const appReducer = (state, action) => {
   switch(action.type) {
     case 'update':
-    // console.log('action.payload', action.payload);
       return { ...updateState(state, action.payload) }
     default:
       return state;
@@ -21,9 +20,7 @@ const appReducer = (state, action) => {
 }
 
 const updateState = function (state, update) {
-  console.log('update', update)
   const { path, value, valid } = pathsFromObject(update, 'value')[0];
-  // console.log(path, value, valid);
   unset(state, path);
   return set(state, path, { value , valid });
 }
@@ -42,21 +39,7 @@ const FormBuilder = ({
   // Initialise state as an empty object, connect it to reducer
   const [state, dispatch] = useReducer(appReducer, {});
 
-  // Debugging console logs
-  useEffect(() => {
-    // console.log('FormBuilder has mounted');
-  }, []);
-
-  useEffect(() => {
-    // console.log('FormBuilder has rerendered');
-  });
-
-  useEffect(() => {
-    // console.log('FormBuilder state has changed', state)
-  }, [state])
-
   const submitHandler = (e) => {
-    // console.log('submitHandler()', e)
     e.preventDefault();
     onSubmit(state);
   }
@@ -65,7 +48,6 @@ const FormBuilder = ({
   // or returns a custom component if passed in via form config prop,
   // throws error if component string cannot be parsed
   const switchComponent = function (component) {
-    // console.log('switchComponent:', component);
     if (typeof (component) !== 'string') return component;
     switch (component) {
       case 'FieldGroup':
@@ -111,7 +93,6 @@ const FormBuilder = ({
           nestedChildren
         );
       } else {
-        console.log(child)
         return React.createElement(
           switchComponent(child.component),
           { ...child.props, disabled: !formValid(state), key: i },
@@ -143,19 +124,5 @@ const FormBuilder = ({
     </FormBuilderContext.Provider>
   );
 };
-
-
-
-// const initialiseState = function(config) {
-//   let state = {};
-//   getStateValues(config, state)
-//   return state;
-// };
-
-// const getStateValues = function(array, state) {
-//   array.forEach(item => {
-//     state[item.props.name] = ''
-//   })
-// };
 
 export { FormBuilder };

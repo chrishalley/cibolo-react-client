@@ -21,17 +21,22 @@ const defaultProps = {
   rows: '10',
 };
 
-const TextArea = (props) => {
-  const { defaultValue, name, onChange, onBlur, disabled, placeholder, rows } = props;
+const TextArea = ({
+  defaultValue,
+  name,
+  onChange,
+  onBlur,
+  disabled,
+  placeholder,
+  rows
+}) => {
+
   const [state, setState] = useState(defaultValue);
 
+  // TODO: Is this really necessary?
   useEffect(() => {
     onChange(state);
   }, [state])
-
-  // useEffect(() => {
-  //   console.log('textarea props:', props);
-  // })
 
   return (
     <div>

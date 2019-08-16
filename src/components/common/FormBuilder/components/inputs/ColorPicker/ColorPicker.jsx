@@ -19,15 +19,13 @@ const defaultProps = {
   onChange: () => console.warn('onChange method not specified')
 }
 
-const ColorPicker = (props) => {
-
-  const { colors, onChange, defaultValue } = props;
+const ColorPicker = ({
+  colors,
+  onChange,
+  defaultValue
+}) => {
 
   const [value, setValue] = useState(defaultValue || colors[0]);
-
-  // useEffect(() => {
-  //   console.log('colorPicker props:', props)
-  // }, [])
 
   useEffect(() => {
     onChange(value);
