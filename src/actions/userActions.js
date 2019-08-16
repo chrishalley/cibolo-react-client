@@ -29,10 +29,10 @@ export const addUserSuccess = ({ user }) => ({
 })
 
 // TODO
-export const updateUserRequest = ({ updatedUser }, cb) => ({
+export const updateUserRequest = (user, cb) => ({
   type: UPDATE_USER_REQUEST,
   payload: {
-    updatedUser,
+    user,
     cb
   }
 });

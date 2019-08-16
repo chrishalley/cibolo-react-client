@@ -27,7 +27,7 @@ function* watchAddUser() {
 };
 
 function* updateUser(action) {
-  const { updatedUser: user, cb } = action.payload;
+  const { user, cb } = action.payload;
   try {
     const response = yield api.patch(`/users/${user._id}`, user);
     console.log(response);

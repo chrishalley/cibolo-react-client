@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { permissions } from '../../../core/constants';
+import { permissions, crudOps } from '../../../core/constants';
 
 import {
   getUsers,
@@ -27,7 +27,7 @@ const UsersScreen = ({
 }) => {
   console.log({users})
   const [activeUser, setActiveUser] = useState(null);
-  const [formMode, setFormMode] = useState('add');
+  const [formMode, setFormMode] = useState(crudOps.ADD);
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
@@ -49,21 +49,21 @@ const UsersScreen = ({
     if (user) {
       setActiveUser(user);
       if (!currentUserCanEdit(user)) {
-        setFormMode('view');
+        setFormMode(crudOps.ADD);
       } else {
-        setFormMode('edit');
+        setFormMode(crudOps.EDIT);
       }
     } else {
-      setFormMode('add');
+      setFormMode();
     }
     setShowModal(true);
   }
 
   const renderFormTitle = () => {
     switch (formMode) {
-      case 'add':
+      case crudOps.ADD:
         return 'Add user';
-      case 'edit':
+      case crudOps.EDIT:
         return 'Edit user';
       default:
         return 'View user'

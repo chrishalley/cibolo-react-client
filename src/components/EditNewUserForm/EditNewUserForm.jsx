@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
 import api from '../../apis/api';
 
+import { crudOps } from '../../core/constants';
+
 import { FormBuilder, EditUserAvatar } from '../common';
-import { connect } from 'react-redux';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
 import { isEmail, isEmpty } from 'validator';
 
@@ -45,54 +46,62 @@ const EditNewUserForm = () => {
   //   setShowModal(false);
   // }
 
-  const onSubmit = (state) => {
-    const { firstName, lastName, emailAddress, role, avatar } = state;
-    
-    const processImage = new Promise((resolve, reject) => {
-      if ( activeUser.avatar.profileImage && avatar.value.profileImage && activeUser.avatar.profileImage.url !== avatar.value.profileImage.url) { // Diff the avatar images
-          // Cloudinary upload goes here
-          const { profileImage } = avatar.value;
-          let fd = new FormData();
-          fd.append('file', profileImage.url);
-          fd.append('filename', profileImage.name);
-          api.post('/profileImages', fd)
-            .then(res => {
-              const { data } = res;
-              resolve(data);
-            })
-            .catch(e => { 
-              reject(e); 
-            })
-        } else {
-          resolve(avatar.value.profileImage);
-        }
-      });
+  const onSubmit = (user) => {
+    switch (formMode) {
+      case crudOps.EDIT: {
+        return updateUserRequest({
+          ...activeUser,
+          ...user
+        }, () => console.log('user update success!'))
+      }
+      default:
+        return
+    }
+    // const processImage = new Promise((resolve, reject) => {
+    //   if ( activeUser.avatar.profileImage && avatar.value.profileImage && activeUser.avatar.profileImage.url !== avatar.value.profileImage.url) { // Diff the avatar images
+    //       // Cloudinary upload goes here
+    //       const { profileImage } = avatar.value;
+    //       let fd = new FormData();
+    //       fd.append('file', profileImage.url);
+    //       fd.append('filename', profileImage.name);
+    //       api.post('/profileImages', fd)
+    //         .then(res => {
+    //           const { data } = res;
+    //           resolve(data);
+    //         })
+    //         .catch(e => { 
+    //           reject(e); 
+    //         })
+    //     } else {
+    //       resolve(avatar.value.profileImage);
+    //     }
+    //   });
 
-      processImage.then((profileImage) => {
-        const user = {
-          firstName: firstName.value,
-          lastName: lastName.value,
-          email: emailAddress.value,
-          role: role.value,
-          avatar: {...avatar.value, profileImage}
-        }
+      // processImage.then((profileImage) => {
+      //   const user = {
+      //     firstName: firstName.value,
+      //     lastName: lastName.value,
+      //     email: emailAddress.value,
+      //     role: role.value,
+      //     avatar: {...avatar.value, profileImage}
+      //   }
     
-        switch (formMode) {
-          case 'add':
-            addUserRequest(user, addUserToUsers);
-            break;
-          case 'edit':
-            const cb = () => setShowModal(false);
-            const updatedUser = { ...activeUser, ...user };
-            updateUserRequest({ updatedUser }, cb);
-            break;
-          default:
-            console.log('invalid formMode specified')
-        }
-      })
-      .catch(e => {
-        setError(`Error: ${e.response.data.message}`);
-      })
+      //   switch (formMode) {
+      //     case 'add':
+      //       addUserRequest(user, addUserToUsers);
+      //       break;
+      //     case 'edit':
+      //       const cb = () => setShowModal(false);
+      //       const updatedUser = { ...activeUser, ...user };
+      //       updateUserRequest({ updatedUser }, cb);
+      //       break;
+      //     default:
+      //       console.log('invalid formMode specified')
+      //   }
+      // })
+      // .catch(e => {
+      //   setError(`Error: ${e.response.data.message}`);
+      // })
   }
 
   const form = [
@@ -257,7 +266,7 @@ const EditNewUserForm = () => {
   // }
 
   return (
-    <FormBuilder disabled={formMode === 'view'} form={form} onSubmit={onSubmit} error={error}></FormBuilder>
+    <FormBuilder disabled={formMode === crudOps.READ} form={form} onSubmit={onSubmit} error={error}></FormBuilder>
   );
 };
 
