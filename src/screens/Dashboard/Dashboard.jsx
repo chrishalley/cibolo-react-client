@@ -10,21 +10,19 @@ import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute';
 
 import styles from './Dashboard.module.css';
 
-const Dashboard = () => {
-  return (
-    <div>
-      <AdminSidebar />
-      <main className={styles.main}>
-        <Switch>
-          <ProtectedRoute path="/dashboard/" exact component={EventsScreen} />
-          <ProtectedRoute path="/dashboard/events" component={EventsScreen} />
-          <ProtectedRoute path="/dashboard/users" component={UsersScreen} />
-          <ProtectedRoute path="/dashboard/bookings" component={BookingsScreen} />
-          <ProtectedRoute path="/dashboard/terms" component={TermsScreen} />
-        </Switch>
-      </main>
-    </div>
-  );
-}
+const Dashboard = () => (
+  <>
+    <AdminSidebar />
+    <main className={styles.main}>
+      <Switch>
+        <ProtectedRoute path="/dashboard" exact component={EventsScreen} />
+        <ProtectedRoute path="/dashboard/events" component={EventsScreen} />
+        <ProtectedRoute path="/dashboard/users" component={UsersScreen} />
+        <ProtectedRoute path="/dashboard/bookings" component={BookingsScreen} />
+        <ProtectedRoute path="/dashboard/terms" component={TermsScreen} />
+      </Switch>
+    </main>
+  </>
+);
 
 export default Dashboard;
