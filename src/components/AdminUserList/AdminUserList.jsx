@@ -3,25 +3,12 @@ import React from 'react';
 import AdminUserListItem from './AdminUserListItem/AdminUserListItem';
 import styles from './AdminUserList.module.css';
 
-const AdminUserList = (props) => {
-
-  const { users } = props;
-
-  const renderUsers = () => {
-    return users.map(user => {
-      return (
-        <li key={user._id}>
-          <AdminUserListItem user={user} />
-        </li>
-      );
-    });
-  }
-
-  return (
-    <ul className={styles['admin-user-list']}>
-      {renderUsers()}
-    </ul>
-  )
-}
+const AdminUserList = ({
+  users
+}) => (
+  <ul className={styles['admin-user-list']}>
+    {users.map(user => <AdminUserListItem user={user} />)}
+  </ul>
+)
 
 export default AdminUserList;

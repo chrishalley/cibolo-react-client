@@ -15,7 +15,7 @@ const UsersScreen = ({
   users,
   getUsers
 }) => {
-
+  console.log({users})
   const [activeUser, setActiveUser] = useState(null);
   const [formMode, setFormMode] = useState('add');
   const [showModal, setShowModal] = useState(false);
@@ -33,7 +33,7 @@ const UsersScreen = ({
     getUsers();
   }, []);
 
-  const currentUserCanEdit = (user) => currentUser.role === 'super-admin' || currentUser._id === user._id;
+  const currentUserCanEdit = user => currentUser.role === 'super-admin' || currentUser._id === user._id;
 
   const openEditForm = (user) => {
     if (user) {
@@ -89,9 +89,9 @@ const UsersScreen = ({
   );
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.auth.user,
-  users: state.users
+const mapStateToProps = ({ auth: { user }, users}) => ({
+  currentUser: user,
+  users: users
 })
 
 export default connect(mapStateToProps, { getUsers })(UsersScreen);
