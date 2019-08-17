@@ -29,13 +29,16 @@ export const addUserSuccess = ({ user }) => ({
 })
 
 // TODO
-export const updateUserRequest = (user, cb) => ({
+export const updateUserRequest = ({ payload: { user }, callbackSuccess, callbackFail }) => {
+  console.log(user, callbackSuccess, callbackFail)
+  return ({
   type: UPDATE_USER_REQUEST,
   payload: {
-    user,
-    cb
-  }
-});
+    user
+  },
+  callbackSuccess,
+  callbackFail
+})};
 
 // TODO: Move over to Redux Saga
 export const deleteUser = (id, callback) => (dispatch) => {

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import api from '../../apis/api';
 
 import { crudOps } from '../../core/constants';
 
@@ -14,7 +13,6 @@ const EditNewUserForm = () => {
   const {
     formMode,
     activeUser,
-    setUsers,
     users,
     setShowModal,
     addUserRequest,
@@ -22,37 +20,30 @@ const EditNewUserForm = () => {
     deleteUser
   } = useContext(UsersContext);
 
-  const addUserToUsers = (user) => {
-    const updatedUsers = [ ...users, user ];
-    setUsers(updatedUsers);
-    setShowModal(false);
+  const userValues = (user) => {
+    let update = {}
+    Object.keys(user).forEach(key => {
+      update[key] = user[key].value
+    })
+    return update
   }
-
-  const removeUserFromUsers = (id) => {
-    const updatedUsers = users.filter(user => user._id !== id);
-    setUsers(updatedUsers);
-    setShowModal(false);
-  }
-
-  // const updateUserInUsers = (updatedUser) => {
-  //   const updatedUsers = users.map(user => {
-  //     if (user._id !== updatedUser._id) {
-  //       return user;
-  //     } else {
-  //       return updatedUser;
-  //     }
-  //   })
-  //   setUsers(updatedUsers);
-  //   setShowModal(false);
-  // }
 
   const onSubmit = (user) => {
+
+    const update = userValues(user)
+
     switch (formMode) {
       case crudOps.EDIT: {
         return updateUserRequest({
-          ...activeUser,
-          ...user
-        }, () => console.log('user update success!'))
+          payload: {
+            user: {
+              ...activeUser,
+              ...update
+            }
+          },
+          callbackSuccess: () => setShowModal(false),
+          callbackFail: () => console.log('user update fail...'),
+        })
       }
       default:
         return
@@ -252,8 +243,6 @@ const EditNewUserForm = () => {
       }
     }
   ];
-
-
 
   // const isFormDisabled = () => {
   //   if (props.currentUser.role === 'super-admin') { // Return false for all super-admin users

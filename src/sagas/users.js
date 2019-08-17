@@ -27,14 +27,15 @@ function* watchAddUser() {
 };
 
 function* updateUser(action) {
-  const { user, cb } = action.payload;
+  const { payload: { user }, callbackSuccess, callbackFail } = action
   try {
     const response = yield api.patch(`/users/${user._id}`, user);
     console.log(response);
     yield call(getUsers);
-    cb();
+    callbackSuccess()
   } catch(e) {
     console.log('updateUser saga error:', e);
+    callbackFail()
   } 
 }
 
