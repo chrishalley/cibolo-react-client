@@ -45,6 +45,15 @@ const EditNewUserForm = () => {
           callbackFail: () => console.log('user update fail...'),
         })
       }
+      case crudOps.ADD: {
+        return addUserRequest({
+          payload: {
+            user
+          },
+          callbackSuccess: () => console.log('user added successfully'),
+          callbackFail: () => console.log('user add failed'),
+        })
+      }
       default:
         return
     }

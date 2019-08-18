@@ -47,6 +47,7 @@ function* watchInitAuthRequest() {
 
 function* login(action) {
   const { email, password, cb } = action.payload;
+  console.log({email,password, cb})
   try {
     const { data } = yield api.post("/auth/login", { email, password });
     const token = get(data, 'tokens[0].token')
@@ -62,8 +63,10 @@ function* login(action) {
       }));
       cb(true);
     }
+    console.log('try')
 
   } catch(e) {
+    console.log(e)
     cb(false);
   }
   yield;

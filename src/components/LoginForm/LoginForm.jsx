@@ -69,11 +69,12 @@ const LoginForm = (props) => {
   ];
 
   const cb = (success) => {
+    setLoading(false)
     if (success) {
       props.history.push("/dashboard");
+    } else {
+      setError('Invalid email or password')
     }
-    setLoading(false)
-    setError('Invalid email or password')
   }
 
   function login(state) {

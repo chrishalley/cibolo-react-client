@@ -11,7 +11,6 @@ const ProtectedRoute = ({
   logout,
   ...restProps
 }) => {
-
   const [ auth, setAuth ] = useState(null) // Set initial auth value to null
 
   useEffect(() => {
@@ -20,11 +19,14 @@ const ProtectedRoute = ({
 
   const currentUserAuthenticated = () => {
     if ( !currentUser ) { // If there is no currentUser logged in, setAuth to false causing redirect to login
+      console.log('user exists')
       setAuth(false)
     } else if (tokenExpiry < new Date().getTime()) { // If token is expired, log user out and redirect to login
+      console.log('token expired')
       logout()
       setAuth(false)
     } else { // Otherwise, user must be authenticated
+      console.log('user suthenticated')
       setAuth(true)
     }
   }
