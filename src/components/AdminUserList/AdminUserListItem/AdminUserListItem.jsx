@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import cx from 'classnames';
 
+import { useFlash } from '../../../core/hooks';
 import { Card, SVGIcon, BasicButton } from '../../common';
 import { UsersContext } from '../../../screens/Dashboard/Users/Users';
 import styles from './AdminUserListItem.module.css';
@@ -8,19 +9,9 @@ import styles from './AdminUserListItem.module.css';
 const AdminUserListItem = ({
   user
 }) => {
-  const [edits, setEdits] = useState(-1);
-  const [edited, setEdited] = useState(false);
+  const { firstName, lastName, role } = user
 
-  const {firstName, lastName, role} = user;
-  useEffect(() => {
-    setEdits(edits + 1)
-  }, [firstName, lastName, role])
-  useEffect(() => {
-    if (edits > 0) {
-      setEdited(true)
-      setTimeout(() => setEdited(false), 400)
-    }
-  }, [edits])
+  const [edited] = useFlash([firstName, lastName, role], 400)
 
   const { openEditForm } = useContext(UsersContext);
 
