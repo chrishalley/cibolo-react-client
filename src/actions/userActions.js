@@ -13,12 +13,13 @@ export const getUsersSuccess = ({ users }) => ({
   }
 })
 
-// TODO: Needs to be COMPLETED
-export const addUserRequest = ({ user }) => ({
+export const addUserRequest = ({ payload: { user }, callbackSuccess, callbackFail }) => ({
   type: ADD_USER_REQUEST,
   payload: {
     user
-  }
+  },
+  callbackSuccess,
+  callbackFail
 });
 
 export const addUserSuccess = ({ user }) => ({
@@ -28,7 +29,6 @@ export const addUserSuccess = ({ user }) => ({
   }
 })
 
-// TODO
 export const updateUserRequest = ({ payload: { user }, callbackSuccess, callbackFail }) => {
   console.log(user, callbackSuccess, callbackFail)
   return ({

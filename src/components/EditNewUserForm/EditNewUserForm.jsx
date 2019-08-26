@@ -9,10 +9,12 @@ import { isEmail, isEmpty } from 'validator';
 const EditNewUserForm = () => {
 
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const {
     formMode,
     activeUser,
+    setActiveUser,
     users,
     setShowModal,
     addUserRequest,
@@ -29,7 +31,7 @@ const EditNewUserForm = () => {
   }
 
   const onSubmit = (user) => {
-
+    setLoading(true);
     const update = userValues(user)
 
     switch (formMode) {
@@ -41,16 +43,23 @@ const EditNewUserForm = () => {
               ...update
             }
           },
-          callbackSuccess: () => setShowModal(false),
+          callbackSuccess: () => {
+            setLoading(false);
+            setShowModal(false);
+          },
           callbackFail: () => console.log('user update fail...'),
         })
       }
       case crudOps.ADD: {
         return addUserRequest({
           payload: {
-            user
+            user: {...update}
           },
-          callbackSuccess: () => console.log('user added successfully'),
+          callbackSuccess: () => {
+            setLoading(false);
+            setShowModal(false);
+            setActiveUser(null);
+          },
           callbackFail: () => console.log('user add failed'),
         })
       }
@@ -171,7 +180,7 @@ const EditNewUserForm = () => {
                   props: {
                     component: "TextInput",
                     type: "text",
-                    name: "emailAddress",
+                    name: "email",
                     label: "Email address",
                     placeholder: "eg. john.smith@example.com",
                     defaultValue:

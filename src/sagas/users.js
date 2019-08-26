@@ -19,8 +19,18 @@ function* watchGetUsers() {
 };
 
 function* addUser(action) {
+  const { payload: { user }, callbackSuccess, callbackFail } = action
+  try {
+    yield api.post(`/users`, user)
+    yield call(getUsers)
+    callbackSuccess()
+  } catch (e) {
+    callbackFail(e)
+  }
   yield;
 };
+
+
 
 function* watchAddUser() {
   yield takeLatest(Types.ADD_USER_REQUEST, addUser);

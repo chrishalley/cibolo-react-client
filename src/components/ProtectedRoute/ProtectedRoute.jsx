@@ -26,7 +26,7 @@ const ProtectedRoute = ({
       logout()
       setAuth(false)
     } else { // Otherwise, user must be authenticated
-      console.log('user suthenticated')
+      console.log('user authenticated')
       setAuth(true)
     }
   }

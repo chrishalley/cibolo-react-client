@@ -25,7 +25,6 @@ const UsersScreen = ({
   updateUserRequest,
   deleteUser
 }) => {
-  console.log({users})
   const [activeUser, setActiveUser] = useState(null);
   const [formMode, setFormMode] = useState(crudOps.ADD);
   const [showModal, setShowModal] = useState(false);
@@ -49,12 +48,12 @@ const UsersScreen = ({
     if (user) {
       setActiveUser(user);
       if (!currentUserCanEdit(user)) {
-        setFormMode(crudOps.ADD);
+        setFormMode(crudOps.VIEW);
       } else {
         setFormMode(crudOps.EDIT);
       }
     } else {
-      setFormMode();
+      setFormMode(crudOps.ADD);
     }
     setShowModal(true);
   }
@@ -76,6 +75,7 @@ const UsersScreen = ({
         value={{
           formMode,
           activeUser,
+          setActiveUser,
           openEditForm,
           users,
           setShowModal,
