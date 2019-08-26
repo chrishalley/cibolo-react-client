@@ -1,10 +1,14 @@
 @import '../../../styles/sizing.module.css';
+@import '../../../styles/colors.module.css';
 
 .user-list-item {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  border: 2px var(--color-white) solid;
+  transition: border 0.4s;
 }
 
 .user-name {
@@ -18,4 +22,8 @@
 
 .quick-info {
   flex-grow: 1;
+}
+
+.edited {
+  border: 2px var(--color-primary) solid;
 }
