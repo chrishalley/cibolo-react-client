@@ -14,29 +14,28 @@ const defaultProps = {
   closeHandler: () => console.warn('no closeHandler() specified')
 }
 
-const Modal = (props) => {
-
-  const { closeHandler, children, ...restProps } = props;
+const Modal = ({
+  closeHandler,
+  children,
+  title
+}) => {
 
   useEffect(() => {
     document.documentElement.style.overflow = 'hidden';
-    document.body.scroll = "no";
+    document.body.scroll = 'no';
     
     return () => {
       document.documentElement.style.overflow = 'scroll';
-      document.body.scroll = "yes";
+      document.body.scroll = 'yes';
     }
-
-  })
+  }, [])
 
   return ReactDOM.createPortal(
     <div className={styles['modal-container']} onClick={(e) => {
       e.stopPropagation();
       closeHandler();
     }}>
-      <Card {...restProps} closeMethod={closeHandler} className={styles['modal-card']}>
-        {children}
-      </Card>
+      <Card title={title} closeMethod={closeHandler} className={styles['modal-card']} children={children} />
     </div>,
     document.querySelector('#modal')
   );

@@ -4,21 +4,11 @@ import { Screen, Card, Modal, Spinner } from '../../components/common';
 
 import { ImageInput, LinkInput } from '../../components/common/FormBuilder/components/inputs';
 
-const EventScreen = props => {
+const EventScreen = () => {
 
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
-  const toggleModal = () => {
-    setShowModal(prevState => !prevState)
-  };
-
-  const renderModal = () => {
-    return showModal && (
-        <Modal closeHandler={this.toggleModal}>
-          
-        </Modal>
-      );
-  };
+  const toggleModal = () => setShowModal(prevState => !prevState);
 
     return (
       <Screen>
@@ -37,7 +27,7 @@ const EventScreen = props => {
         <Card>
           <Spinner />
         </Card>
-        {renderModal()}
+        {showModal && <Modal closeHandler={toggleModal} />}
       </Screen>
     );
 }
