@@ -2,17 +2,19 @@
 @import '../../../../../../styles//colors.module.css';
 
 .fieldset {
-  margin-bottom: 1rem;
-  flex: 1 1 200px;
+  margin-bottom: 1.2rem;
+  flex: 1 1 20rem;
   padding: 0 var(--page-pad-quarter);
 }
 
 .label {
+  margin-left: var(--page-pad-eighth);
   display: block;
   padding-bottom: var(--page-pad-eighth);
 }
 
 .error {
+  margin-left: var(--page-pad-eighth);
   margin-top: var(--page-pad-eighth);
   font-size: var(--font-size-s);
   color: var(--color-error);
