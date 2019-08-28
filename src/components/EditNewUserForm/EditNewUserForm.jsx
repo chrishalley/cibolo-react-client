@@ -6,6 +6,8 @@ import { FormBuilder, EditUserAvatar } from '../common';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
 import { isEmail, isEmpty } from 'validator';
 
+import styles from './EditNewUserForm.module.css';
+
 const EditNewUserForm = () => {
 
   const [error, setError] = useState(null);
@@ -118,12 +120,12 @@ const EditNewUserForm = () => {
       component: "FormSection",
       props: {
         title: "User Details",
-        flexDirection: "row",
+        flexDirection: "column",
         children: [
           {
             component: "FieldGroup",
             props: {
-              flexDirection: "column",
+              flexDirection: "row",
               children: [
                 {
                   component: "Fieldset",
@@ -173,7 +175,7 @@ const EditNewUserForm = () => {
           {
             component: "FieldGroup",
             props: {
-              flexDirection: "column",
+              flexDirection: "row",
               children: [
                 {
                   component: "Fieldset",
@@ -273,7 +275,7 @@ const EditNewUserForm = () => {
   // }
 
   return (
-    <FormBuilder disabled={formMode === crudOps.READ} form={form} onSubmit={onSubmit} error={error}></FormBuilder>
+    <FormBuilder disabled={formMode === crudOps.READ} form={form} onSubmit={onSubmit} error={error} className={styles.form}></FormBuilder>
   );
 };
 

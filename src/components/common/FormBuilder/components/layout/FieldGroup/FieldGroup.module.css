@@ -1,15 +1,16 @@
 .row {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.row > *:not(:last-child) {
+/* .row > *:not(:last-child) {
   margin-right: 1rem;
 }
 
 .row > *:not(:first-child) {
   margin-left: 1rem;
-}
+} */
 
 .column {
   display: flex;

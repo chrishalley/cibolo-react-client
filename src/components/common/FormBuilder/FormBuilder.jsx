@@ -33,7 +33,8 @@ const FormBuilder = ({
   debug,
   onSubmit,
   disabled,
-  error
+  error,
+  className
 }) => {
 
   // Initialise state as an empty object, connect it to reducer
@@ -116,7 +117,7 @@ const FormBuilder = ({
   // Render the generated form, wrapping with context to pass reducer's dispatch method down to inputs
   return (
     <FormBuilderContext.Provider value={dispatch}>
-      <form data-testid="formBuilder" onSubmit={submitHandler} onKeyPress={ e => onKeyPress(e) }>
+      <form data-testid="formBuilder" onSubmit={submitHandler} onKeyPress={ e => onKeyPress(e)} className={className}>
         {renderChildren(form)}
         {debug && <pre data-testid="debug"><p className={styles.debug}>Sandbox state: {JSON.stringify(state, null, 2)}</p></pre>}
         {error ? <p className={styles.formError}>{error}</p> : null}
