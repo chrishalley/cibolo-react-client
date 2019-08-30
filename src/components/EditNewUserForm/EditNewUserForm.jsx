@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { get } from 'lodash';
 
 import { crudOps } from '../../core/constants';
 
@@ -21,7 +22,8 @@ const EditNewUserForm = () => {
     setShowModal,
     addUserRequest,
     updateUserRequest,
-    deleteUser
+    deleteUser,
+    currentUser
   } = useContext(UsersContext);
 
   const userValues = (user) => {
@@ -199,6 +201,7 @@ const EditNewUserForm = () => {
                 {
                   component: "Fieldset",
                   props: {
+                    render: (state) => get(state, 'email.valid') === true,
                     component: "Select",
                     name: "role",
                     label: "Role",
@@ -249,8 +252,14 @@ const EditNewUserForm = () => {
           {
             onClick: () => {},
             label: "Save",
-            type: "submit"
-          }
+            type: "submit",
+          },
+          {
+            onClick: () => {console.log('delete User')},
+            label: "Delete",
+            type: "button",
+            render: () => currentUser.role === 'admin'
+          },
           // {
           //   component: SecondaryButton,
           //   props: {

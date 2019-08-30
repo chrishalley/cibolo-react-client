@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { set, unset } from 'lodash';
 import validator from 'validator';
 
@@ -36,7 +36,9 @@ const FormBuilder = ({
   error,
   className
 }) => {
-
+  useEffect(() => {
+    console.log('form rendered')
+  })
   // Initialise state as an empty object, connect it to reducer
   const [state, dispatch] = useReducer(appReducer, {});
 
@@ -82,23 +84,29 @@ const FormBuilder = ({
   };
 
   // Recursively render component tree implied through form config prop
+  console.log({state})
   const renderChildren = function (children) {
     return children.map((child, i) => {
-      let nestedChildren = child.props.children ? renderChildren(child.props.children) : null;
-      let inputComponent = child.props.component ? switchComponent(child.props.component) : null;
-      let validations = child.props.validations ? assignValidationFunctions(child.props.validations) : null;
-      if (child.component !== 'FormControl') {
-        return React.createElement(
-          switchComponent(child.component),
-          { ...child.props, context: FormBuilderContext, component: inputComponent, validations: validations, disabled: disabled, key: i },
-          nestedChildren
-        );
+      console.log({child})
+      if (child.props.render !== undefined && child.props.render(state) === false) {
+        return null
       } else {
-        return React.createElement(
-          switchComponent(child.component),
-          { ...child.props, disabled: !formValid(state), key: i },
-          nestedChildren
-        );
+        let nestedChildren = child.props.children ? renderChildren(child.props.children) : null;
+        let inputComponent = child.props.component ? switchComponent(child.props.component) : null;
+        let validations = child.props.validations ? assignValidationFunctions(child.props.validations) : null;
+        if (child.component !== 'FormControl') {
+          return React.createElement(
+            switchComponent(child.component),
+            { ...child.props, context: FormBuilderContext, component: inputComponent, validations: validations, disabled: disabled, key: i },
+            nestedChildren
+          );
+        } else {
+          return React.createElement(
+            switchComponent(child.component),
+            { ...child.props, disabled: !formValid(state), key: i },
+            nestedChildren
+          );
+        }
       }
     });
   }
