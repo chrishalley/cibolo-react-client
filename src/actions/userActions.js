@@ -1,6 +1,6 @@
 import api from '../apis/api';
 
-import { GET_USERS, GET_USERS_SUCCESS, ADD_USER_REQUEST, ADD_USER_SUCCESS, UPDATE_USER_REQUEST } from './types';
+import { GET_USERS, GET_USERS_SUCCESS, ADD_USER_REQUEST, ADD_USER_SUCCESS, UPDATE_USER_REQUEST, DELETE_USER_REQUEST } from './types';
 
 export const getUsers = () => ({
   type: GET_USERS
@@ -29,24 +29,20 @@ export const addUserSuccess = ({ user }) => ({
   }
 })
 
-export const updateUserRequest = ({ payload: { user }, callbackSuccess, callbackFail }) => {
-  console.log(user, callbackSuccess, callbackFail)
-  return ({
+export const updateUserRequest = ({ payload: { user }, callbackSuccess, callbackFail }) => ({
   type: UPDATE_USER_REQUEST,
   payload: {
     user
   },
   callbackSuccess,
   callbackFail
-})};
+});
 
-// TODO: Move over to Redux Saga
-export const deleteUser = (id, callback) => (dispatch) => {
-  api.delete(`/users/${id}`)
-    .then(res => {
-      callback(id);
-    })
-    .catch(e => {
-      console.log(e);
-    })
-}
+export const deleteUserRequest = ({payload: { userId }, callbackSuccess, callbackFail }) => ({
+  type: DELETE_USER_REQUEST,
+  payload: {
+    userId
+  },
+  callbackSuccess,
+  callbackFail
+});

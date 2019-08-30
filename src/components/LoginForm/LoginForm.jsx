@@ -57,12 +57,15 @@ const LoginForm = (props) => {
     {
       component: "FormControl",
       props: {
-        controls: [
+        children: [
           {
-            onClick: () => {},
-            label: "Login",
-            type: "submit"
-          }
+            component: 'Submit',
+            props: {
+              onClick: () => {},
+              label: "Login",
+              type: "submit"
+            }
+          },
         ]
       }
     }

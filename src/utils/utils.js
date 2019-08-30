@@ -1,3 +1,5 @@
+import { permissions } from '../core/constants';
+
 export const monthIndexToString = index => {
   const months = [
     'January',
@@ -16,3 +18,5 @@ export const monthIndexToString = index => {
 
   return months[index]
 }
+
+export const currentUserCanEdit = (currentUser, userResource) => currentUser.role === permissions.SUPER_ADMIN || currentUser._id === userResource._id

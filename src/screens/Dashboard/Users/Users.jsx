@@ -2,12 +2,13 @@ import React, { createContext, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { permissions, crudOps } from '../../../core/constants';
+import { currentUserCanEdit } from '../../../utils/utils';
 
 import {
   getUsers,
   addUserRequest,
   updateUserRequest,
-  deleteUser
+  deleteUserRequest
 } from '../../../actions';
 
 import AdminPageHeader from '../../../components/AdminPageHeader/AdminPageHeader';
@@ -23,7 +24,7 @@ const UsersScreen = ({
   getUsers,
   addUserRequest,
   updateUserRequest,
-  deleteUser
+  deleteUserRequest
 }) => {
   const [activeUser, setActiveUser] = useState(null);
   const [formMode, setFormMode] = useState(crudOps.ADD);
@@ -32,7 +33,7 @@ const UsersScreen = ({
   const toggleModal = () => {
     if (showModal === false) {
       setShowModal(true);
-    } else {
+  } else {
       setShowModal(false);
       setActiveUser(null);
     }
@@ -42,12 +43,10 @@ const UsersScreen = ({
     getUsers();
   }, []);
 
-  const currentUserCanEdit = user => currentUser.role === permissions.SUPER_ADMIN || currentUser._id === user._id;
-
   const openEditForm = (user) => {
     if (user) {
       setActiveUser(user);
-      if (!currentUserCanEdit(user)) {
+      if (!currentUserCanEdit(currentUser, user)) {
         setFormMode(crudOps.VIEW);
       } else {
         setFormMode(crudOps.EDIT);
@@ -82,7 +81,7 @@ const UsersScreen = ({
           currentUser,
           addUserRequest,
           updateUserRequest,
-          deleteUser
+          deleteUserRequest
         }}>
         <AdminPageHeader title="Users">
           {
@@ -105,13 +104,13 @@ const UsersScreen = ({
 const mapStateToProps = ({ auth: { user }, users}) => ({
   currentUser: user,
   users: users,
-})
+});
 
 const mapDispatchToProps = {
   addUserRequest,
   getUsers,
   updateUserRequest,
-  deleteUser
-}
+  deleteUserRequest
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersScreen);

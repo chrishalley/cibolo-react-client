@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { get } from 'lodash';
 
-import { crudOps } from '../../core/constants';
+import { crudOps, permissions } from '../../core/constants';
+import { currentUserCanEdit } from '../../utils/utils';
 
 import { FormBuilder, EditUserAvatar } from '../common';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
@@ -22,7 +22,7 @@ const EditNewUserForm = () => {
     setShowModal,
     addUserRequest,
     updateUserRequest,
-    deleteUser,
+    deleteUserRequest,
     currentUser
   } = useContext(UsersContext);
 
@@ -117,6 +117,20 @@ const EditNewUserForm = () => {
       // })
   }
 
+  const deleteUser = (userId) => {
+    setLoading(true)
+    return deleteUserRequest({
+      payload: { userId },
+      callbackSuccess: () => {
+        setLoading(false);
+        setShowModal(false);
+      },
+      callbackFail: () => {
+        setLoading(false);
+      },
+    })
+  }
+
   const form = [
     {
       component: "FormSection",
@@ -201,18 +215,17 @@ const EditNewUserForm = () => {
                 {
                   component: "Fieldset",
                   props: {
-                    render: (state) => get(state, 'email.valid') === true,
                     component: "Select",
                     name: "role",
                     label: "Role",
                     options: [
-                      { label: "Admin", value: "admin" },
-                      { label: "Super-admin", value: "super-admin" }
+                      { label: "Admin", value: permissions.ADMIN },
+                      { label: "Super-admin", value: permissions.SUPER_ADMIN }
                     ],
                     defaultValue:
                       activeUser && activeUser.role
                         ? activeUser.role
-                        : "admin",
+                        : permissions.ADMIN,
                     validations: [
                       {
                         method: isEmpty,
@@ -248,43 +261,37 @@ const EditNewUserForm = () => {
     {
       component: "FormControl",
       props: {
-        controls: [
+        children: [
           {
-            onClick: () => {},
-            label: "Save",
-            type: "submit",
+            component: 'Submit',
+            props: {
+              onClick: () => {},
+              label: "Save",
+              type: "submit",
+            }
           },
           {
-            onClick: () => {console.log('delete User')},
-            label: "Delete",
-            type: "button",
-            render: () => currentUser.role === 'admin'
+            component: 'Submit',
+            props: {
+              onClick: () => deleteUser(activeUser._id),
+              label: "Delete",
+              type: "button",
+              render: () => formMode !== crudOps.ADD && currentUserCanEdit(currentUser, activeUser),
+            }
           },
-          // {
-          //   component: SecondaryButton,
-          //   props: {
-          //     type: 'button',
-          //     onClick: () => props.deleteUser(activeUser._id, removeUserFromUsers)
-          //   },
-          //   children: 'Delete user'
-          // }
         ]
       }
     }
   ];
 
-  // const isFormDisabled = () => {
-  //   if (props.currentUser.role === 'super-admin') { // Return false for all super-admin users
-  //     return false;
-  //   } else if (props.currentUser._id === activeUser._id) { // Return false for admin users accessing their own data
-  //     return false
-  //   } else {  // Return true for all other cases
-  //     return true
-  //   }
-  // }
-
   return (
-    <FormBuilder disabled={formMode === crudOps.READ} form={form} onSubmit={onSubmit} error={error} className={styles.form}></FormBuilder>
+    <FormBuilder
+      disabled={!currentUserCanEdit(currentUser, activeUser)}
+      form={form}
+      onSubmit={onSubmit}
+      error={error}
+      className={styles.form}
+    />
   );
 };
 

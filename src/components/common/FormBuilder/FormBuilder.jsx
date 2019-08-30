@@ -1,9 +1,10 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import { set, unset } from 'lodash';
 import validator from 'validator';
 
 import { FieldGroup, FormSection, Fieldset, FormControl } from './components/layout';
 import { TextInput, TextArea, Select, RadioInput, Checkbox } from './components/inputs';
+import { Button } from '../';
 
 import styles from './FormBuilder.module.css';
 import { pathsFromObject } from './helperFunctions';
@@ -36,9 +37,6 @@ const FormBuilder = ({
   error,
   className
 }) => {
-  useEffect(() => {
-    console.log('form rendered')
-  })
   // Initialise state as an empty object, connect it to reducer
   const [state, dispatch] = useReducer(appReducer, {});
 
@@ -71,6 +69,10 @@ const FormBuilder = ({
         return RadioInput;
       case 'Checkbox':
         return Checkbox;
+      case 'Button':
+        return Button;
+      case 'Submit':
+        return Button;
       default:
         throw new Error('Form component not recognised');
     }
@@ -84,10 +86,8 @@ const FormBuilder = ({
   };
 
   // Recursively render component tree implied through form config prop
-  console.log({state})
   const renderChildren = function (children) {
     return children.map((child, i) => {
-      console.log({child})
       if (child.props.render !== undefined && child.props.render(state) === false) {
         return null
       } else {

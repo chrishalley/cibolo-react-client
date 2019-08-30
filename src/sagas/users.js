@@ -30,8 +30,6 @@ function* addUser(action) {
   yield;
 };
 
-
-
 function* watchAddUser() {
   yield takeLatest(Types.ADD_USER_REQUEST, addUser);
 };
@@ -39,12 +37,10 @@ function* watchAddUser() {
 function* updateUser(action) {
   const { payload: { user }, callbackSuccess, callbackFail } = action
   try {
-    const response = yield api.patch(`/users/${user._id}`, user);
-    console.log(response);
+    yield api.patch(`/users/${user._id}`, user);
     yield call(getUsers);
     callbackSuccess()
   } catch(e) {
-    console.log('updateUser saga error:', e);
     callbackFail()
   } 
 }
@@ -53,10 +49,27 @@ function* watchUpdateUser() {
   yield takeLatest(Types.UPDATE_USER_REQUEST, updateUser);
 };
 
+function* deleteUser(action) {
+  const { payload: { userId }, callbackSuccess, callbackFail } = action;
+  try {
+    yield api.delete(`/users/${userId}`);
+    yield call(getUsers);
+    callbackSuccess()
+  } catch(e) {
+    callbackFail()
+  }
+  yield
+}
+
+function* watchDeleteUser() {
+  yield takeLatest(Types.DELETE_USER_REQUEST, deleteUser)
+}
+
 const usersSagas = [
   fork(watchGetUsers),
   fork(watchAddUser),
   fork(watchUpdateUser),
+  fork(watchDeleteUser),
 ];
 
 export default usersSagas;
