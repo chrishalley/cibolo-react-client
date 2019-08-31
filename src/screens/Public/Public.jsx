@@ -8,20 +8,19 @@ import EventsScreen from '../Events/EventsScreen';
 import SandboxScreen from '../Sandbox/SandboxScreen';
 import NoMatch from "../NoMatch/NoMatch";
 
-const Public = (props) => {
-  const {location} = props;
-  return (
-    <>
-      <Header location={location}></Header>
-      <Switch>
-        <Route path="/" exact component={EventsScreen}></Route>
-        <Route path="/sandbox" component={SandboxScreen}></Route>
-        <Route path="/login" component={Login}></Route>
-        <Route component={NoMatch}/>
-      </Switch>
-      <Footer></Footer>
-    </>
-  );
-}
+const Public = ({
+  location
+}) => (
+  <>
+    <Header location={location}/>
+    <Switch>
+      <Route path="/" exact component={EventsScreen}/>
+      <Route path="/sandbox" component={SandboxScreen}/>
+      <Route path="/login" component={Login}/>
+      <Route component={NoMatch}/>
+    </Switch>
+    <Footer/>
+  </>
+);
 
 export default Public;
