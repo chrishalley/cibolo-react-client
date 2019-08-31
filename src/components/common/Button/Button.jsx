@@ -4,12 +4,14 @@ import styles from './Button.module.css';
 
 export const Button = ({
   children,
-  clickHandler,
-  label, 
-  ...restProps }) => (
-    <button
-      type="button"
-      onClick={(e) => clickHandler && clickHandler(e)} className={styles['button']}
-      {...restProps}>
+  label,
+  onClick,
+  type = 'button' 
+}) => (
+  <button
+    type={type}
+    onClick={(e) => onClick(e)} className={styles['button']}
+  >
     {children || label}
-    </button>);
+  </button>
+);
