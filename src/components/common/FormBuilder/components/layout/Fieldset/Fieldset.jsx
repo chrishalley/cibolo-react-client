@@ -18,7 +18,7 @@ const propTypes = {
 const Fieldset = React.memo((props) => {
 
   const { component, context, name, label, validations, ...restProps } = props;
-  const dispatch = useContext(context);
+  const { dispatch } = useContext(context);
   const Component = component;
   const [errorMessages, setErrorMessages] = useState([]);
   const [dirty, setDirty] = useState(false);

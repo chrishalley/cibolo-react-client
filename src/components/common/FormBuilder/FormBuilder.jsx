@@ -4,7 +4,7 @@ import validator from 'validator';
 
 import { FieldGroup, FormSection, Fieldset, FormControl } from './components/layout';
 import { TextInput, TextArea, Select, RadioInput, Checkbox } from './components/inputs';
-import { Button } from '../';
+import { Button, Spinner } from '../';
 
 import styles from './FormBuilder.module.css';
 import { pathsFromObject } from './helperFunctions';
@@ -27,7 +27,7 @@ const updateState = function (state, update) {
 }
 
 // Initialise context
-const FormBuilderContext = React.createContext();
+export const FormBuilderContext = React.createContext();
 
 const FormBuilder = ({
   form,
@@ -73,6 +73,8 @@ const FormBuilder = ({
         return Button;
       case 'Submit':
         return Button;
+      case 'Spinner':
+        return Spinner;
       default:
         throw new Error('Form component not recognised');
     }
@@ -124,7 +126,7 @@ const FormBuilder = ({
 
   // Render the generated form, wrapping with context to pass reducer's dispatch method down to inputs
   return (
-    <FormBuilderContext.Provider value={dispatch}>
+    <FormBuilderContext.Provider value={{dispatch}}>
       <form data-testid="formBuilder" onSubmit={submitHandler} onKeyPress={ e => onKeyPress(e)} className={className}>
         {renderChildren(form)}
         {debug && <pre data-testid="debug"><p className={styles.debug}>Sandbox state: {JSON.stringify(state, null, 2)}</p></pre>}

@@ -268,6 +268,7 @@ const EditNewUserForm = () => {
               onClick: () => {},
               label: "Save",
               type: "submit",
+              render: () => !loading
             }
           },
           {
@@ -276,7 +277,13 @@ const EditNewUserForm = () => {
               onClick: () => deleteUser(activeUser._id),
               label: "Delete",
               type: "button",
-              render: () => formMode !== crudOps.ADD && currentUserCanEdit(currentUser, activeUser),
+              render: () => formMode !== crudOps.ADD && currentUserCanEdit(currentUser, activeUser) && !loading,
+            }
+          },
+          {
+            component: 'Spinner',
+            props: {
+              render: () => loading,
             }
           },
         ]
