@@ -1,5 +1,3 @@
-import api from '../apis/api';
-
 import { GET_USERS, GET_USERS_SUCCESS, ADD_USER_REQUEST, ADD_USER_SUCCESS, UPDATE_USER_REQUEST, DELETE_USER_REQUEST } from './types';
 
 export const getUsers = () => ({

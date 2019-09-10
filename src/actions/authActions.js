@@ -1,4 +1,10 @@
-import { CHANGE_AUTH_FAIL, INIT_AUTH_REQUEST, CHANGE_AUTH_SUCCESS, LOGIN_REQUEST } from './types';
+import { CHANGE_AUTH_FAIL,
+  INIT_AUTH_REQUEST,
+  CHANGE_AUTH_SUCCESS,
+  LOGIN_REQUEST,
+  SET_PASSWORD_REQUEST
+} from './types';
+
 import api from '../apis/api'
 
 export const loginRequest = ({ email, password }, cb) => ({
@@ -44,3 +50,14 @@ export const logout = () => {
     payload: null
   }
 };
+
+export const setPasswordRequest = ({
+  password,
+  token
+}) => ({
+  type: SET_PASSWORD_REQUEST,
+  payload: {
+    password,
+    token
+  }
+})

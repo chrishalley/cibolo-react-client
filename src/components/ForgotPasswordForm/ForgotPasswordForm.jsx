@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { isEmail, isEmpty } from 'validator'
 
 import { FormBuilder } from '../common';
@@ -43,18 +43,28 @@ const forgotPasswordForm = [
   }
 ];
 
-const onSubmit = () => {
-  console.log('forgotPasswordForm submit')
-};
 
-const ForgotPasswordForm = () => {
-  return (
-    <FormBuilder
-      error={''}
-      onSubmit={onSubmit}
-      form={forgotPasswordForm}
-    />
-  );
+const ForgotPasswordForm = ({
+  onSubmit
+}) => {
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  
+  const onSubmitHandler = () => {
+    onSubmit()
+    setFormSubmitted(true);
+  };
+
+  return !formSubmitted ?
+      (
+        <FormBuilder
+          error={''}
+          onSubmit={onSubmitHandler}
+          form={forgotPasswordForm}
+        />
+      ) : (
+        <p>Form submitted!</p>
+      );
 };
 
 export default ForgotPasswordForm;

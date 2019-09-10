@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { isLength } from 'validator'
+import { get } from 'lodash';
+
+import {
+  formValues
+} from '../../utils/utils';
 
 import { FormBuilder } from '../common';
 
@@ -36,6 +41,16 @@ const setPasswordForm = [
           methodOptions: { min: 6, max: undefined },
           validWhen: true,
           errorMessage: "Please enter a minimum of 6 characters"
+        },
+        { // Todo: Make this work
+          method: (state) => confPassword => {
+            console.log({confPassword, state})
+            const value = get(state, 'password.value')
+            return confPassword === value
+          },
+          // methodOptions: { min: 6, max: undefined },
+          validWhen: true,
+          errorMessage: "Passwords do not match"
         }
       ]
     }
@@ -57,17 +72,25 @@ const setPasswordForm = [
   }
 ];
 
-const onSubmit = () => {
-  console.log('setPasswordForm submit')
-}
 
-const SetPasswordForm = () => {
-  return (
+
+const SetPasswordForm = ({
+  onSubmit
+}) => {
+  const [formSubmitted, setFormSubmitted] = useState(false)
+  const submitHandler = (state) => {
+    const { password } = formValues(state);
+    onSubmit(password)
+    setFormSubmitted(true)
+  }
+  return !formSubmitted ? (
     <FormBuilder
       error={''}
-      onSubmit={onSubmit}
+      onSubmit={submitHandler}
       form={setPasswordForm}
     />
+  ) : (
+    <p>Password sucessfully reset!</p>
   );
 };
 

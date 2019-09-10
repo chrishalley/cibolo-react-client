@@ -15,9 +15,15 @@ const propTypes = {
   validations: PropTypes.array
 }
 
-const Fieldset = React.memo((props) => {
+const Fieldset = React.memo(({
+  component,
+  context,
+  name,
+  label,
+  validations,
+  ...restProps
+}) => {
 
-  const { component, context, name, label, validations, ...restProps } = props;
   const { dispatch } = useContext(context);
   const Component = component;
   const [errorMessages, setErrorMessages] = useState([]);

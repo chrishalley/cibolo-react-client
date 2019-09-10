@@ -20,3 +20,5 @@ export const DELETE_USER_FAIL = 'delete_user_fail';
 
 export const GET_EVENTS_REQUEST = 'get_events_request';
 export const GET_EVENTS_SUCCESS = 'get_events_success';
+
+export const SET_PASSWORD_REQUEST = 'set_password_request';

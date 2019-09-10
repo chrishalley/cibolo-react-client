@@ -47,7 +47,6 @@ function* watchInitAuthRequest() {
 
 function* login(action) {
   const { email, password, cb } = action.payload;
-  console.log({email,password, cb})
   try {
     const { data } = yield api.post("/auth/login", { email, password });
     const token = get(data, 'tokens[0].token')
@@ -63,8 +62,6 @@ function* login(action) {
       }));
       cb(true);
     }
-    console.log('try')
-
   } catch(e) {
     console.log(e)
     cb(false);
@@ -76,9 +73,28 @@ function* watchLoginRequest() {
   yield takeEvery(Types.LOGIN_REQUEST, login);
 };
 
+function* setPasswordRequest(action) {
+  const { payload: { password, token } } = action;
+  const {_id} = jwt.decode(token)
+  try {
+    yield api.post(`/auth/${_id}/set-password`, {
+      password,
+      token
+    })
+  } catch (e) {
+    
+  }
+  yield
+};
+
+function* watchSetPassword() {
+  yield takeEvery(Types.SET_PASSWORD_REQUEST, setPasswordRequest);
+};
+
 const authSagas = [
   fork(watchInitAuthRequest),
-  fork(watchLoginRequest)
+  fork(watchLoginRequest),
+  fork(watchSetPassword)
 ];
 
 export default authSagas;

@@ -1,7 +1,10 @@
 import React, { useState, useContext } from 'react';
 
 import { crudOps, permissions } from '../../core/constants';
-import { currentUserCanEdit } from '../../utils/utils';
+import {
+  currentUserCanEdit,
+  formValues
+} from '../../utils/utils';
 
 import { FormBuilder, EditUserAvatar } from '../common';
 import { UsersContext } from '../../screens/Dashboard/Users/Users';
@@ -26,17 +29,11 @@ const EditNewUserForm = () => {
     currentUser
   } = useContext(UsersContext);
 
-  const userValues = (user) => {
-    let update = {}
-    Object.keys(user).forEach(key => {
-      update[key] = user[key].value
-    })
-    return update
-  }
+
 
   const onSubmit = (user) => {
     setLoading(true);
-    const update = userValues(user)
+    const update = formValues(user)
 
     switch (formMode) {
       case crudOps.EDIT: {

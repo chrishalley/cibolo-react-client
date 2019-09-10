@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import jwt from 'jsonwebtoken';
+import { connect } from 'react-redux';
+
+import { urlQueryParams } from '../../utils/utils';
+import { setPasswordRequest } from '../../actions';
 
 import { Card, Screen } from '../../components/common';
 import LoginForm from '../../components/LoginForm/LoginForm';
@@ -9,21 +14,21 @@ import styles from './Login.module.css';
 
 export const FORM_MODES = {
   login: 'login',
-  forgotPassword: 'forgot-password',
-  setPassword: 'set-password'
-}
+  forgotPassword: 'forgotPassword',
+  setPassword: 'setPassword'
+};
 
 const Login = ({
-  location
+  location,
+  setPasswordRequest
 }) => {
+  const { token, setPassword } = urlQueryParams(location.search);
 
-const INITIAL_FORM_MODE = location.search ==='?set-password' ?
+  const INITIAL_FORM_MODE = setPassword ?
   FORM_MODES.setPassword :
   FORM_MODES.login;
 
 const [formMode, setFormMode] = useState(INITIAL_FORM_MODE)
-
-
 
 const renderContents = (formMode) => {
   switch (formMode) {
@@ -31,6 +36,9 @@ const renderContents = (formMode) => {
       return {
         title: 'Set Password',
         Component: SetPasswordForm,
+        props: {
+          onSubmit: (password) => setPasswordRequest({password, token})
+        },
         prompt: '',
         onClick: () => null
       };
@@ -39,7 +47,10 @@ const renderContents = (formMode) => {
         title: 'Reset Password',
         Component: ForgotPasswordForm,
         prompt: 'It\'s ok, I\'ve remembered it now',
-        onClick: () => setFormMode(FORM_MODES.login)
+        onClick: () => setFormMode(FORM_MODES.login),
+        props: {
+          onSubmit: () => console.log('Forgot password callback')
+        }
       };
     default:
       return {
@@ -51,17 +62,18 @@ const renderContents = (formMode) => {
   }
 };
 
-  const {
-    title,
-    Component,
-    prompt,
-    onClick
-  } = renderContents(formMode)
+const {
+  title,
+  Component,
+  prompt,
+  onClick,
+  props
+} = renderContents(formMode)
 
 return (
   <Screen extStyles={styles}>
     <Card title={title}>
-      {<Component />}
+      <Component {...props}/>
       <p
       onClick={onClick}
       >{prompt}</p>
@@ -69,4 +81,8 @@ return (
   </Screen>
 )};
 
-export default Login;
+const mapDispatchToProps = {
+  setPasswordRequest
+}
+
+export default connect(null, mapDispatchToProps)(Login);
