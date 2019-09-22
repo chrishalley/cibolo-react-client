@@ -14,12 +14,12 @@ const forgotPasswordForm = [
       placeholder: "eg. test@test.com",
       validations: [
         {
-          method: isEmpty,
+          method: () => isEmpty,
           validWhen: false,
           errorMessage: "Please enter something"
         },
         {
-          method: isEmail,
+          method: () => isEmail,
           validWhen: true,
           errorMessage: "Please enter a valid email address"
         }

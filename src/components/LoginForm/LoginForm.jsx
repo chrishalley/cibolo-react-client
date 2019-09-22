@@ -24,12 +24,13 @@ const LoginForm = (props) => {
         placeholder: "eg. test@test.com",
         validations: [
           {
-            method: isEmpty,
+            method: (state) => { console.log({state}); return isEmpty },
+            // method: func,
             validWhen: false,
             errorMessage: "Please enter something"
           },
           {
-            method: isEmail,
+            method: (state) => { console.log({state}); return isEmail },
             validWhen: true,
             errorMessage: "Please enter a valid email address"
           }
@@ -46,7 +47,7 @@ const LoginForm = (props) => {
         placeholder: "eg. password123",
         validations: [
           {
-            method: isLength,
+            method: (state) => {console.log({state}); return isLength},
             methodOptions: { min: 6, max: undefined },
             validWhen: true,
             errorMessage: "Please enter a minimum of 6 characters"

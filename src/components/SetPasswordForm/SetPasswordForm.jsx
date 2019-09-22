@@ -19,7 +19,7 @@ const setPasswordForm = [
       placeholder: "eg. password123",
       validations: [
         {
-          method: isLength,
+          method: (state) => isLength,
           methodOptions: { min: 6, max: undefined },
           validWhen: true,
           errorMessage: "Please enter a minimum of 6 characters"
@@ -30,6 +30,7 @@ const setPasswordForm = [
   {
     component: "Fieldset",
     props: {
+      render: (state) => console.log({state}),
       component: "TextInput",
       type: "password",
       name: "confirmPassword",
@@ -37,7 +38,7 @@ const setPasswordForm = [
       placeholder: "eg. password123",
       validations: [
         {
-          method: isLength,
+          method: (state) => isLength,
           methodOptions: { min: 6, max: undefined },
           validWhen: true,
           errorMessage: "Please enter a minimum of 6 characters"

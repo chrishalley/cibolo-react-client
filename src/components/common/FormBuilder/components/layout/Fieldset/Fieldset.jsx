@@ -39,6 +39,7 @@ const Fieldset = React.memo(({
 
   const validate = function(value) {
     if (validations && validations.length > 0) {
+      console.log({validations})
       return validations.reduce((acc, rule) => {
         const { method, methodOptions, validWhen, errorMessage } = rule;
         return method(value, methodOptions) !== validWhen ? { valid: false, errorMessages: acc.errorMessages.concat(errorMessage) } : acc;

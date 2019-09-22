@@ -81,8 +81,10 @@ const FormBuilder = ({
   }
 
   const assignValidationFunctions = function (validations) {
+    console.log({validations})
     return validations.map(rule => {
-      rule.method = typeof (rule.method) === 'string' ? validator[rule.method] : rule.method
+      console.log({rule})
+      rule.method = typeof (rule.method) === 'string' ? validator[rule.method] : rule.method(state)
       return rule;
     });
   };
@@ -93,6 +95,7 @@ const FormBuilder = ({
       if (child.props.render !== undefined && child.props.render(state) === false) {
         return null
       } else {
+        child.props.validations && console.log('**', child.props.validations)
         let nestedChildren = child.props.children ? renderChildren(child.props.children) : null;
         let inputComponent = child.props.component ? switchComponent(child.props.component) : null;
         let validations = child.props.validations ? assignValidationFunctions(child.props.validations) : null;
