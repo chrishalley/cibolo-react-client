@@ -8,27 +8,16 @@ const propTypes = {
   routes: PropTypes.array
 }
 
-const defaultProps = {
-
-}
-
-const PublicNav = props => {
-
-  const { routes } = props;
-
-  const renderRoutes = routes.map(route => {
-    return <PublicNavItem key={route.label} {...route}/>
-  })
-  return (
-    <nav>
-      <ul className={styles['public-nav']}>
-        {renderRoutes}
-      </ul>
-    </nav>
-  );
-}
+const PublicNav = ({
+  routes
+}) => (
+  <nav>
+    <ul className={styles['public-nav']}>
+      {routes.map(route => <PublicNavItem key={route.label} {...route} />)}
+    </ul>
+  </nav>
+);
 
 PublicNav.propTypes = propTypes;
-PublicNav.defaultProps = defaultProps;
 
 export default PublicNav;

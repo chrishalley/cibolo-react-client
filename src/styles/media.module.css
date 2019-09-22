@@ -1,1 +1,2 @@
 @custom-media --tablet-up (min-width: 720px);
+@custom-media --desktop-up (min-width: 1024px);

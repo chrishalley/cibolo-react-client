@@ -1,11 +1,22 @@
+@import '../../styles/media.module.css';
+
+@media (--desktop-up) {
+
+}
+
+
 .header {
   background-color: var(--color-primary);
   padding: 2rem 4rem;
-  display: flex;
+  display: none;
   justify-content: space-between;
   align-items: center;
   color: #FFFFFF;
   text-shadow: 0 2px 1px rgba(0,0,0,0.2);
+  
+  @media (--desktop-up) {
+    display: flex;
+  }
 }
 
 .header button {

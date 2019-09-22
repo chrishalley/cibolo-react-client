@@ -1,19 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
+
+import * as actions from '../../actions';
+
 import PublicNav from '../Navigation/PublicNav/PublicNav';
 import styles from './Header.module.css';
-
-const propTypes = {
-
-}
-
-const defaultProps = {
-
-}
-
 
 const PublicHeader = props => {
 
@@ -99,67 +91,3 @@ const PublicHeader = props => {
 const mapStateToProps = state => ({ currentUser: state.auth.user });
 
 export default withRouter(connect(mapStateToProps, actions)(PublicHeader));
-
-// class Header extends Component {
-
-//   logout = () => {
-//     this.props.logout()
-//   }
-
-//   renderLinks() {
-//     const { currentUser } = this.props
-//     if (currentUser) {
-//       return (
-//         <>
-//           <HeaderLink to="/">
-//             <button onClick={() => this.logout()}>
-//               <SVGIcon icon="close" />
-//               Log out
-//             </button>
-//           </HeaderLink>
-//           <HeaderLink to="/dashboard">
-//             <SVGIcon icon="tools" />
-//             Dashboard
-//           </HeaderLink>
-//         </>
-//       )
-//     }
-    
-//     return (
-//       <PublicNav />
-//     //   <>
-//     //     <HeaderLink to="/">
-//     //       Home
-//     //     </HeaderLink>
-//     //     <HeaderLink to="/login">
-//     //       <SVGIcon icon="close" />
-//     //       Log in
-//     //     </HeaderLink>
-//     //     <HeaderLink to="/">
-//     //       <SVGIcon icon="calendar" />
-//     //       Events
-//     //     </HeaderLink>
-//     //     <HeaderLink to="/sandbox">
-//     //       <SVGIcon icon="close" />
-//     //       Sandbox
-//     //     </HeaderLink>
-//     //     <HeaderLink to="/dashboard">
-//     //       <SVGIcon icon="tools" />
-//     //       Dashboard
-//     //     </HeaderLink>
-//     //   </>
-//     // )
-//   }
-
-//   render() {
-//     return (
-//       <header className={styles['appHeader']}>
-//         {this.renderLinks()}
-//       </header>
-//     )
-//   }
-// }
-
-
-
-// export default connect(mapStateToProps, actions)(Header);

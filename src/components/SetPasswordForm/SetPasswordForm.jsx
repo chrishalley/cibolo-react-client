@@ -44,7 +44,6 @@ const setPasswordForm = [
         },
         { // Todo: Make this work
           method: (state) => confPassword => {
-            console.log({confPassword, state})
             const value = get(state, 'password.value')
             return confPassword === value
           },
